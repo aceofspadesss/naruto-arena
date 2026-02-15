@@ -1,0 +1,112 @@
+<div
+    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
+    <div
+        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+        <h1>Control panel</h1><br>
+        <a href='/'>Naruto Arena</a> > <a href='/control-panel'>Control panel</a><br><br>
+
+        <!-- Ignoring the ad banner as requested -->
+        <br>
+
+        <div class="welcome-message" style="margin-bottom: 20px;">
+            <span style="color: #F89700; font-weight: bold;">Welcome <%= user %></span>, you can use your control panel
+            to modify your Naruto Arena account's preferences and other aspects of your account. All site-areas linked
+            to your profile can be found in here.
+        </div>
+
+        <style>
+            .control-panel-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+
+            .control-panel-grid a {
+                text-decoration: none;
+                color: inherit;
+                display: block;
+            }
+
+            .control-panel-grid fieldset {
+                margin: 0;
+                padding: 10px;
+                height: 100%;
+                box-sizing: border-box;
+                border: 1px solid #999;
+                cursor: pointer;
+            }
+
+            .control-panel-grid fieldset legend {
+                color: #F89700;
+                font-weight: bold;
+                padding: 0 5px;
+            }
+        </style>
+        <div class="control-panel-grid">
+            <a href="/private-messages">
+                <fieldset>
+                    <legend>Private Messages</legend>
+                    Use the Private Message system to send to, and receive messages from other members. You
+                    currently have <u>
+                        <%= unreadMessagesCount %>
+                    </u> new messages.
+                </fieldset>
+            </a>
+            <a href="/buddy-list">
+                <fieldset>
+                    <legend>Buddy list</legend>
+                    The Buddy List is a nice way to make friends. You can keep an eye on your friends'
+                    online/offline status. You currently have <u>
+                        <%= onlineBuddiesCount %>
+                    </u> buddie(s) online.
+                </fieldset>
+            </a>
+            <a href="/change-settings">
+                <fieldset>
+                    <legend>Change My Settings</legend>
+                    Use this feature to modify your personal information and let other people learn more about you!
+                </fieldset>
+            </a>
+            <a href="/profile/<%= user %>">
+                <fieldset>
+                    <legend>View My Profile</legend>
+                    Take a look at your own profile that is unique to your account. Please make sure that all
+                    information is valid. You can show/hide your e-mail address in your profile.
+                </fieldset>
+            </a>
+            <a href="/change-password">
+                <fieldset>
+                    <legend>Change My Password</legend>
+                    You can use this feature to change your current password into a new password.
+                </fieldset>
+            </a>
+            <a href="/reset-account">
+                <fieldset>
+                    <legend>Reset account</legend>
+                    If you are not happy with your account's stats you can just reset them. This feature will reset
+                    your rank, win-losses record and your streaks.
+                </fieldset>
+            </a>
+            <a href="/change-avatar">
+                <fieldset>
+                    <legend>Change My Avatar</legend>
+                    Your avatar shows up along with your username in the posts you make, you can also upload your
+                    very own avatar right here.
+                </fieldset>
+            </a>
+            <a href="/my-player-card">
+                <fieldset>
+                    <legend>My Player Card</legend>
+                    The player card is an image you can use f.e. as a signature to show off your personal
+                    playerstats.
+                </fieldset>
+            </a>
+        </div>
+
+        <br><br>
+        <div style="text-align: right;">
+            <a href="/logout" style="color: #F89700; font-weight: bold; text-decoration: none;">Logout with this
+                account</a>
+        </div>
+    </div>
+</div>

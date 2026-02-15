@@ -1,6 +1,6 @@
 const fs = require('fs');
-const path = require('path');
-const dataFile = path.join(__dirname, '../../data/comments.json');
+const { dataPath } = require('../utils/paths');
+const dataFile = dataPath('comments.json');
 
 const CommentModel = {
     getAll: () => {

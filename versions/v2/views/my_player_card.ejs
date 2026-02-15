@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>
+        My Player Card - Naruto Arena
+    </title>
+
+    <meta http-equiv="content-language" content="">
+    <meta name="description"
+        content="A webbased naruto online multiplayer game. Featuring a tactical game with ladders and tournaments.">
+    <meta name="keywords" content="naruto, arena, online, multiplayer, game">
+    <meta name="resource-type" content="document">
+    <meta name="distribution" content="Global">
+    <meta name="copyright" content="Naruto-Arena.com">
+    <meta name="robots" content="Index,Follow">
+    <meta name="rating" content="General">
+    <meta name="revisit-after" content="1 day">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script language="javascript" src="/scripts/javascript.js"></script>
+</head>
+
+<body class="indexmain">
+    <center>
+        <div align="left" style="padding: 0px 0px 0px 0px; margin:0px 0px 0px 0px; width:780px; position:relative;">
+
+            <!-- LAYOUT: LOGO HEADER -->
+            <div
+                style="padding: 0px 0px 0px 0px; margin:0px 0px 0px 0px; top:0px; position:absolute; left:139px; width:251px; height:330px; background-image:url(/images/layout/leftheader.jpg); background-repeat:no-repeat; background-color:black;">
+            </div>
+
+
+            <!-- LAYOUT: KIBA HEADER -->
+            <div
+                style="padding: 0px 0px 0px 0px; margin:0px 0px 0px 0px; top:0px; position:absolute; left:390px; width:395px; height:74px; background-image:url(/images/layout/header.gif); background-repeat:no-repeat; background-color:black;">
+            </div>
+
+
+            <%- include('partials/header_random') %>
+
+
+
+                <%- include('partials/navigation') %>
+
+                    <%- include('partials/left_sidebar') %>
+
+                        <!-- LAYOUT: MY PLAYER CARD CONTENT -->
+                        <%- include('partials/content/my_player_card') %>
+        </div>
+    </center>
+
+</body>
+
+</html>

@@ -2,13 +2,14 @@ const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
 const { createCanvas, GlobalFonts } = require('@napi-rs/canvas');
+const { publicPath, publicDir } = require('../utils/paths');
 
-const TEMPLATES_DIR = path.join(__dirname, '../../public/images/myplayercard/templates');
-const OUTPUT_DIR = path.join(__dirname, '../../public/images/myplayercard');
-const NINJA_RANKS_DIR = path.join(__dirname, '../../public/images/ninjaranks');
-const CHARACTERS_DIR = path.join(__dirname, '../../public/game/images/characters');
-const PUBLIC_DIR = path.join(__dirname, '../../public');
-const FONTS_DIR = path.join(__dirname, '../../public/fonts');
+const TEMPLATES_DIR = publicPath('images', 'myplayercard', 'templates');
+const OUTPUT_DIR = publicPath('images', 'myplayercard');
+const NINJA_RANKS_DIR = publicPath('images', 'ninjaranks');
+const CHARACTERS_DIR = publicPath('game', 'images', 'characters');
+const PUBLIC_DIR = publicDir;
+const FONTS_DIR = publicPath('fonts');
 
 // Custom font configuration
 const CUSTOM_FONT_PATH = path.resolve(FONTS_DIR, '34_Franklin Gothic Medium Cond.ttf');

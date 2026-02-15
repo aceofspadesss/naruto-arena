@@ -6,14 +6,16 @@ const path = require('path');
 const apiRoutes = require('./src/routes/api');
 const pageRoutes = require('./src/routes/pages');
 
-const { PORT, SESSION_SECRET } = require('./src/config');
+const { PORT, SESSION_SECRET, VERSION } = require('./src/config');
+const { viewsDir, publicDir, publicPath } = require('./src/utils/paths');
 
 const app = express();
 const NewsModel = require('./src/models/NewsModel');
 
+
 // View Engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', viewsDir);
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
@@ -26,9 +28,9 @@ app.use(session({
 
 // Static files
 // Static files served from public folder (ruffle, swf, css, js, etc.)
-app.use(express.static('public'));
+app.use(express.static(publicDir));
 // Also serve images at /game/images for SWF client which uses relative paths
-app.use('/game/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/game/images', express.static(publicPath('images')));
 
 const activeUser = require('./src/middleware/activeUser');
 
@@ -81,5 +83,5 @@ app.use('/', apiRoutes);
 
 // Start Server
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT} (version: ${VERSION})`);
 });

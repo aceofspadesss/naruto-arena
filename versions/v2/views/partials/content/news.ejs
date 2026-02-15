@@ -1,0 +1,73 @@
+<div
+    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
+    <div
+        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+        <h1>News</h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <h2>News</h2><br><br>
+
+
+        <center>
+        </center>
+
+        <% if (locals.news && news.length> 0) { %>
+            <% news.forEach(function(post) { %>
+                <div>
+                    <% const newsSlug=post.title.toLowerCase().replace(/\s+/g, '-' ).replace(/[^a-z0-9-]/g, '' ); %>
+                        <a href="/<%= newsSlug %>">
+                            <h6>
+                                <%= post.title %>
+                            </h6>
+                        </a><br>
+                        <div class="nothing">
+                            <%= new Date(post.createdAt).toLocaleDateString('en-US', { weekday: 'long' , year: 'numeric'
+                                , month: 'long' , day: 'numeric' }) %> at
+                                <%= new Date(post.createdAt).toLocaleTimeString('en-US', { hour: '2-digit' ,
+                                    minute: '2-digit' , hour12: false }) %> by
+                                    <a href="/profile/<%= post.authorName %>/">
+                                        <h5><i>
+                                                <%= post.authorName %>
+                                            </i></h5>
+                                    </a>
+                        </div>
+                </div>
+                <div class="dots"></div>
+                <div><%- post.content %></div>
+                <div class="dots"></div>
+                <div align="right" style="cursor: pointer;" onclick="location.href='/<%= post.slug %>'"><b>(<%=
+                            post.commentCount %>)</b> comments</div>
+                <br>
+                <% }); %>
+                    <div class="right"><a href="/news-archive/"> Go to the <b>news archive</b></a></div>
+                    <% } else { %>
+                        <div>
+                            <p>No news posts yet. Check back soon!</p>
+                        </div>
+                        <% } %>
+                            <center>
+                                <div style="width:69%;">
+
+
+                                </div>
+
+
+
+
+
+                                <br><br><br>
+                                <div class="dots"></div>
+                                <div class="nothing">
+                                    Pagename: <b>News</b><br>
+                                    Description: The last five news items on Naruto Arena<br>
+                                    Related subjects: <h3>news</h3>, <h3>newsticker</h3>, <h3>latest news</h3><br><br>
+                                    Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+                                    The holders of the copyrighted and/or trademarked material appearing on this site
+                                    are as follows:<br>
+                                    NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
+                                    <a href="/privacy-policy/" class="con">Privacy policy</a> -
+                                    <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+                                    <a href="/terms-of-use/" class="con">Terms of use</a>
+                                </div>
+                                <div class="dots"></div><br>
+    </div>
+</div>
+</div>
+</div>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-Game - Naruto Arena</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            /* display: flex; */
+            /* justify-content: center; */
+            /* align-items: center; */
+            height: 100vh;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        #player {
+            width: 100%;
+            height: 100vh;
+        }
+
+        #player ruffle-embed,
+        #player ruffle-player {
+            width: 770px !important;
+            height: 560px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="player"></div>
+
+    <script src="/ruffle/ruffle.js"></script>
+    <script>
+        window.RufflePlayer = window.RufflePlayer || {};
+        window.addEventListener("load", (event) => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            const container = document.getElementById("player");
+            container.appendChild(player);
+
+            player.config = {
+                "publicPath": "/ruffle/",
+                "polyfills": true
+            };
+
+            // Load the selection client
+            player.load("/game/swf/selection.swf");
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<div
+	style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
+	<div
+		style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+		<h1>Search</h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <h2>Search</h2><br><br>
+
+
+		<center>
+		</center>
+
+		<script language="javascript">
+
+			function gosearch() {
+				var searchvalue = document.searchform.searchquery.value;
+				if (searchvalue != "") {
+					var completeurl = "/search/" + searchvalue + "/";
+				} else {
+					var completeurl = "/search/";
+				}
+				window.location = completeurl;
+			}
+
+		</script>
+		<center>
+			<form method='POST' name='searchform' onsubmit="event.preventDefault(); gosearch();">
+				<h5>SEARCH </h5> <input type="text" size="15" name="searchquery"
+					value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>"
+					onKeyDown="if(event.keyCode==13) gosearch();">
+				<a href="#" onClick="gosearch()">
+					<h6>GO</h6>
+				</a>
+			</form>
+		</center>
+
+
+		<% if (typeof searchResults==='undefined' || searchResults.length===0) { %>
+			<div class="centererror">
+				No results could be found.<br />
+				Please make sure that your keyword contains at least 4 characters and, is not a spam word.<br />
+			</div>
+			<% } else { %>
+
+				<div class="nothing">
+					<center>Search completed (<%= searchResults.length %> results found)</center>
+				</div>
+				<br>
+				<div class="dots"></div>
+
+				<% searchResults.forEach(function(result) { %>
+					<table>
+						<tr class="color2">
+							<td class="score"><a href="<%= result.url %>" class="score">
+									<h6>Relevance</h6><br>
+									<%= result.relevance %>%
+								</a></td></a>
+							<td><a href="<%= result.url %>">
+									<b>Name:</b>
+									<%= result.title %><br>
+										<b>Type:</b>
+										<%= result.type %><br>
+											<b>Content:</b><br>
+											<%= result.snippet %>
+								</a>
+							</td>
+						</tr>
+					</table>
+					<div class="dots"></div>
+					<br>
+					<div class="dots"></div>
+					<% }); %>
+
+						<br>
+						<center>
+							<!-- Pagination is a bit complex for this quick implementation, hiding for now or can implement simple prev/next if needed. 
+         Given the request was just to "display results", listing all for now is safer than broken pagination. 
+         The original static mockup had pagination but logic for it is non-trivial without more controller support. 
+         Let's stick to listing all results first. -->
+						</center>
+						<% } %>
+							<br><br><br>
+							<div class="dots"></div>
+							<div class="nothing">
+								Pagename: <b>Search</b><br>
+								Description: The site can be searched with this function.<br>
+								Related subjects: <h3>search</h3>, <h3>find</h3>, <h3>finding</h3>, <h3>searching</h3>
+								<br><br>
+								Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+								The holders of the copyrighted and/or trademarked material appearing on this site are as
+								follows:<br>
+								NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
+								<a href="/privacy-policy/" class="con">Privacy policy</a> -
+								<a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+								<a href="/terms-of-use/" class="con">Terms of use</a>
+							</div>
+							<div class="dots"></div><br>
+	</div>
+</div>
+</div>
+</div>

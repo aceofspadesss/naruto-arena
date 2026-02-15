@@ -1,0 +1,252 @@
+<div
+    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
+    <div
+        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+        <h1>Memberlist</h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <h2>Memberlist</h2><br><br>
+
+
+        <center>
+        </center>
+
+        <script language="javascript">
+
+            function gofilter(filterName) {
+                var filterValue = document.filter.elements[filterName].value;
+                var url = new URL(window.location.href);
+                url.searchParams.set(filterName, filterValue);
+                url.searchParams.set('page', 1); // Reset to page 1 when filtering
+                window.location = url.toString();
+            }
+
+            function gousername() {
+                var search = document.filter.username.value;
+                var url = new URL(window.location.href);
+                if (search) {
+                    url.searchParams.set('search', search);
+                } else {
+                    url.searchParams.delete('search');
+                }
+                url.searchParams.set('page', 1);
+                window.location = url.toString();
+            }
+
+            function gotolink(page) {
+                var url = new URL(window.location.href);
+                url.searchParams.set('page', page);
+                window.location = url.toString();
+            }
+
+        </script>
+
+        <form method='POST' name='filter'>
+            <table width="100%">
+                <tr>
+                    <td width="31%" valign="bottom">
+                        <a
+                            href="/memberlist?sort=username&order=<%= pagination.sortField === 'username' && pagination.sortOrder === 'asc' ? 'desc' : 'asc' %>&page=<%= pagination.page %>&search=<%= pagination.filters.username %>&posts=<%= pagination.filters.posts %>&rank=<%= pagination.filters.rank %>&country=<%= pagination.filters.country %>&status=<%= pagination.filters.onlinestatus %>">
+                            <h5>Username</h5>
+                        </a>
+                    </td>
+                    <td width="10%" valign="bottom">
+                        <a
+                            href="/memberlist?sort=posts&order=<%= pagination.sortField === 'posts' && pagination.sortOrder === 'asc' ? 'desc' : 'asc' %>&page=<%= pagination.page %>&search=<%= pagination.filters.username %>&posts=<%= pagination.filters.posts %>&rank=<%= pagination.filters.rank %>&country=<%= pagination.filters.country %>&status=<%= pagination.filters.onlinestatus %>">
+                            <h5>Posts</h5>
+                        </a><br>
+                        <select name="posts" onChange='gofilter("posts")'>
+                            <option value="all" <%=pagination.filters.posts==='all' ? 'selected' : '' %>>Any</option>
+                            <option value="5" <%=pagination.filters.posts==='5' ? 'selected' : '' %>>>5</option>
+                            <option value="10" <%=pagination.filters.posts==='10' ? 'selected' : '' %>>>10</option>
+                            <option value="25" <%=pagination.filters.posts==='25' ? 'selected' : '' %>>>25</option>
+                            <option value="50" <%=pagination.filters.posts==='50' ? 'selected' : '' %>>>50</option>
+                            <option value="100" <%=pagination.filters.posts==='100' ? 'selected' : '' %>>>100</option>
+                            <option value="250" <%=pagination.filters.posts==='250' ? 'selected' : '' %>>>250</option>
+                            <option value="1000" <%=pagination.filters.posts==='1000' ? 'selected' : '' %>>>1000
+                            </option>
+                        </select>
+                    </td>
+                    <td width="22%" valign="bottom">
+                        <a
+                            href="/memberlist?sort=rank&order=<%= pagination.sortField === 'rank' && pagination.sortOrder === 'asc' ? 'desc' : 'asc' %>&page=<%= pagination.page %>&search=<%= pagination.filters.username %>&posts=<%= pagination.filters.posts %>&rank=<%= pagination.filters.rank %>&country=<%= pagination.filters.country %>&status=<%= pagination.filters.onlinestatus %>">
+                            <h5>Rank</h5>
+                        </a><br>
+                        <select name="rank" onChange='gofilter("rank")'>
+                            <option value="all" <%=pagination.filters.rank==='all' ? 'selected' : '' %>>Any rank
+                            </option>
+                            <option value="admin" <%=pagination.filters.rank==='admin' ? 'selected' : '' %>>Admin
+                            </option>
+                            <option value="member" <%=pagination.filters.rank==='member' ? 'selected' : '' %>>Member
+                            </option>
+                            <option value="moderator" <%=pagination.filters.rank==='moderator' ? 'selected' : '' %>
+                                >Moderator</option>
+                        </select>
+                    </td>
+                    <td width="27%" valign="bottom">
+                        <a
+                            href="/memberlist?sort=country&order=<%= pagination.sortField === 'country' && pagination.sortOrder === 'asc' ? 'desc' : 'asc' %>&page=<%= pagination.page %>&search=<%= pagination.filters.username %>&posts=<%= pagination.filters.posts %>&rank=<%= pagination.filters.rank %>&country=<%= pagination.filters.country %>&status=<%= pagination.filters.onlinestatus %>">
+                            <h5>Country</h5>
+                        </a><br>
+                        <select name="country" onChange='gofilter("country")'>
+                            <option value="all" <%=pagination.filters.country==='all' ? 'selected' : '' %>>Any country
+                            </option>
+                            <% const countries=[ "Afghanistan" , "Albania" , "Algeria" , "Andorra" , "Angola"
+                                , "Anguilla" , "Antigua" , "Argentina" , "Armenia" , "Aruba" , "Australia" , "Austria"
+                                , "Azerbaijan" , "Bahamas" , "Bahrain" , "Bangladesh" , "Barbados" , "Belarus"
+                                , "Belgium" , "Belize" , "Benin" , "Bermuda" , "Bhutan" , "Bolivia"
+                                , "Bosnia Herzegovina" , "Botswana" , "Brazil" , "British Virgin Islands" , "Brunei"
+                                , "Bulgaria" , "Burkina Faso" , "Burma" , "Burundi" , "Cambodia" , "Cameroon" , "Canada"
+                                , "Cape Verde" , "Central African Republic" , "Chad" , "Chile" , "China" , "Colombia"
+                                , "Comoros" , "Congo" , "Costa Rica" , "Croatia" , "Cuba" , "Cyprus" , "Czech Republic"
+                                , "Democratic Republic of the Congo" , "Denmark" , "Djibouti" , "Dominica"
+                                , "Dominican Republic" , "Ecuador" , "Egypt" , "El Salvador" , "Equatorial Guinea"
+                                , "Eritrea" , "Estonia" , "Ethiopia" , "Federated States of Micronesia" , "Fiji"
+                                , "Finland" , "France" , "French Guiana" , "Gabon" , "Gambia" , "Georgia" , "Germany"
+                                , "Ghana" , "Greece" , "Greenland" , "Grenada" , "Guadeloupe" , "Guam" , "Guatemala"
+                                , "Guinea" , "Guinea-Bissau" , "Guyana" , "Haiti" , "Honduras" , "Hong Kong" , "Hungary"
+                                , "Iceland" , "India" , "Indonesia" , "Iran" , "Iraq" , "Ireland" , "Israel" , "Italy"
+                                , "Ivory Coast" , "Jamaica" , "Japan" , "Jordan" , "Kazakhstan" , "Kenya" , "Kiribati"
+                                , "Kuwait" , "Kyrgyzstan" , "Laos" , "Latvia" , "Lebanon" , "Lesotho" , "Liberia"
+                                , "Libya" , "Liechtenstein" , "Lithuania" , "Luxembourg" , "Macau" , "Macedonia"
+                                , "Madagascar" , "Malawi" , "Malaysia" , "Maldives" , "Mali" , "Malta" , "Martinique"
+                                , "Mauritania" , "Mauritius" , "Mexico" , "Moldova" , "Monaco" , "Mongolia"
+                                , "Montserrat" , "Morocco" , "Mozambique" , "Namibia" , "Nauru" , "Nepal"
+                                , "Netherlands" , "Netherlands Antilles" , "New Zealand" , "Nicaragua" , "Niger"
+                                , "Nigeria" , "North Korea" , "Norway" , "Oman" , "Pakistan" , "Panama"
+                                , "Papua New Guinea" , "Paraguay" , "Peru" , "Philippines" , "Poland" , "Portugal"
+                                , "Puerto Rico" , "Qatar" , "Romania" , "Russia" , "Rwanda" , "Saint Kitts-Nevis"
+                                , "Saint Lucia" , "Saint Vincent and the Grenadines" , "San Marino"
+                                , "Sao Tome and Principe" , "Saudi Arabia" , "Senegal" , "Serbia and Montenegro"
+                                , "Seychelles" , "Sierra Leone" , "Singapore" , "Slovakia" , "Slovenia"
+                                , "Solomon Islands" , "Somalia" , "South Africa" , "South Korea" , "Spain" , "Sri Lanka"
+                                , "Sudan" , "Suriname" , "Swaziland" , "Sweden" , "Switzerland" , "Syria" , "Taiwan"
+                                , "Tajikistan" , "Tanzania" , "Thailand" , "Togo" , "Trinidad and Tobago" , "Tunisia"
+                                , "Turkey" , "Turkmenistan" , "Uganda" , "Ukraine" , "United Arab Emirates"
+                                , "United Kingdom" , "Uruguay" , "Vanuatu" , "Virgin Islands (U.S.)" , "USA"
+                                , "Uzbekistan" , "Venezuela" , "via Israel" , "Vietnam" , "Western Sahara"
+                                , "Western Samoa" , "Yemen" , "Zambia" , "Zimbabwe" ]; countries.forEach(function(c) {
+                                %>
+                                <option value="<%= c %>" <%=pagination.filters.country===c ? 'selected' : '' %>><%= c %>
+                                </option>
+                                <% }); %>
+                        </select>
+                    </td>
+                    <td width="10%" valign="bottom">
+                        <a
+                            href="/memberlist?sort=onlinestatus&order=<%= pagination.sortField === 'onlinestatus' && pagination.sortOrder === 'asc' ? 'desc' : 'asc' %>&page=<%= pagination.page %>&search=<%= pagination.filters.username %>&posts=<%= pagination.filters.posts %>&rank=<%= pagination.filters.rank %>&country=<%= pagination.filters.country %>&status=<%= pagination.filters.onlinestatus %>">
+                            <h5>Status</h5>
+                        </a><br>
+                        <select name="status" onChange='gofilter("status")'>
+                            <option value="all" <%=pagination.filters.onlinestatus==='all' ? 'selected' : '' %>>Both
+                            </option>
+                            <option value="online" <%=pagination.filters.onlinestatus==='online' ? 'selected' : '' %>
+                                >Online</option>
+                            <option value="offline" <%=pagination.filters.onlinestatus==='offline' ? 'selected' : '' %>
+                                >Offline</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div class="dots"></div>
+                    </td>
+                </tr>
+                <% members.forEach(function(member, index) { %>
+                    <tr class="<%= index % 2 === 0 ? 'color1' : 'color2' %>" valign="bottom">
+                        <td><a href="/profile/<%= member.username %>/">
+                                <%= member.username %>
+                            </a></td>
+                        <td>
+                            <%= member.posts || 0 %>
+                        </td>
+                        <td><img src="<%= member.rankImage %>" border="0">
+                            <%= member.role %>
+                        </td>
+                        <td>
+                            <%= member.country || '' %>
+                        </td>
+                        <td align="center">
+                            <img src="/images/layout/<%= member.isOnline ? 'online.gif' : 'offline.gif' %>" border="0">
+                        </td>
+                    </tr>
+                    <% }); %>
+
+
+            </table>
+
+            <div>
+                <div style="float:left;">
+                    [Page <%= pagination.page %>/<%= pagination.totalPages %>] &nbsp;
+
+
+                            <% if (pagination.page> 1) { %>
+                                <a href="javascript:gotolink(1)">&nbsp;&nbsp;<img class='pre'
+                                        src='/images/layout/pre.gif'><img class='pre' src='/images/layout/pre.gif'></a>
+                                <a href="javascript:gotolink(<%= pagination.page - 1 %>)">&nbsp;&nbsp;<img class='pre'
+                                        src='/images/layout/pre.gif'></a>
+                                <% } %>
+
+                                    <% const startPage=Math.max(1, pagination.page - 3); const
+                                        endPage=Math.min(pagination.totalPages, pagination.page + 3); for(let
+                                        i=startPage; i <=endPage; i++) { %>
+                                        <% if (i===pagination.page) { %>
+                                            <u>
+                                                <%= i %>
+                                            </u>
+                                            <% } else { %>
+                                                <a href="javascript:gotolink(<%= i %>)">
+                                                    <%= i %>
+                                                </a>
+                                                <% } %>
+                                                    <% } %>
+
+                                                        <% if (pagination.page < pagination.totalPages) { %>
+                                                            <a href="javascript:gotolink(<%= pagination.page + 1 %>)">&nbsp;&nbsp;<img
+                                                                    class='next' src='/images/layout/next.gif'></a>
+                                                            <a href="javascript:gotolink(<%= pagination.totalPages %>)">&nbsp;&nbsp;<img
+                                                                    class='next' src='/images/layout/next.gif'><img
+                                                                    class='next' src='/images/layout/next.gif'></a>
+                                                            <% } %>
+                </div>
+                <div align="right" style="float:right">
+                    <script language="javascript">
+
+                        function gotolink(page) {
+                            var url = new URL(window.location.href);
+                            url.searchParams.set('page', page);
+                            window.location = url.toString();
+                        }
+
+                    </script>
+                    <SELECT name="listingselect" onChange="gotolink(this.options[this.selectedIndex].value)">
+                        <% for(let i=1; i <=pagination.totalPages; i++) { %>
+                            <OPTION value="<%= i %>" <%=pagination.page===i ? 'SELECTED' : '' %>>&nbsp;Page <%= i %>
+                                    &nbsp;</OPTION>
+                            <% } %>
+                    </SELECT>
+                </div>
+            </div><br><br>
+            <div class="center">
+                <h5>SEARCH </h5> <input type="text" size="15" name="username" value=""
+                    onKeyDown="if(event.keyCode==13) { event.preventDefault(); gousername(); }">
+                <a href="#" onClick="gousername()">
+                    <h6>GO</h6>
+                </a>
+            </div>
+        </form>
+        <br><br><br>
+        <div class="dots"></div>
+        <div class="nothing">
+            Pagename: <b>Memberlist</b><br>
+            Description: The memberlist contains all the users and accounts of this website.<br>
+            Related subjects: <h3>memberlist</h3>, <h3>members</h3>, <h3>users</h3>, <h3>userlist</h3><br><br>
+            Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+            The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+            NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
+            <a href="/privacy-policy/" class="con">Privacy policy</a> -
+            <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+            <a href="/terms-of-use/" class="con">Terms of use</a>
+        </div>
+        <div class="dots"></div><br>
+    </div>
+</div>
+</div>
+</div>

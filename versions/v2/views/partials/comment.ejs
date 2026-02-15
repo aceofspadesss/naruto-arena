@@ -1,0 +1,47 @@
+<a name="reply<%= comment.id %>"></a>
+<table width="100%" align="center">
+    <tr width="100%">
+        <td class="title" colspan="2" width="100%">
+            <table width="100%">
+                <tr>
+                    <td width="64%">
+                        <div class="nothing">Posted on <%= new Date(comment.createdAt).toLocaleString('en-US', {
+                                weekday: 'long' , year: 'numeric' , month: 'long' , day: 'numeric' , hour: '2-digit' ,
+                                minute: '2-digit' , hour12: false }) %>
+                        </div>
+                    </td>
+                    <td align="right" width="40%">
+                        <font class="none">
+                        </font>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td width="26%" align="center" valign="top">
+            <table>
+                <td width="100px" align="center"><img src="<%= comment.authorAvatar %>"><br><a
+                        href="/profile/<%= comment.authorName %>/"><b>
+                            <%= comment.authorName %>
+                        </b></a><br>Posts: <%= comment.authorPosts %><br>
+                </td>
+                <td><img src="/images/layout/dots2.gif"></td>
+            </table>
+        <td width="74%" valign="top">
+            <%- comment.content %>
+        </td>
+    </tr>
+    <% if (typeof user !=='undefined' && user) { %>
+        <tr>
+            <td colspan="2" align="right">
+                <a href="#comment-editor"
+                    onclick="quoteComment('<%= comment.authorName.replace(/'/g, '\\\'') %>', decodeURIComponent('<%= encodeURIComponent(comment.content).replace(/'/g, '\\\'') %>'))"
+                    style="cursor: pointer; text-decoration: none; color: black; font-size: 10px;"><b>Quote</b></a>
+            </td>
+        </tr>
+        <% } %>
+            <tr>
+                <td class="dots" colspan="2"></td>
+            </tr>
+</table><br>

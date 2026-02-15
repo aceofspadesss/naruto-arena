@@ -1,0 +1,41 @@
+<div
+    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
+    <div
+        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+        <h1>Pollarchive</h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <h2>Pollarchive</h2><br><br>
+
+
+        <% Object.keys(groupedPolls).forEach(function(monthYear) { %>
+            <h5>
+                <%= monthYear %>
+            </h5><br>
+            <% groupedPolls[monthYear].forEach(function(poll) { %>
+                <img class='pre' src='/images/layout/pre.gif'>
+                <a href="/<%= poll.slug %>/"><u>
+                        <%= poll.question %>
+                    </u></a>
+                <i>op <%= poll.formattedDate %></i><br>
+                <% }); %>
+                    <br>
+                    <% }); %>
+
+                        <br><br><br>
+                        <div class="dots"></div>
+                        <div class="nothing">
+                            Pagename: <b>Pollarchive</b><br>
+                            Description: Give your opinion in the polls.<br>
+                            Related subjects: <h3>pollarchive</h3>, <h3>opinion</h3>, <h3>vote</h3>, <h3>polls</h3>,
+                            <h3>poll</h3><br><br>
+                            Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+                            The holders of the copyrighted and/or trademarked material appearing on this site are as
+                            follows:<br>
+                            NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
+                            <a href="/privacy-policy/" class="con">Privacy policy</a> -
+                            <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+                            <a href="/terms-of-use/" class="con">Terms of use</a>
+                        </div>
+                        <div class="dots"></div><br>
+    </div>
+</div>
+</div>
+</div>

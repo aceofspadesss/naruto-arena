@@ -1,6 +1,14 @@
+require('dotenv').config();
 const path = require('path');
 
+const VERSION = process.env.VERSION || 'default';
+const ROOT_DIR = path.resolve(__dirname, '../..');
+const DATA_DIR = VERSION === 'default'
+    ? path.join(ROOT_DIR, 'data')
+    : path.join(ROOT_DIR, 'versions', VERSION, 'data');
+
 module.exports = {
+    VERSION,
     PORT: process.env.PORT || 3000,
     SESSION_SECRET: process.env.SESSION_SECRET || 'naruto-arena-secret',
     SITE_URL: process.env.SITE_URL || 'http://localhost:3000',
@@ -12,12 +20,12 @@ module.exports = {
         FROM: process.env.SMTP_FROM || 'Naruto Arena <noreply@naruto-arena.com>'
     },
     PATHS: {
-        USERS: path.resolve(__dirname, '../../data/users.json'),
-        BATTLES: path.resolve(__dirname, '../../data/battles.json'),
-        CHARACTERS: path.resolve(__dirname, '../../data/characters.json'),
-        MESSAGES: path.resolve(__dirname, '../../data/messages.json')
+        USERS: path.join(DATA_DIR, 'users.json'),
+        BATTLES: path.join(DATA_DIR, 'battles.json'),
+        CHARACTERS: path.join(DATA_DIR, 'characters.json'),
+        MESSAGES: path.join(DATA_DIR, 'messages.json')
     },
-    AI_ENABLED: true,
+    AI_ENABLED: process.env.AI_ENABLED !== undefined ? process.env.AI_ENABLED === 'true' : true,
     AI_CONFIG: {
         VENDETTA_RATIO: 5,
         AGGRESSION_THRESHOLD: 2
