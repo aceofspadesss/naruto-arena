@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Manage News - Naruto Arena Admin</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        .admin-container {
+            width: 900px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #eee;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            background: #eee;
+            border: 1px solid #999;
+            text-decoration: none;
+            color: black;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-danger {
+            background: #ffdddd;
+        }
+
+        .content-preview {
+            max-height: 100px;
+            overflow: hidden;
+            font-size: 11px;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <h1>Manage News</h1>
+        <div class="admin-nav">
+            <a href="/admin/characters" class="btn">Back to Characters Admin</a>
+            <a href="/admin/polls" class="btn">Manage Polls</a>
+            <a href="/" class="btn">Back to Site</a>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <a href="/admin/news/create" class="btn">Create New Post</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 200px;">Title</th>
+                    <th style="width: 120px;">Author</th>
+                    <th style="width: 150px;">Created At</th>
+                    <th>Content Preview</th>
+                    <th style="width: 120px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (news.length===0) { %>
+                    <tr>
+                        <td colspan="5">No news posts found.</td>
+                    </tr>
+                    <% } else { %>
+                        <% news.forEach(post=> { %>
+                            <tr>
+                                <td>
+                                    <%= post.title %>
+                                </td>
+                                <td>
+                                    <%= post.author %>
+                                </td>
+                                <td>
+                                    <%= new Date(post.createdAt).toLocaleString() %>
+                                </td>
+                                <td>
+                                    <div class="content-preview">
+                                        <%= post.content.replace(/<[^>]*>/g, '').substring(0, 200) %>...
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="actions">
+                                        <a href="/admin/news/edit/<%= post.id %>" class="btn">Edit</a>
+                                        <form action="/admin/news/delete/<%= post.id %>" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this post?');">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }); %>
+                                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

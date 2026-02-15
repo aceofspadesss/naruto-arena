@@ -1,0 +1,191 @@
+<div
+    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
+    <div
+        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+        <h1>Private Messages</h1><br>
+        <a href='/'>Naruto Arena</a> > <a href='/control-panel'>Control panel</a> > <a href='/private-messages'>Private
+            Messages</a><br><br>
+
+        <br>
+
+        <div style="margin-bottom: 20px;">
+            Here you can manage your private messages. You can send messages to other members, read incoming messages or
+            delete them.
+        </div>
+
+        <% if (typeof error !=='undefined' && error) { %>
+            <div style="color: red; font-weight: bold; margin-bottom: 10px; text-align: center;">
+                <%= error %>
+            </div>
+            <% } %>
+                <% if (typeof message !=='undefined' && message) { %>
+                    <div style="color: green; font-weight: bold; margin-bottom: 10px; text-align: center;">
+                        <%= message %>
+                    </div>
+                    <% } %>
+
+                        <div style="margin-bottom: 20px; text-align: center; font-weight: bold;">
+                            <a href="/private-messages?view=inbox"
+                                style="color: <%= view === 'inbox' ? 'black' : '#280092' %>;">[Inbox]</a> &nbsp;
+                            <a href="/private-messages?view=outbox"
+                                style="color: <%= view === 'outbox' ? 'black' : '#280092' %>;">[Outbox]</a> &nbsp;
+                            <a href="/private-messages?view=compose"
+                                style="color: <%= view === 'compose' ? 'black' : '#280092' %>;">[Compose Message]</a>
+                        </div>
+
+                        <% if (view==='inbox' || view==='outbox' ) { %>
+                            <table width="100%" cellspacing="0" cellpadding="3" style="border-top: 1px dotted #CCCCCC;">
+                                <tr style="background-color: #F0F0F0; font-weight: bold;">
+                                    <td width="20"></td>
+                                    <td>
+                                        <%= view==='inbox' ? 'From' : 'To' %>
+                                    </td>
+                                    <td>Subject</td>
+                                    <td>Date</td>
+                                    <td align="center">Options</td>
+                                </tr>
+                                <% messages.forEach((msg, index)=> { %>
+                                    <tr>
+                                        <td align="center">
+                                            <% if (view==='inbox' ) { %>
+                                                <% if (!msg.isRead) { %>
+                                                    <span
+                                                        style="color: red; font-weight: bold; font-size: 10px;">[New]</span>
+                                                    <% } else { %>
+                                                        <span style="color: #808080; font-size: 10px;">[Read]</span>
+                                                        <% } %>
+                                                            <% } else { %>
+                                                                <span
+                                                                    style="color: #808080; font-size: 10px;">[Sent]</span>
+                                                                <% } %>
+                                        </td>
+                                        <td>
+                                            <%= view==='inbox' ? msg.senderName : msg.receiverName %>
+                                        </td>
+                                        <td><a href="/private-messages?view=read&id=<%= msg.id %>"
+                                                style="color: #280092; font-weight: bold;">
+                                                <%= msg.subject %>
+                                            </a></td>
+                                        <td style="color: #808080; font-style: italic;">
+                                            <% const date=new Date(msg.timestamp); const
+                                                dateStr=date.toLocaleDateString() + ' ' + date.toLocaleTimeString([],
+                                                {hour: '2-digit' , minute:'2-digit'}); %>
+                                                <%= dateStr %>
+                                        </td>
+                                        <td align="center">
+                                            <% if (view==='inbox' ) { %>
+                                                <a href="/private-messages?view=compose&receiver=<%= msg.senderName %>&subject=Re: <%= msg.subject %>"
+                                                    style="text-decoration: none; color: #F89700; font-weight: bold;">[Reply]</a>
+                                                <% } %>
+                                                    <form action="/private-messages/delete" method="POST"
+                                                        style="display:inline;">
+                                                        <input type="hidden" name="id" value="<%= msg.id %>">
+                                                        <input type="submit" value="[Delete]"
+                                                            style="border:none; background:none; color: red; font-weight: bold; cursor:pointer; padding: 0; text-decoration: none;">
+                                                    </form>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" style="border-bottom: 1px dotted #CCCCCC; height: 1px;"></td>
+                                    </tr>
+                                    <% }); %>
+                                        <% if (messages.length===0) { %>
+                                            <tr>
+                                                <td colspan="5" align="center" style="padding: 20px;">No messages.</td>
+                                            </tr>
+                                            <% } %>
+                            </table>
+
+                            <br>
+                            <div style="margin-bottom: 10px;">
+                                <% if (view==='inbox' ) { %>
+                                    <span style="color: red; font-weight: bold;">[New]</span> New Message
+                                    &nbsp;&nbsp;&nbsp; <span style="color: #808080;">[Read]</span> Read Message
+                                    &nbsp;&nbsp;&nbsp;
+                                    <span style="color: #F89700; font-weight: bold;">[Reply]</span> Reply to Message
+                                    &nbsp;&nbsp;&nbsp;
+                                    <% } %>
+                                        <span style="color: red; font-weight: bold;">[Delete]</span> Delete Message
+                            </div>
+                            <% } else if (view==='compose' ) { %>
+                                <form action="/private-messages/send" method="POST">
+                                    <table width="100%" cellspacing="0" cellpadding="3">
+                                        <tr>
+                                            <td width="100" align="right" style="font-weight: bold;">Receiver:</td>
+                                            <td>
+                                                <input type="text" name="receiver"
+                                                    style="width: 300px; border: 1px solid #000;"
+                                                    value="<%= typeof queries !== 'undefined' ? queries.receiver : '' %>">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" style="font-weight: bold;">Subject:</td>
+                                            <td><input type="text" name="subject"
+                                                    style="width: 300px; border: 1px solid #000;"
+                                                    value="<%= typeof queries !== 'undefined' ? queries.subject : '' %>">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" valign="top" style="font-weight: bold;">Message:</td>
+                                            <td><textarea name="content"
+                                                    style="width: 450px; height: 200px; border: 1px solid #000; font-family: Trebuchet MS, arial, verdana, sans-serif; font-size: 11px;"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><input type="submit" value="Send Message"></td>
+                                        </tr>
+                                    </table>
+                                </form>
+                                <% } else if (view==='read' && messages.length> 0) {
+                                    const msg = messages[0];
+                                    %>
+                                    <table width="100%" cellspacing="0" cellpadding="3">
+                                        <tr>
+                                            <td width="100" align="right" style="font-weight: bold;">From:</td>
+                                            <td>
+                                                <%= msg.senderName %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" style="font-weight: bold;">Subject:</td>
+                                            <td>
+                                                <%= msg.subject %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" style="font-weight: bold;">Date:</td>
+                                            <td>
+                                                <% const date=new Date(msg.timestamp); const
+                                                    dateStr=date.toLocaleDateString() + ' ' +
+                                                    date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'});
+                                                    %>
+                                                    <%= dateStr %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" valign="top" style="font-weight: bold;">Message:</td>
+                                            <td
+                                                style="border: 1px solid #CCCCCC; padding: 10px; background-color: #F9F9F9;">
+                                                <%= msg.content %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td style="padding-top: 10px;">
+                                                <a href="/private-messages?view=compose&receiver=<%= msg.senderName %>&subject=Re: <%= msg.subject %>"
+                                                    style="text-decoration: none; color: #F89700; font-weight: bold;">[Reply]</a>
+                                                &nbsp;
+                                                <form action="/private-messages/delete" method="POST"
+                                                    style="display:inline;">
+                                                    <input type="hidden" name="id" value="<%= msg.id %>">
+                                                    <input type="submit" value="[Delete]"
+                                                        style="border:none; background:none; color: red; font-weight: bold; cursor:pointer; padding: 0; text-decoration: none;">
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <% } %>
+
+    </div>
+</div>

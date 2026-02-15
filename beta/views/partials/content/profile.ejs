@@ -1,0 +1,240 @@
+<!-- LAYOUT: CONTENTFIELD -->
+<div
+    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
+    <div
+        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+        <h1>
+            <%= profileUser.username %>
+        </h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <a href='/profile/'>Profile</a> > <h2>
+            <%= profileUser.username %>
+        </h2><br><br>
+
+
+        <center>
+        </center>
+        <% var fifteenMinutes=15 * 60 * 1000; var isOnline=profileUser.lastActive && (Date.now() -
+            profileUser.lastActive < fifteenMinutes); %>
+
+            <div class="left" style="width:70%;">
+                <table width="100%">
+                    <tr>
+                        <td class="title" colspan="2"><b>Account information</b></td>
+                    </tr>
+                    <tr class="color2">
+                        <td width="40%"><u>Username:</u></td>
+                        <td width="60%">
+                            <h6>
+                                <%= profileUser.username %>
+                            </h6>
+                        </td>
+                    </tr>
+
+                    <tr class="color1">
+                        <td><u>Ladder Rank:</u></td>
+                        <td>
+                            <%= profileUser.ladderPosition || 'Unranked' %>
+                        </td>
+                    </tr>
+
+                    <tr class="color2">
+                        <td><u>Ninja Rank:</u></td>
+                        <td>
+                            <% var rankImageMap={ 'Academy Student' : 'academystudent' , 'Genin' : 'genin' , 'Chuunin'
+                                : 'chuunin' , 'Special Jounin' : 'specialjounin' , 'Jounin' : 'jounin' , 'Sannin'
+                                : 'sannin' , 'Legendary Sannin' : 'sannin' , 'Hokage' : 'hokage' , 'Kage' : 'hokage' };
+                                var rankImage=rankImageMap[profileUser.rank] || 'genin' ; %>
+                                <img src="/images/ninjaranks/<%= rankImage %>.gif" class="rank">
+                                <%= profileUser.rank || 'Genin' %>
+                        </td>
+                    </tr>
+
+                    <tr class="color1">
+                        <td>Wins:</td>
+                        <td>
+                            <%= profileUser.wins || 0 %>
+                        </td>
+                    </tr>
+
+                    <tr class="color2">
+                        <td>Losses:</td>
+                        <td>
+                            <%= profileUser.losses || 0 %>
+                        </td>
+                    </tr>
+
+                    <tr class="color1">
+                        <td>Streak:</td>
+                        <td>
+                            <%= profileUser.streak || 0 %>
+                        </td>
+                    </tr>
+
+                    <tr class="color1">
+                        <td>Site rank:</td>
+                        <td>
+                            <%= profileUser.role ? profileUser.role.charAt(0).toUpperCase() + profileUser.role.slice(1)
+                                : 'Member' %>
+                        </td>
+                    </tr>
+
+                    <tr class="color2">
+                        <td>Email:</td>
+                        <td>
+                            <% if (profileUser.email && !profileUser.emailHidden) { %>
+                                <%= profileUser.email %>
+                                    <% } else { %>
+                                        <div class="nothing">n/a</div>
+                                        <% } %>
+                        </td>
+                    </tr>
+
+                    <tr class="color1">
+                        <td>Posts:</td>
+                        <td>
+                            <%= profileUser.posts || 0 %>
+                        </td>
+                    </tr>
+
+                    <tr class="color2">
+                        <td>Last online:</td>
+                        <td>
+                            <% if (profileUser.lastActive) { %>
+                                <%= new Date(profileUser.lastActive).toLocaleString('en-US', { month: 'long' ,
+                                    day: 'numeric' , year: 'numeric' , hour: '2-digit' , minute: '2-digit' }) %>
+                                    <% } else { %>
+                                        Never
+                                        <% } %>
+                        </td>
+                    </tr>
+
+                    <tr class="color1">
+                        <td>Last page activity:</td>
+                        <td>
+                            <% if (isOnline) { %>
+                                <a href="<%= locationUrl %>" class="con">
+                                    <%= locationTitle %>
+                                </a>
+                                <% } else { %>
+                                    <div class="nothing">n/a</div>
+                                    <% } %>
+                        </td>
+                    </tr>
+
+                    <tr class="color2">
+                        <td>Status:</td>
+                        <td>
+                            <img src="/images/layout/<%= isOnline ? 'online' : 'offline' %>.gif">
+                            <%= isOnline ? 'online' : 'offline' %>
+                        </td>
+                    </tr>
+
+                    <tr class="color1">
+                        <td>Registered on:</td>
+                        <td>
+                            <%= profileUser.registeredOn ? new
+                                Date(profileUser.registeredOn).toLocaleDateString('en-US', { month: 'long' ,
+                                day: 'numeric' , year: 'numeric' }) : 'Unknown' %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dots" colspan="2"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="left" style="width:28%;">
+                <center><br>
+                    <% var avatarPath=profileUser.avatar || '/images/avatars/' + profileUser.id + '.jpg' ; %>
+                        <img src="<%= avatarPath %>" class="border"
+                            onerror="this.src='/images/avatars/default.jpg'"><br /><br />
+                        <br /><a href="/memberlist/" class="con">Show memberlist</a><br />
+                </center>
+            </div>
+
+            <br clear="all"><br>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td class="title" colspan="2"><b>Other information</b></td>
+                    </tr>
+                    <tr class="color2">
+                        <td width="40%">Discord:</td>
+                        <td width="60%">
+                            <% if (profileUser.discord) { %>
+                                <%= profileUser.discord %>
+                                    <% } else { %>
+                                        <div class="nothing">n/a</div>
+                                        <% } %>
+                        </td>
+                    </tr>
+
+                    <tr class="color1">
+                        <td>Youtube:</td>
+                        <td>
+                            <% if (profileUser.youtube) { %>
+                                <%= profileUser.youtube %>
+                                    <% } else { %>
+                                        <div class="nothing">n/a</div>
+                                        <% } %>
+                        </td>
+                    </tr>
+
+                    <tr class="color2">
+                        <td>Country:</td>
+                        <td>
+                            <% if (profileUser.country) { %>
+                                <%= profileUser.country %>
+                                    <% } else { %>
+                                        <div class="nothing">n/a</div>
+                                        <% } %>
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td class="dots" colspan="2"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br clear="all"><br>
+            <% if (hasPlayerCard) { %>
+                <table width="100%">
+                    <tr>
+                        <td class="title"><b>Player Card</b></td>
+                    </tr>
+                    <tr class="color1">
+                        <td width="100%" align="center">
+                            <br />
+                            <img src="/images/myplayercard/<%= profileUser.id %>.jpg" />
+                            <br /><br />
+                        </td>
+                    </tr>
+                </table>
+                <% } %>
+                    <br><br><br>
+                    <div class="dots"></div>
+                    <div class="nothing">
+                        Pagename: <b>
+                            <%= profileUser.username %>
+                        </b><br>
+                        Description: This is a profile of a user on Naruto Arena.<br>
+                        Related subjects: <h3>
+                            <%= profileUser.username %>
+                        </h3>, <h3>account</h3>, <h3>user</h3>, <h3>member</h3>, <h3>admin</h3>, <h3>moderator</h3>
+                        <br><br>
+                        Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+                        The holders of the copyrighted and/or trademarked material appearing on this site are as
+                        follows:<br>
+                        NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
+                        <a href="/privacy-policy/" class="con">Privacy policy</a> -
+                        <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+                        <a href="/terms-of-use/" class="con">Terms of use</a>
+                    </div>
+                    <div class="dots"></div><br>
+    </div>
+</div>
+</div>
+</div>
+</center>

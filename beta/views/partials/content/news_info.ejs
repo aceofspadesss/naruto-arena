@@ -1,0 +1,193 @@
+<div style="padding: 0px 0px 0px 0px; margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white;
+left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;
+min-height:1000px;">
+    <div
+        style="padding: 0px 0px 0px 0px;  min-height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+        <h1>
+            <%= viewNews.title %>
+        </h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <a href='/news/'>News</a> > <h2>
+            <%= viewNews.title %>
+        </h2><br><br>
+
+        <center>
+        </center>
+
+        <div>
+            <div class="nothing">
+                <%= new Date(viewNews.createdAt).toLocaleString('en-US', { weekday: 'long' , year: 'numeric' ,
+                    month: 'long' , day: 'numeric' , hour: 'numeric' , minute: 'numeric' , hour12: false }) %> by
+                    <a href="/profile/<%= viewNews.authorName %>/">
+                        <h5><i>
+                                <%= viewNews.authorName %>
+                            </i></h5>
+                    </a>
+            </div>
+        </div>
+        <div class="dots"></div>
+        <div>
+            <%- viewNews.content %>
+                <br><br>
+        </div>
+        <div class="dots"></div>
+        <div align="right"><b>(<%= typeof totalComments !=='undefined' ? totalComments : (comments ? comments.length :
+                    0) %>)</b> comments</div>
+        <br>
+        <center>
+            <div style="width:69%;">
+
+
+                <!-- Comments section -->
+                <% if (comments && comments.length> 0) { %>
+                    <% comments.forEach(function(comment) { %>
+                        <%- include('../comment', { comment: comment }); %>
+                            <% }); %>
+                                <% } else { %>
+                                    <div class="nothing">No comments yet.</div>
+                                    <% } %>
+
+
+                                        <!-- Pagination -->
+                                        <% if (typeof totalPages !=='undefined' && totalPages> 1) { %>
+                                            <div class="dots"></div>
+                                            <div align="right">
+                                                <b>[Page <%= currentPage %>/<%= totalPages %>]</b>
+
+                                                <% if (currentPage> 1) { %>
+                                                    <a href="/<%= viewNews.slug %>/1">
+                                                        <font color="black">&lt;&lt;&lt;&lt;</font>
+                                                    </a>
+                                                    <a href="/<%= viewNews.slug %>/<%= currentPage - 1 %>">
+                                                        <font color="black">&lt;&lt;</font>
+                                                    </a>
+                                                    <% } else { %>
+                                                        &lt;&lt;&lt;&lt; &lt;&lt;
+                                                        <% } %>
+
+                                                            <% let startPage=Math.max(1, currentPage - 3); let
+                                                                endPage=Math.min(totalPages, currentPage + 3); if
+                                                                (endPage - startPage < 6) { if (startPage===1) {
+                                                                endPage=Math.min(totalPages, startPage + 6); } else if
+                                                                (endPage===totalPages) { startPage=Math.max(1, endPage -
+                                                                6); } } %>
+
+                                                                <% for(let i=startPage; i <=endPage; i++) { %>
+                                                                    <% if (i===currentPage) { %>
+                                                                        <u>
+                                                                            <%= i %>
+                                                                        </u>
+                                                                        <% } else { %>
+                                                                            <a href="/<%= viewNews.slug %>/<%= i %>">
+                                                                                <font color="black">
+                                                                                    <%= i %>
+                                                                                </font>
+                                                                            </a>
+                                                                            <% } %>
+                                                                                <% } %>
+
+                                                                                    <% if (currentPage < totalPages) {
+                                                                                        %>
+                                                                                        <a
+                                                                                            href="/<%= viewNews.slug %>/<%= currentPage + 1 %>">
+                                                                                            <font color="black">&gt;&gt;
+                                                                                            </font>
+                                                                                        </a>
+                                                                                        <a
+                                                                                            href="/<%= viewNews.slug %>/<%= totalPages %>">
+                                                                                            <font color="black">
+                                                                                                &gt;&gt;&gt;&gt;</font>
+                                                                                        </a>
+                                                                                        <% } else { %>
+                                                                                            &gt;&gt; &gt;&gt;&gt;&gt;
+                                                                                            <% } %>
+
+                                                                                                <select
+                                                                                                    name="listingselect"
+                                                                                                    onchange="window.location.href=this.value"
+                                                                                                    style="font-size: 10px;">
+                                                                                                    <% for(let i=1; i
+                                                                                                        <=totalPages;
+                                                                                                        i++) { %>
+                                                                                                        <option
+                                                                                                            value="/<%= viewNews.slug %>/<%= i %>/"
+                                                                                                            <%=i===currentPage
+                                                                                                            ? 'selected'
+                                                                                                            : '' %>
+                                                                                                            >&nbsp;Page
+                                                                                                            <%= i %>
+                                                                                                                &nbsp;
+                                                                                                        </option>
+                                                                                                        <% } %>
+                                                                                                </select>
+                                            </div>
+                                            <% } %>
+
+            </div>
+            <center>
+                <div style="width:68%;">
+                    <div class="dots"></div>
+
+                    <br clear="all" />
+                </div>
+            </center>
+
+            <br>
+            <div class="error">
+                <center>
+                    <% if (user) { %>
+                        <script>
+                            function quoteComment(author, content) {
+                                const editor = document.getElementById('comment-editor');
+                                const quoteHtml = `<div class='quote1'><b>Quote by ${author}</b><div class='quote2'>${content}</div></div><br>`;
+                                editor.innerHTML = quoteHtml + editor.innerHTML;
+                            }
+                        </script>
+                        <form action="/news/<%= viewNews.slug %>/comment" method="post"
+                            onsubmit="document.getElementById('comment-content').value = document.getElementById('comment-editor').innerHTML;">
+                            <input type="hidden" name="content" id="comment-content">
+                            Emotes:
+                            <% const emotes=['amazed', 'amused' , 'blink' , 'cheesy' , 'confused' , 'cool' , 'cry'
+                                , 'embarressed' , 'evil' , 'huh' , 'laugh' , 'mad' , 'notrust' , 'noworry' , 'nuts'
+                                , 'oh' , 'push' , 'rolleyes' , 'sad' , 'sick' , 'smile' , 'suspicious' , 'teeth'
+                                , 'tounge' , 'unsure' , 'wacko' , 'weird' , 'wondering' , 'worried' ]; %>
+                                <div
+                                    style="max-height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px; text-align: left;">
+                                    <% emotes.forEach(function(emote) { %>
+                                        <img src="/images/smilies/<%= emote %>.gif"
+                                            onclick="const img = document.createElement('img'); img.src = '/images/smilies/<%= emote %>.gif'; img.className = 'smilie'; document.getElementById('comment-editor').appendChild(img);"
+                                            style="cursor: pointer;" title="<%= emote %>">
+                                        <% }); %>
+                                </div>
+                                <br>
+                                <div id="comment-editor" contenteditable="true"
+                                    style="width: 100%; height: 100px; border: 1px solid #7f9db9; background-color: white; overflow-y: scroll; text-align: left; color: black;">
+                                </div>
+                                <br>
+                                <input type="submit" value="Post Comment">
+                        </form>
+                        <% } else { %>
+                            You need to be logged in to your account to be able to make a comment.<br>
+                            Click <a href="/register/" class="error"><b><u>here</u></b></a> to register an account.
+                            <% } %>
+                </center>
+            </div>
+            <br><br><br>
+            <div class="dots"></div>
+            <div class="nothing">
+                Pagename: <b>
+                    <%= viewNews.title %>
+                </b><br>
+                Description: The last five news items on Naruto Arena<br>
+                Related subjects: <h3>
+                    <%= viewNews.title.toLowerCase() %>
+                </h3>, <h3></h3><br><br>
+                Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+                The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+                NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
+                <a href="/privacy-policy/" class="con">Privacy policy</a> -
+                <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+                <a href="/terms-of-use/" class="con">Terms of use</a>
+            </div>
+            <div class="dots"></div><br>
+    </div>
+</div>
+</div>

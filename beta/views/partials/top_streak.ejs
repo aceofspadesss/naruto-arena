@@ -1,0 +1,10 @@
+<!-- Top 10 Winstreak Partial -->
+<h4>Top 10 Winstreak</h4><br>
+
+<% if (topStreak && topStreak.length > 0) { %>
+<% topStreak.forEach((player, index) => { %>
+<%= index + 1 %>: <a href="/profile/<%= player.username %>"><%= player.username %></a> +<%= player.streak %> streak<br>
+<% }); %>
+<% } else { %>
+No players with win streaks yet.<br>
+<% } %>

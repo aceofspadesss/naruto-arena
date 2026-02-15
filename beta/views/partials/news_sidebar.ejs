@@ -1,0 +1,11 @@
+<h4>Latest news</h4><br>
+<% if (locals.news && news.length> 0) { %>
+    <% news.slice(0, 5).forEach(function(post) { %>
+        <% const newsSlug=post.title.toLowerCase().replace(/\s+/g, '-' ).replace(/[^a-z0-9-]/g, '' ); %>
+            <img class="pre" src="/images/layout/prenav.gif"> <a href="/<%= newsSlug %>"><u>
+                    <%= post.title %>
+                </u></a><br>
+            <% }); %>
+                <% } else { %>
+                    <img class="pre" src="/images/layout/prenav.gif"> <span>No news yet</span><br>
+                    <% } %>

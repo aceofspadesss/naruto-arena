@@ -1,0 +1,56 @@
+<!-- LAYOUT: BLUE CRAPER 1 (Left Sidebar) -->
+<div
+    style="padding: 0px 0px 0px 0px; margin:0px 0px 0px 0px; top:217px; position:absolute; left:2px; width:180px; background-color:#1a99ea; border: 1px black solid;">
+    <div id="nav"
+        style="padding: 0px 0px 0px 0px; margin:10px 10px 10px 10px; position:relative; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:white;">
+        <% if (locals.role==='admin' || locals.role==='moderator' ) { %>
+            <%- include('admin_menu') %>
+                <% } %>
+                    <h4>Account</h4><br>
+                    <% if (locals.user) { %>
+                        <div style="margin-bottom: 5px;">Welcome, <b>
+                                <%= locals.user %>
+                            </b></div>
+                        <a href="/control-panel"><u>Control panel</u></a><br>
+                        <a href="/profile/<%= user %>"><u>View profile</u></a><br>
+                        <a href="/private-messages"><u>Private messages (<%= unreadMessagesCount %> new)</u></a><br>
+                        <a href="/buddy-list"><u>Buddy list: (<%= onlineBuddiesCount %> online)</u></a><br>
+                        <a href="/change-settings"><u>Change settings</u></a><br>
+                        <a href="/change-password"><u>Change password</u></a><br>
+                        <a href="/change-avatar"><u>Change avatar</u></a><br>
+                        <a href="/my-player-card"><u><b>My Player Card</b></u></a><br>
+                        <a href="/reset-account"><u>Reset account</u></a><br>
+                        <a href="/logout"><u>Logout</u></a>
+                        <% } else { %>
+                            <form action="/login" method="post" style="margin: 0px 0px 0px 0px;">
+                                <div><input onfocus="this.value=''" value="username" maxlength="16" name="username">
+                                </div>
+                                <div><input style="margin-top:5px; " onfocus="this.value=''" value="password"
+                                        type="password" name="password"></div>
+                                <% if (typeof sidebarLoginError !=='undefined' && sidebarLoginError) { %>
+                                    <div class="error">
+                                        <%= sidebarLoginError %>
+                                    </div>
+                                    <% } else { %>
+                                        Be sure to have cookies activated!
+                                        <% } %>
+                                            <br>
+                                            <input type="submit" value="Login" style="width:60px" name="submit2">
+                                            <input type="button" value="Register" style="width:60px"
+                                                onclick="location.href='/register'">
+                            </form>
+                            <a href="/lost-password"><u>Lost your password?</u></a>
+                            <% } %>
+
+                                <br><br>
+                                <br>
+                                <%- include('news_sidebar', { news: locals.news }) %>
+                                    <br>
+                                    <%- include('poll') %>
+
+                                        <br>
+                                        <%- include('statistics', { statistics: locals.statistics }) %>
+                                        <%- include('search_function') %>
+
+    </div>
+</div>

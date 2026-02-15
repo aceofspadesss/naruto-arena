@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Creator - Naruto Arena</title>
+    <style>
+        :root {
+            --primary: #ff9900;
+            --bg: #1a1a1a;
+            --surface: #2a2a2a;
+            --text-main: #f0f0f0;
+            --text-dim: #ccc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1,
+        h2 {
+            color: var(--primary);
+        }
+
+        .container {
+            display: flex;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .form-section,
+        .list-section {
+            background-color: var(--surface);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dim);
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #e68a00;
+        }
+
+        .skill-group {
+            border: 1px solid #444;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            background-color: #222;
+        }
+
+        .skill-group h3 {
+            margin-top: 0;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .character-card {
+            background-color: #222;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .character-card h3 {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .character-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        /* Responsive grid */
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Improved Skill Styling */
+        .skill-group {
+            background-color: #252525;
+            border: 1px solid #3a3a3a;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 0;
+            /* Let grid handle gap */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .skill-group:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .skill-group h3 {
+            border-bottom: 1px solid #444;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Character Actions Button Group */
+        .character-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 100px;
+        }
+
+        .character-actions button {
+            margin: 0;
+            /* Reset default margin */
+            width: 100%;
+        }
+
+        /* Existing Character Card Tweak */
+        .character-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .character-info {
+            flex: 1;
+        }
+
+        /* Effect Editor Styles */
+        .effect-row {
+            background: #333;
+            border: 1px solid #555;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .effect-row select,
+        .effect-row input {
+            width: auto;
+            flex: 1;
+            min-width: 80px;
+            margin: 0;
+        }
+
+        .effect-row button {
+            width: auto;
+            padding: 5px 10px;
+            margin: 0;
+            background: #d32f2f;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Character Creator</h1>
+    <p>
+        <a href="/game" style="color: grey; text-decoration: none;">&larr; Back to Game</a> |
+        <a href="/admin/users" style="color: grey; text-decoration: none;">Manage Users</a> |
+        <a href="/admin/polls" style="color: grey; text-decoration: none;">Manage Polls</a>
+    </p>
+
+    <div class="container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <h2>Add New Character</h2>
+            <form id="charForm">
+                <div class="form-group">
+                    <label for="id">Character ID (e.g., 1 for Naruto)</label>
+                    <input type="number" id="id" name="id" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Naruto Uzumaki">
+                </div>
+                <div class="form-group">
+                    <textarea id="description" name="description" rows="3" required
+                        placeholder="Brief biography..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="locked" name="locked" style="width: auto;"> Locked (Not Selectable)
+                    </label>
+                </div>
+
+                <h3>Skills</h3>
+                <div class="skills-container">
+                    <!-- Skill 1 -->
+                    <div class="skill-group">
+                        <h3>Skill 1</h3>
+                        <div class="form-group">
+                            <label>ID (Image)</label>
+                            <input type="number" name="skills[0][id]" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="skills[0][name]" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="skills[0][description]" rows="2" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Chakra Cost (e.g., 0101 for 1 Gen, 1 Tai)</label>
+                            <input type="text" name="skills[0][chakra]" required pattern="[0-9]*"
+                                title="Numbers only, representing cost">
+                        </div>
+                        <div class="form-group">
+                            <label>Cooldown</label>
+                            <input type="number" name="skills[0][cooldown]" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Max Active Stacks (0 = No Limit)</label>
+                            <input type="number" name="skills[0][max_active_stacks]" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="skills[0][unique]" style="width: auto;"> Unique (once per
+                                target)
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Target</label>
+                            <select name="skills[0][target]">
+                                <option value="enemy">One Enemy</option>
+                                <option value="all_enemies">All Enemies</option>
+                                <option value="all_marked">All Marked</option>
+                                <option value="ally">One Ally</option>
+                                <option value="self">Self</option>
+                                <option value="all">All Characters</option>
+                                <option value="all_allies">All Allies</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Target Req Effect (ID)</label>
+                            <input type="text" name="skills[0][target_req_effect]" placeholder="e.g. 26">
+                        </div>
+                        <div class="form-group">
+                            <label>Requires Skill</label>
+                            <select name="skills[0][requires]" id="skills-0-requires" class="skill-requires-dropdown"
+                                data-skill-index="0">
+                                <option value="">None</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Effects</label>
+                            <div id="skills-0-effects-container" class="effects-container"></div>
+                            <button type="button" onclick="addEffectRow(0)"
+                                style="margin-top: 5px; background-color: #555;">+ Add Effect</button>
+                        </div>
+                    </div>
+
+                    <!-- Skill 2 -->
+                    <div class="skill-group">
+                        <h3>Skill 2</h3>
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="number" name="skills[1][id]" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="skills[1][name]" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="skills[1][description]" rows="2" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="skills[1][chakra]" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cooldown</label>
+                            <input type="number" name="skills[1][cooldown]" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Max Active Stacks (0 = No Limit)</label>
+                            <input type="number" name="skills[1][max_active_stacks]" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="skills[1][unique]" style="width: auto;"> Unique (once per
+                                target)
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Target</label>
+                            <select name="skills[1][target]">
+                                <option value="enemy">One Enemy</option>
+                                <option value="all_enemies">All Enemies</option>
+                                <option value="all_marked">All Marked</option>
+                                <option value="ally">One Ally</option>
+                                <option value="self">Self</option>
+                                <option value="all">All Characters</option>
+                                <option value="all_allies">All Allies</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Target Req Effect (ID)</label>
+                            <input type="text" name="skills[1][target_req_effect]" placeholder="e.g. 26">
+                        </div>
+                        <div class="form-group">
+                            <label>Requires Skill</label>
+                            <select name="skills[1][requires]" id="skills-1-requires" class="skill-requires-dropdown"
+                                data-skill-index="1">
+                                <option value="">None</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Effects</label>
+                            <div id="skills-1-effects-container" class="effects-container"></div>
+                            <button type="button" onclick="addEffectRow(1)"
+                                style="margin-top: 5px; background-color: #555;">+ Add Effect</button>
+                        </div>
+                    </div>
+
+                    <!-- Skill 3 -->
+                    <div class="skill-group">
+                        <h3>Skill 3</h3>
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="number" name="skills[2][id]" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="skills[2][name]" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="skills[2][description]" rows="2" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="skills[2][chakra]" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cooldown</label>
+                            <input type="number" name="skills[2][cooldown]" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Max Active Stacks (0 = No Limit)</label>
+                            <input type="number" name="skills[2][max_active_stacks]" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="skills[2][unique]" style="width: auto;"> Unique (once per
+                                target)
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Target</label>
+                            <select name="skills[2][target]">
+                                <option value="enemy">One Enemy</option>
+                                <option value="all_enemies">All Enemies</option>
+                                <option value="all_marked">All Marked</option>
+                                <option value="ally">One Ally</option>
+                                <option value="self">Self</option>
+                                <option value="all">All Characters</option>
+                                <option value="all_allies">All Allies</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Target Req Effect (ID)</label>
+                            <input type="text" name="skills[2][target_req_effect]" placeholder="e.g. 26">
+                        </div>
+                        <div class="form-group">
+                            <label>Requires Skill</label>
+                            <select name="skills[2][requires]" id="skills-2-requires" class="skill-requires-dropdown"
+                                data-skill-index="2">
+                                <option value="">None</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Effects</label>
+                            <div id="skills-2-effects-container" class="effects-container"></div>
+                            <button type="button" onclick="addEffectRow(2)"
+                                style="margin-top: 5px; background-color: #555;">+ Add Effect</button>
+                        </div>
+                    </div>
+
+                    <!-- Skill 4 -->
+                    <div class="skill-group">
+                        <h3>Skill 4</h3>
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="number" name="skills[3][id]" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="skills[3][name]" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="skills[3][description]" rows="2" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="skills[3][chakra]" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cooldown</label>
+                            <input type="number" name="skills[3][cooldown]" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Max Active Stacks (0 = No Limit)</label>
+                            <input type="number" name="skills[3][max_active_stacks]" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="skills[3][unique]" style="width: auto;"> Unique (once per
+                                target)
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Target</label>
+                            <select name="skills[3][target]">
+                                <option value="enemy">One Enemy</option>
+                                <option value="all_enemies">All Enemies</option>
+                                <option value="all_marked">All Marked</option>
+                                <option value="ally">One Ally</option>
+                                <option value="self">Self</option>
+                                <option value="all">All Characters</option>
+                                <option value="all_allies">All Allies</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Target Req Effect (ID)</label>
+                            <input type="text" name="skills[3][target_req_effect]" placeholder="e.g. 26">
+                        </div>
+                        <div class="form-group">
+                            <label>Requires Skill</label>
+                            <select name="skills[3][requires]" id="skills-3-requires" class="skill-requires-dropdown"
+                                data-skill-index="3">
+                                <option value="">None</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Effects</label>
+                            <div id="skills-3-effects-container" class="effects-container"></div>
+                            <button type="button" onclick="addEffectRow(3)"
+                                style="margin-top: 5px; background-color: #555;">+ Add Effect</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit">Save Character</button>
+            </form>
+        </div>
+
+        <!-- List Section -->
+        <div class="list-section">
+            <h2>Existing Characters</h2>
+            <div id="characterList">
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('charForm');
+        const listDiv = document.getElementById('characterList');
+
+        async function loadCharacters() {
+            try {
+                const res = await fetch('/api/characters');
+                const chars = await res.json();
+
+                listDiv.innerHTML = '';
+                if (chars.length === 0) {
+                    listDiv.innerHTML = '<p>No characters found.</p>';
+                    return;
+                }
+
+                chars.forEach(char => {
+                    const card = document.createElement('div');
+                    card.className = 'character-card';
+                    card.innerHTML = `
+                        <div class="character-info">
+                            <h3>#${char.id} ${char.name}</h3>
+                            <p>${char.description}</p>
+                        </div>
+                        <div class="character-actions">
+                            <button onclick='editCharacter(${JSON.stringify(char)})' style="background-color: #4CAF50;">Edit</button>
+                            <button onclick="deleteCharacter('${char.id}')" style="background-color: #f44336;">Delete</button>
+                        </div>
+                    `;
+                    listDiv.appendChild(card);
+                });
+            } catch (err) {
+                console.error(err);
+                listDiv.innerHTML = '<p>Error loading characters.</p>';
+            }
+        }
+
+        async function deleteCharacter(id) {
+            if (!confirm(`Are you sure you want to delete character ${id}?`)) return;
+
+            try {
+                const res = await fetch(`/api/characters/${id}`, {
+                    method: 'DELETE'
+                });
+                if (res.ok) {
+                    loadCharacters();
+                } else {
+                    alert('Error deleting character');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Network error');
+            }
+        }
+
+        function editCharacter(char) {
+            // Populate form
+            form.elements['id'].value = char.id;
+            form.elements['id'].value = char.id;
+            form.elements['name'].value = char.name;
+            form.elements['description'].value = char.description;
+            if (form.elements['locked']) form.elements['locked'].checked = !!char.locked;
+
+            if (char.skills) {
+                for (let i = 0; i < 4; i++) {
+                    // Clear existing
+                    document.getElementById(`skills-${i}-effects-container`).innerHTML = '';
+
+                    if (char.skills[i]) {
+                        form.elements[`skills[${i}][id]`].value = char.skills[i].id;
+                        form.elements[`skills[${i}][name]`].value = char.skills[i].name;
+                        form.elements[`skills[${i}][name]`].value = char.skills[i].name;
+                        form.elements[`skills[${i}][description]`].value = char.skills[i].description;
+                        form.elements[`skills[${i}][chakra]`].value = char.skills[i].chakra;
+                        form.elements[`skills[${i}][cooldown]`].value = char.skills[i].cooldown || 0;
+                        form.elements[`skills[${i}][max_active_stacks]`].value = char.skills[i].max_active_stacks || 0;
+                        if (form.elements[`skills[${i}][unique]`]) form.elements[`skills[${i}][unique]`].checked = !!char.skills[i].unique;
+                        form.elements[`skills[${i}][target]`].value = char.skills[i].target || 'enemy';
+                        form.elements[`skills[${i}][target_req_effect]`].value = char.skills[i].target_req_effect || '';
+
+                        // Populate Effects
+                        if (char.skills[i].effects) {
+                            char.skills[i].effects.forEach(eff => addEffectRow(i, eff));
+                        }
+                    } else {
+                        // Clear inputs if no skill exists
+                        form.elements[`skills[${i}][id]`].value = '';
+                        form.elements[`skills[${i}][name]`].value = '';
+                        form.elements[`skills[${i}][description]`].value = '';
+                        form.elements[`skills[${i}][chakra]`].value = '';
+                        form.elements[`skills[${i}][cooldown]`].value = '';
+                        form.elements[`skills[${i}][max_active_stacks]`].value = '';
+                        if (form.elements[`skills[${i}][unique]`]) form.elements[`skills[${i}][unique]`].checked = false;
+                        form.elements[`skills[${i}][target_req_effect]`].value = '';
+                    }
+                }
+            }
+
+            // Update dropdowns first so we can set values
+            updateRequiresDropdowns();
+
+            // Set required values
+            if (char.skills) {
+                for (let i = 0; i < 4; i++) {
+                    if (char.skills[i] && char.skills[i].requires) {
+                        const select = document.getElementById(`skills-${i}-requires`);
+                        if (select) select.value = char.skills[i].requires;
+                    }
+                }
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateRequiresDropdowns() {
+            const skillData = [];
+            for (let i = 0; i < 4; i++) {
+                const idInput = form.elements[`skills[${i}][id]`];
+                const nameInput = form.elements[`skills[${i}][name]`];
+                if (idInput && idInput.value) {
+                    skillData.push({
+                        index: i,
+                        id: idInput.value,
+                        name: nameInput.value || `Skill ${i + 1}`
+                    });
+                }
+            }
+
+            for (let i = 0; i < 4; i++) {
+                const select = document.getElementById(`skills-${i}-requires`);
+                if (!select) continue;
+
+                const currentVal = select.value;
+                select.innerHTML = '<option value="">None</option>';
+
+                skillData.forEach(skill => {
+                    if (skill.index !== i) { // Can't require itself
+                        const opt = document.createElement('option');
+                        opt.value = skill.id;
+                        opt.textContent = `${skill.name} (${skill.id})`;
+                        select.appendChild(opt);
+                    }
+                });
+
+                // Restore value if it still exists
+                if (currentVal && Array.from(select.options).some(o => o.value === currentVal)) {
+                    select.value = currentVal;
+                }
+            }
+        }
+
+        // Effect Editor Logic
+        function addEffectRow(skillIdx, effect = {}) {
+            const container = document.getElementById(`skills-${skillIdx}-effects-container`);
+            const row = document.createElement('div');
+            row.className = 'effect-row';
+
+            // Effect Type
+            const typeSelect = document.createElement('select');
+            typeSelect.innerHTML = `
+                <option value="damage">Damage</option>
+                <option value="affliction_damage">Affliction Damage</option>
+                <option value="aoe_damage">AoE Damage</option>
+                <option value="heal">Heal</option>
+                <option value="stun">Stun</option>
+                <option value="damage_reduction">Dmg Reduct</option>
+                <option value="damage_boost">Dmg Boost</option>
+                <option value="invulnerable">Invuln</option>
+                <option value="skill_unlock">Skill Unlock</option>
+                <option value="target_transform">AoE Transform</option>
+                <option value="remove_buff">Remove Buff</option>
+                <option value="mark">Mark</option>
+                <option value="target_restrict_marked">Restrict: Marked Only</option>
+                <option value="health_set">Health Set</option>
+                <option value="remove_chakra">Remove Chakra</option>
+                <option value="drain_chakra">Drain Chakra</option>
+                <option value="disable_damage_reduction">Disable Dmg Reduct</option>
+            `;
+            // Default to damage or existing
+            const initialType = effect.type || 'damage';
+            typeSelect.value = initialType;
+
+            // Target
+            const targetSelect = document.createElement('select');
+            targetSelect.innerHTML = `
+                <option value="enemy">One Enemy</option>
+                <option value="all_enemies">All Enemies</option>
+                <option value="all_marked">All Marked</option>
+                <option value="self">Self</option>
+                <option value="ally">One Ally</option>
+                <option value="all">All Characters</option>
+                <option value="all_allies">All Allies</option>
+            `;
+            targetSelect.value = effect.target || 'enemy';
+
+            // Inputs Container
+            const inputsDiv = document.createElement('div');
+            inputsDiv.style.display = 'contents';
+
+            // Hidden Checkbox
+            const hiddenDiv = document.createElement('div');
+            hiddenDiv.style.display = 'flex';
+            hiddenDiv.style.alignItems = 'center';
+            hiddenDiv.style.gap = '5px';
+
+            const hiddenCheck = document.createElement('input');
+            hiddenCheck.type = 'checkbox';
+            hiddenCheck.className = 'effect-hidden';
+            hiddenCheck.style.width = 'auto'; // Override default
+            if (effect.hidden) hiddenCheck.checked = true;
+
+            const hiddenLabel = document.createElement('label');
+            hiddenLabel.innerText = 'Hidden';
+            hiddenLabel.style.marginBottom = '0';
+            hiddenLabel.style.fontSize = '0.8rem';
+
+            hiddenDiv.appendChild(hiddenCheck);
+            hiddenDiv.appendChild(hiddenLabel);
+
+            // Delete Button
+            const delBtn = document.createElement('button');
+            delBtn.type = 'button';
+            delBtn.innerText = 'X';
+            delBtn.onclick = () => row.remove();
+
+            // Update inputs based on type
+            const updateInputs = (type) => {
+                inputsDiv.innerHTML = '';
+                // Check against original effect to preserve values if type matches
+                const isOriginal = (type === initialType);
+
+                if (['damage', 'aoe_damage', 'affliction_damage', 'heal', 'damage_reduction', 'damage_boost', 'health_set', 'remove_chakra', 'drain_chakra', 'target_restrict_marked'].includes(type)) {
+                    const amt = document.createElement('input');
+                    amt.type = 'number';
+                    amt.placeholder = type === 'target_restrict_marked' ? 'Mark ID' : 'Amount';
+                    amt.className = 'effect-amount';
+                    if (isOriginal && effect.amount) amt.value = effect.amount;
+                    inputsDiv.appendChild(amt);
+                }
+
+                if (['damage', 'aoe_damage', 'affliction_damage', 'stun', 'damage_reduction', 'damage_boost', 'invulnerable', 'skill_unlock', 'target_transform', 'disable_damage_reduction', 'target_restrict_marked', 'remove_chakra', 'drain_chakra', 'mark'].includes(type)) {
+                    const dur = document.createElement('input');
+                    dur.type = 'number';
+                    dur.placeholder = 'Duration (Rounds)';
+                    dur.className = 'effect-duration';
+                    if (isOriginal && effect.duration) dur.value = effect.duration;
+                    inputsDiv.appendChild(dur);
+                }
+
+                if (['damage_boost', 'target_transform', 'target_restrict_marked'].includes(type)) {
+                    const skillIdInp = document.createElement('input');
+                    skillIdInp.type = 'text';
+                    skillIdInp.placeholder = 'Skill ID (Optional)';
+                    skillIdInp.className = 'effect-skill-id';
+                    if (isOriginal && effect.skill_id) skillIdInp.value = effect.skill_id;
+                    inputsDiv.appendChild(skillIdInp);
+                }
+            };
+
+            typeSelect.onchange = () => updateInputs(typeSelect.value);
+
+            // Initial Render
+            updateInputs(initialType);
+
+            row.appendChild(typeSelect);
+            row.appendChild(targetSelect);
+            row.appendChild(inputsDiv);
+            row.appendChild(hiddenDiv);
+            row.appendChild(delBtn);
+
+            container.appendChild(row);
+        }
+
+        function getEffectsFromContainer(skillIdx) {
+            const container = document.getElementById(`skills-${skillIdx}-effects-container`);
+            const rows = container.getElementsByClassName('effect-row');
+            const effects = [];
+
+            for (let row of rows) {
+                const selects = row.getElementsByTagName('select');
+                const type = selects[0].value;
+                const target = selects[1].value;
+
+                const eff = { type, target };
+
+                const amtInput = row.querySelector('.effect-amount');
+                if (amtInput && amtInput.value) eff.amount = parseInt(amtInput.value);
+
+                const durInput = row.querySelector('.effect-duration');
+                if (durInput && durInput.value) eff.duration = parseInt(durInput.value);
+
+                const skillIdInput = row.querySelector('.effect-skill-id');
+                if (skillIdInput && skillIdInput.value) eff.skill_id = skillIdInput.value;
+
+                const hiddenInput = row.querySelector('.effect-hidden');
+                if (hiddenInput && hiddenInput.checked) eff.hidden = true;
+
+                effects.push(eff);
+            }
+            return effects;
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Construct JSON object from form
+            const formData = new FormData(form);
+            const data = {
+                id: formData.get('id'),
+                name: formData.get('name'),
+                description: formData.get('description'),
+                locked: formData.get('locked') === 'on',
+                skills: []
+            };
+
+            for (let i = 0; i < 4; i++) {
+                data.skills.push({
+                    name: formData.get(`skills[${i}][name]`),
+                    description: formData.get(`skills[${i}][description]`),
+                    chakra: formData.get(`skills[${i}][chakra]`),
+                    cooldown: formData.get(`skills[${i}][cooldown]`) ? parseInt(formData.get(`skills[${i}][cooldown]`)) : 0,
+                    max_active_stacks: formData.get(`skills[${i}][max_active_stacks]`) ? parseInt(formData.get(`skills[${i}][max_active_stacks]`)) : 0,
+                    unique: formData.get(`skills[${i}][unique]`) === 'on' ? true : undefined,
+                    target: formData.get(`skills[${i}][target]`),
+                    target_req_effect: formData.get(`skills[${i}][target_req_effect]`) || undefined,
+                    effects: getEffectsFromContainer(i), // Harvest from UI
+                    requires: formData.get(`skills[${i}][requires]`) || undefined
+                });
+                // Add ID separately to avoid overwrite issues or just cleaner valid object
+                data.skills[i].id = formData.get(`skills[${i}][id]`);
+            }
+
+            try {
+                const res = await fetch('/api/characters', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (res.ok) {
+                    alert('Character saved!');
+                    form.reset();
+                    loadCharacters();
+                } else {
+                    alert('Error saving character');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Network error');
+            }
+        });
+
+        // Initial load
+        loadCharacters();
+
+        // Add listeners to update dropdowns
+        document.querySelectorAll('input[name*="[id]"], input[name*="[name]"]').forEach(input => {
+            input.addEventListener('input', updateRequiresDropdowns);
+        });
+    </script>
+</body>
+
+</html>

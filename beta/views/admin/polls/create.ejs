@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Poll - Naruto Arena Admin</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        .admin-container {
+            width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 150px;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            cursor: pointer;
+            background: #eee;
+            border: 1px solid #999;
+            text-decoration: none;
+            color: black;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <h1>Create New Poll</h1>
+        <form action="/admin/polls/create" method="POST">
+            <div class="form-group">
+                <label>Question:</label>
+                <input type="text" name="question" required>
+            </div>
+            <div class="form-group">
+                <label>Options (one per line):</label>
+                <textarea name="options" required></textarea>
+            </div>
+            <button type="submit" class="btn">Create Poll</button>
+            <a href="/admin/polls" class="btn">Cancel</a>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit News Post - Naruto Arena Admin</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <!-- Quill.js Rich Text Editor -->
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <style>
+        .admin-container {
+            width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        #editor-container {
+            height: 300px;
+            background: white;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            cursor: pointer;
+            background: #eee;
+            border: 1px solid #999;
+            text-decoration: none;
+            color: black;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: #4a90d9;
+            color: white;
+            border-color: #3a7bc0;
+        }
+
+        .ql-toolbar {
+            background: #f5f5f5;
+        }
+
+        .post-meta {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <h1>Edit News Post</h1>
+        <div class="post-meta">
+            Created by <strong>
+                <%= post.author %>
+            </strong> on <%= new Date(post.createdAt).toLocaleString() %>
+        </div>
+        <form id="news-form" action="/admin/news/edit/<%= post.id %>" method="POST">
+            <div class="form-group">
+                <label>Title:</label>
+                <input type="text" name="title" value="<%= post.title %>" required>
+            </div>
+            <div class="form-group">
+                <label>Content:</label>
+                <div id="editor-container"></div>
+                <input type="hidden" name="content" id="content-field">
+            </div>
+            <div style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="/admin/news" class="btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Quill.js -->
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    <script>
+        // Initialize Quill editor
+        var quill = new Quill('#editor-container', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    ['link', 'image'],
+                    ['clean']
+                ]
+            }
+        });
+
+        // Load existing content
+        quill.root.innerHTML = <%- JSON.stringify(post.content) %>;
+
+        // Before form submit, copy Quill content to hidden field
+        document.getElementById('news-form').addEventListener('submit', function (e) {
+            var content = quill.root.innerHTML;
+            if (content === '<p><br></p>') {
+                e.preventDefault();
+                alert('Please enter some content for the news post.');
+                return false;
+            }
+            document.getElementById('content-field').value = content;
+        });
+    </script>
+</body>
+
+</html>

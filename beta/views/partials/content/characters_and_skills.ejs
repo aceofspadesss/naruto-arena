@@ -1,0 +1,67 @@
+<div
+    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:auto;">
+    <div
+        style="padding: 0px 0px 0px 0px;  height:auto; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+        <h1>Characters & Skills</h1><br><a href='/'>Naruto Arena</a> > <a href='/game-manual/'>Game manual</a> > <h2>
+            Characters & Skills</h2><br><br>
+
+
+        <center>
+        </center>
+
+        <center>
+            <% characters.forEach(function(character) { // Generate URL-friendly slug from character name const
+                slug=character.name.toLowerCase().replace(/\s+/g, '-' ).replace(/[^a-z0-9-]/g, '' ); %>
+                <div style="width:70%;" align="left">
+                    <a href="/<%= slug %>/">
+                        <h2>
+                            <%= character.name %>
+                        </h2>
+                    </a>
+                    <div class="dots"></div>
+                    <div class="color2" align="left" style="padding:3px;">
+                        <img class="border" align="left"
+                            src="/game/images/characters/<%= character.id %>/avatarselection.jpg" hspace="5" vspace="1">
+                        <%= character.description %><br clear="all">
+                    </div>
+                    <div class="dots"></div>
+                    <div align="right">
+                        <a href="/<%= slug %>/">
+                            <h6>Go to the <%= character.name %> page</h6>
+                        </a>
+                    </div>
+                </div><br />
+                <% }); %>
+
+
+
+                    <center>
+                        <div style="width:69%;">
+
+
+                        </div>
+
+
+
+
+                    </center> <br><br><br>
+                    <div class="dots"></div>
+                    <div class="nothing">
+                        Pagename: <b>Characters & Skills</b><br>
+                        Description: Naruto Arena focuses on characters and skills. In this guide you will see all of
+                        them plus you are able to discuss about them.<br>
+                        Related subjects: <h3>characters & skills</h3>, <h3>characters</h3>, <h3>skills</h3>, <h3>
+                            character</h3>, <h3>skill</h3><br><br>
+                        Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+                        The holders of the copyrighted and/or trademarked material appearing on this site are as
+                        follows:<br>
+                        NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
+                        <a href="/privacy-policy/" class="con">Privacy policy</a> -
+                        <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+                        <a href="/terms-of-use/" class="con">Terms of use</a>
+                    </div>
+                    <div class="dots"></div><br>
+    </div>
+</div>
+</div>
+</div>
