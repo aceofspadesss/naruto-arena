@@ -706,6 +706,7 @@
                 <option value="remove_chakra">Remove Chakra</option>
                 <option value="drain_chakra">Drain Chakra</option>
                 <option value="disable_damage_reduction">Disable Dmg Reduct</option>
+                <option value="disable_invulnerable">Disable Invuln</option>
             `;
             // Default to damage or existing
             const initialType = effect.type || 'damage';
@@ -721,6 +722,7 @@
                 <option value="ally">One Ally</option>
                 <option value="all">All Characters</option>
                 <option value="all_allies">All Allies</option>
+                <option value="random_enemy">Random Enemy</option>
             `;
             targetSelect.value = effect.target || 'enemy';
 
@@ -769,7 +771,7 @@
                     inputsDiv.appendChild(amt);
                 }
 
-                if (['damage', 'aoe_damage', 'affliction_damage', 'heal', 'stun', 'damage_reduction', 'damage_boost', 'invulnerable', 'skill_unlock', 'target_transform', 'disable_damage_reduction', 'target_restrict_marked', 'remove_chakra', 'drain_chakra', 'mark'].includes(type)) {
+                if (['damage', 'aoe_damage', 'affliction_damage', 'heal', 'stun', 'damage_reduction', 'damage_boost', 'invulnerable', 'skill_unlock', 'target_transform', 'disable_damage_reduction', 'disable_invulnerable', 'target_restrict_marked', 'remove_chakra', 'drain_chakra', 'mark'].includes(type)) {
                     const dur = document.createElement('input');
                     dur.type = 'number';
                     dur.placeholder = 'Duration (Rounds)';

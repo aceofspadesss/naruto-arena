@@ -214,7 +214,7 @@ class BattleEngine {
                 const resolved = resolveTargetId(action.targetId);
                 if (resolved && resolved.target === "enemy") {
                     // Check invuln
-                    if (EffectSystem.hasEffectType(enemy.activeEffects[resolved.index], "invulnerable")) {
+                    if (EffectSystem.hasEffectType(enemy.activeEffects[resolved.index], "invulnerable") && !EffectSystem.hasEffectType(enemy.activeEffects[resolved.index], "disable_invulnerable")) {
                         // Blocked
                     } else {
                         targetOpts.push({ team: "enemy", index: resolved.index });
@@ -227,7 +227,7 @@ class BattleEngine {
             } else {
                 // All Enemies
                 enemy.health.forEach((h, idx) => {
-                    if (h > 0 && !EffectSystem.hasEffectType(enemy.activeEffects[idx], "invulnerable")) {
+                    if (h > 0 && !(EffectSystem.hasEffectType(enemy.activeEffects[idx], "invulnerable") && !EffectSystem.hasEffectType(enemy.activeEffects[idx], "disable_invulnerable"))) {
                         targetOpts.push({ team: "enemy", index: idx });
                     }
                 });
@@ -251,7 +251,7 @@ class BattleEngine {
             });
         } else if (effect.target === "all") {
             enemy.health.forEach((h, idx) => {
-                if (h > 0 && !EffectSystem.hasEffectType(enemy.activeEffects[idx], "invulnerable")) {
+                if (h > 0 && !(EffectSystem.hasEffectType(enemy.activeEffects[idx], "invulnerable") && !EffectSystem.hasEffectType(enemy.activeEffects[idx], "disable_invulnerable"))) {
                     targetOpts.push({ team: "enemy", index: idx });
                 }
             });
@@ -262,10 +262,19 @@ class BattleEngine {
             // ...
             if (skill.target_req_effect) {
                 enemy.health.forEach((h, idx) => {
-                    if (h > 0 && EffectSystem.hasMark(enemy.activeEffects[idx], skill.target_req_effect, actor.id) && !EffectSystem.hasEffectType(enemy.activeEffects[idx], "invulnerable")) {
+                    if (h > 0 && EffectSystem.hasMark(enemy.activeEffects[idx], skill.target_req_effect, actor.id) && !(EffectSystem.hasEffectType(enemy.activeEffects[idx], "invulnerable") && !EffectSystem.hasEffectType(enemy.activeEffects[idx], "disable_invulnerable"))) {
                         targetOpts.push({ team: "enemy", index: idx });
                     }
                 });
+            }
+        } else if (effect.target === "random_enemy") {
+            const alive = [];
+            enemy.health.forEach((h, idx) => {
+                if (h > 0) alive.push(idx);
+            });
+            if (alive.length > 0) {
+                const pick = alive[Math.floor(Math.random() * alive.length)];
+                targetOpts.push({ team: "enemy", index: pick });
             }
         }
 
@@ -378,7 +387,7 @@ class BattleEngine {
     static findFirstValidEnemy(enemy) {
         return enemy.health.findIndex((h, idx) => {
             if (h <= 0) return false;
-            return !EffectSystem.hasEffectType(enemy.activeEffects[idx], "invulnerable");
+            return !(EffectSystem.hasEffectType(enemy.activeEffects[idx], "invulnerable") && !EffectSystem.hasEffectType(enemy.activeEffects[idx], "disable_invulnerable"));
         });
     }
 
@@ -396,7 +405,7 @@ class BattleEngine {
 
         // Snapshot invulnerability state before duration decrement removes self-cast effects
         const invulSnapshot = nextPlayer.activeEffects
-            ? nextPlayer.activeEffects.map(charEffects => EffectSystem.hasEffectType(charEffects, "invulnerable"))
+            ? nextPlayer.activeEffects.map(charEffects => EffectSystem.hasEffectType(charEffects, "invulnerable") && !EffectSystem.hasEffectType(charEffects, "disable_invulnerable"))
             : [false, false, false];
 
         // Process Active Effects (DoTs) on the Active Player

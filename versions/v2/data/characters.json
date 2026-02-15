@@ -1117,46 +1117,110 @@
   {
     "id": "29",
     "name": "Yamanaka Ino",
-    "description": "Ino, as a member of the Yamanaka clan, can control the minds of others. She can either enter minds, or control a persons movements.",
+    "description": "Ino, as a member of the Yamanaka clan, can control the minds of others. She can either enter minds, or disrupt a persons movements.",
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
+        "name": "Change of Heart",
+        "description": "Ino takes over the mind of an opponent. During this time the target can not be defended or preform a skill. The technique lasts three rounds.",
+        "chakra": "44",
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "stun",
+            "target": "enemy",
+            "duration": 3
+          },
+          {
+            "type": "disable_damage_reduction",
+            "target": "enemy",
+            "duration": 3,
+            "hidden": true
+          },
+          {
+            "type": "skill_unlock",
+            "target": "self",
+            "duration": 3,
+            "hidden": true
+          },
+          {
+            "type": "disable_invulnerable",
+            "target": "enemy",
+            "duration": 3,
+            "hidden": true
+          }
+        ],
+        "id": "134"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Art of the Valentine",
+        "description": "Requires Change of Heart. Performs a simple attack with the controlled body. The attack deals 25 damage to the enemy.",
         "chakra": "0",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 25
+          }
+        ],
+        "requires": "134",
+        "id": "135"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Mind Body Disturbance Technique",
+        "description": "The target will attack a random enemy teammate for 25 damage. This damage can not be defended. During this time he is not able to preform a skill or be defended.",
+        "chakra": "40",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "random_enemy",
+            "amount": 25
+          },
+          {
+            "type": "stun",
+            "target": "enemy",
+            "duration": 1
+          },
+          {
+            "type": "disable_damage_reduction",
+            "target": "enemy",
+            "duration": 1,
+            "hidden": true
+          },
+          {
+            "type": "disable_invulnerable",
+            "target": "enemy",
+            "duration": 1,
+            "hidden": true
+          }
+        ],
+        "id": "136"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Ino Replacement Technique",
+        "description": "Makes Ino invulnerable for the next round.",
         "chakra": "0",
-        "cooldown": 0,
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "137"
       }
     ],
-    "locked": true
+    "locked": false
   },
   {
     "id": "15",
