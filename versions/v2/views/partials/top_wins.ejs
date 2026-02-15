@@ -1,0 +1,10 @@
+<!-- Top 10 Most Wins Partial -->
+<h4>Top 10 Most Wins</h4><br>
+
+<% if (topWins && topWins.length > 0) { %>
+<% topWins.forEach((player, index) => { %>
+<%= index + 1 %>: <a href="/profile/<%= player.username %>"><%= player.username %></a> <%= player.wins %> wins<br>
+<% }); %>
+<% } else { %>
+No players with wins yet.<br>
+<% } %>

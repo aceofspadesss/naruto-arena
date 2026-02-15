@@ -1,0 +1,53 @@
+<div style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
+						<div style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+						<h1>Search</h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <h2>Search</h2><br><br>
+
+
+<center>
+</center>
+
+<script language="javascript">
+
+function gosearch(){
+	var searchvalue = document.searchform.searchquery.value;
+	if (searchvalue != ""){
+		var completeurl = "/search/" + searchvalue + "/";
+	}else{
+		var completeurl = "/search/";
+	}
+	window.location = completeurl;
+}
+
+</script>
+<br>
+<center>This searchfunction searches trough the content of the entire website.<br>
+- Please make sure that your keyword contains atleast 4 characters.<br>
+- Please make sure that your keyword is not a spam word.
+</center><br>
+<center>
+<form method='POST' name='searchform'>
+<h5>SEARCH </h5> <input type="text" size="15" name="searchquery" value="" onKeyDown="if(event.keyCode==13) event.keyCode=9; if(event.keyCode==9) gosearch();">
+<a href="#" onClick="gosearch()"> <h6>GO</h6></a>
+</form>
+</center>
+
+
+
+							<br><br><br>
+							<div class="dots"></div>
+							<div class="nothing">
+							Pagename: <b>Search</b><br>
+							Description: The site can be searched with this function.<br>
+							Related subjects: <h3>search</h3>, <h3>find</h3>, <h3>finding</h3>, <h3>searching</h3><br><br>
+							Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series. 
+							The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+							NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
+							<a href="/privacy-policy/" class="con">Privacy policy</a> - 
+							<a href="/legal-disclaimer/" class="con">Legal disclaimer</a> - 
+							<a href="/terms-of-use/" class="con">Terms of use</a>
+							</div>
+							<div class="dots"></div><br>
+						</div>
+					</div>
+				</div>
+			</div>

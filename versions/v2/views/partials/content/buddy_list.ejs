@@ -1,0 +1,98 @@
+<div
+    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
+    <div
+        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+        <h1>Buddy list</h1><br>
+        <a href='/'>Naruto Arena</a> > <a href='/control-panel'>Control panel</a> > <a href='/buddy-list'>Buddy
+            list</a><br><br>
+
+        <!-- Ignoring the ad banner as requested -->
+        <br>
+
+        <div style="margin-bottom: 20px;">
+            The Buddy List is a nice way to make friends on Naruto Arena. You can keep an eye on your friends'
+            online/offline status right here. All friends are of course other Naruto Arena members.
+        </div>
+
+        <% if (typeof error !=='undefined' && error) { %>
+            <div style="color: red; font-weight: bold; margin-bottom: 10px; text-align: center;">
+                <%= error %>
+            </div>
+            <% } %>
+                <% if (typeof message !=='undefined' && message) { %>
+                    <div style="color: green; font-weight: bold; margin-bottom: 10px; text-align: center;">
+                        <%= message %>
+                    </div>
+                    <% } %>
+
+                        <div style="margin-bottom: 20px; color: #808080; font-size: 10px; text-align: center;">
+                            There are currently <%= buddies.filter(b=> b.isOnline).length %> buddies online of <%=
+                                    buddies.length %> total buddies.
+                        </div>
+
+                        <table width="100%" cellspacing="0" cellpadding="3" style="border-top: 1px dotted #CCCCCC;">
+                            <tr style="background-color: #F0F0F0; font-weight: bold;">
+                                <td width="20"></td>
+                                <td>Username</td>
+                                <td>Last activity</td>
+                                <td>Last online</td>
+                                <td align="center">Options</td>
+                            </tr>
+                            <% buddies.forEach((buddy, index)=> { %>
+                                <tr>
+                                    <td><img src="/images/layout/<%= buddy.isOnline ? 'online' : 'offline' %>.gif"
+                                            alt="<%= buddy.isOnline ? 'online' : 'offline' %>"></td>
+                                    <td>
+                                        <%= buddy.username %>
+                                    </td>
+                                    <td>
+                                        <%= buddy.lastActivity %>
+                                    </td>
+                                    <td style="color: #808080; font-style: italic;">
+                                        <%= buddy.lastOnline %>
+                                    </td>
+                                    <td align="center">
+                                        <a href="/private-messages?view=compose&receiver=<%= buddy.username %>"
+                                            style="text-decoration: none; color: #F89700; font-weight: bold;">[Message]</a>
+
+                                        <form action="/buddy-list/delete" method="POST" style="display:inline;">
+                                            <input type="hidden" name="id" value="<%= buddy.id %>">
+                                            <input type="submit" value="[Delete]"
+                                                style="border:none; background:none; color: red; font-weight: bold; cursor:pointer; padding: 0; text-decoration: none;">
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" style="border-bottom: 1px dotted #CCCCCC; height: 1px;"></td>
+                                </tr>
+                                <% }); %>
+                        </table>
+
+                        <br>
+                        <div style="margin-bottom: 10px;">
+                            <span style="color: #F89700; font-weight: bold;">[Message]</span> Send Private Message
+                            &nbsp;&nbsp;&nbsp;
+                            <span style="color: red; font-weight: bold;">[Delete]</span> Delete from buddylist
+                        </div>
+
+                        <br>
+                        <table width="100%">
+                            <tr>
+                                <td valign="top" width="60%">
+                                    <b>Adding a buddy:</b><br>
+                                    <div style="color: #808080;">Enter the username of the member you wish to add to
+                                        your buddy-list on the right.</div>
+                                </td>
+                                <td valign="top" align="right">
+                                    <form action="/buddy-list/add" method="post" style="margin: 0;">
+                                        <label for="add_buddy" style="color: #280092; font-weight: bold;">Add
+                                            buddy:</label><br>
+                                        <input type="text" id="add_buddy" name="username"
+                                            style="width: 150px; border: 1px solid #000; margin-bottom: 5px;"><br>
+                                        <input type="submit" value="Add buddy">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+    </div>
+</div>

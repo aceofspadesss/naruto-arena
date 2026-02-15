@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
-const path = require('path');
+const { dataPath } = require('../utils/paths');
 
-const POLLS_FILE = path.join(__dirname, '../../data/polls.json');
+const POLLS_FILE = dataPath('polls.json');
 
 const PollModel = {
     async getAll() {

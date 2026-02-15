@@ -1,0 +1,46 @@
+<div
+    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
+    <div
+        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+        <h1>News archive</h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <h2>News archive</h2>
+        <br><br>
+
+
+        <center>
+        </center>
+
+        <% if (Object.keys(groupedNews).length> 0) { %>
+            <% for (const groupKey in groupedNews) { %>
+                <h5>
+                    <%= groupKey %>
+                </h5><br>
+                <% groupedNews[groupKey].forEach(news=> { %>
+                    <img class='pre' src='/images/layout/pre.gif'> <a href="/<%= news.slug %>/"><u><%= news.title %></u></a>
+                    <h3>
+                        <%= news.formattedDate %>
+                    </h3> <br>
+                    <% }); %>
+                        <br>
+                        <% } %>
+                            <% } else { %>
+                                <p>No news found.</p>
+                                <% } %>
+                                    <div class="dots"></div>
+                                    <div class="nothing">
+                                        Pagename: <b>News archive</b><br>
+                                        Description: An archive of all the newsitems on Naruto Arena.<br>
+                                        Related subjects: <h3>news archive</h3>, <h3>archive</h3>, <h3>old news</h3>
+                                        <br><br>
+                                        Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+                                        The holders of the copyrighted and/or trademarked material appearing on this
+                                        site are as follows:<br>
+                                        NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
+                                        <a href="/privacy-policy/" class="con">Privacy policy</a> -
+                                        <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+                                        <a href="/terms-of-use/" class="con">Terms of use</a>
+                                    </div>
+                                    <div class="dots"></div><br>
+    </div>
+</div>
+</div>
+</div>

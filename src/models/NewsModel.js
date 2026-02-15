@@ -2,8 +2,9 @@ const fs = require('fs').promises;
 const path = require('path');
 const UserModel = require('./UserModel');
 const CommentModel = require('./CommentModel');
+const { dataPath } = require('../utils/paths');
 
-const NEWS_FILE = path.join(__dirname, '../../data/news.json');
+const NEWS_FILE = dataPath('news.json');
 
 const NewsModel = {
     async getAll() {

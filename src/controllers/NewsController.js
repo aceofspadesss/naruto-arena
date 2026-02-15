@@ -1,5 +1,6 @@
 const NewsModel = require('../models/NewsModel');
 const CommentModel = require('../models/CommentModel');
+const { publicPath } = require('../utils/paths');
 
 const NewsController = {
     // Admin: List all news
@@ -62,7 +63,7 @@ const NewsController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -76,7 +77,7 @@ const NewsController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {

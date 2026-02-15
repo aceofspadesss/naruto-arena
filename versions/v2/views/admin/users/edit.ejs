@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit User - Naruto Arena Admin</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        .admin-container {
+            width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            background: #eee;
+            border: 1px solid #999;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <h1>Edit User: <%= user.username %>
+        </h1>
+        <form action="/admin/users/edit/<%= user.id %>" method="POST">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="<%= user.username %>" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password (leave as is if no change desired, currently shown raw for
+                    simplicity):</label>
+                <input type="text" id="password" name="password" value="<%= user.password %>" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="role" name="role">
+                    <option value="member" <%=(user.role==='member' || !user.role) ? 'selected' : '' %>>Member</option>
+                    <option value="moderator" <%=user.role==='moderator' ? 'selected' : '' %>>Moderator</option>
+                    <option value="admin" <%=user.role==='admin' ? 'selected' : '' %>>Admin</option>
+                </select>
+            </div>
+            <button type="submit" class="btn">Update User</button>
+            <a href="/admin/users" class="btn" style="text-decoration: none; margin-left: 10px;">Cancel</a>
+        </form>
+    </div>
+</body>
+
+</html>

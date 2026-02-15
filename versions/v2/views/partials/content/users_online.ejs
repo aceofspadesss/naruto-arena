@@ -1,0 +1,54 @@
+<div
+    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
+    <div
+        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+        <h1>Users online</h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <h2>Users online</h2>
+        <br><br>
+
+
+        <center>
+        </center>
+
+
+        <% if (locations && locations.length> 0) { %>
+            <% locations.forEach(function(location) { %>
+                <fieldset>
+                    <legend>
+                        <%= location.title %>
+                    </legend>
+                    <%= location.users.length %> user(s) is/are browsing at <a href="<%= location.url %>" class="con">
+                            <%= location.title %>
+                        </a>.<br>
+                        <b>Members browsing this page are:</b><br>
+                        <% location.users.forEach(function(u, index) { %>
+                            <a href="/profile/<%= u.username %>/" class="con" alt="<%= u.username %>">
+                                <%= u.username %>
+                            </a>
+                            <%= index < location.users.length - 1 ? ', ' : '' %>
+                                <% }); %>
+                </fieldset>
+                <% }); %>
+                    <% } else { %>
+                        <p>No users currently online.</p>
+                        <% } %>
+
+                            <br><br><br>
+                            <div class="dots"></div>
+                            <div class="nothing">
+                                Pagename: <b>Users online</b><br>
+                                Description: Here can see all the users that are currently browsing Naruto Arena.<br>
+                                Related subjects: <h3>users online</h3>, <h3>browsing</h3>, <h3>online</h3>, <h3>last
+                                    online</h3>, <h3>active users</h3><br><br>
+                                Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+                                The holders of the copyrighted and/or trademarked material appearing on this site are as
+                                follows:<br>
+                                NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
+                                <a href="/privacy-policy/" class="con">Privacy policy</a> -
+                                <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+                                <a href="/terms-of-use/" class="con">Terms of use</a>
+                            </div>
+                            <div class="dots"></div><br>
+    </div>
+</div>
+</div>
+</div>

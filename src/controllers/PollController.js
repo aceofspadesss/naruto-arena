@@ -1,6 +1,7 @@
 const PollModel = require('../models/PollModel');
 const CommentModel = require('../models/CommentModel');
 const UserModel = require('../models/UserModel');
+const { publicPath } = require('../utils/paths');
 
 const PollController = {
     // Admin: List all polls
@@ -80,7 +81,7 @@ const PollController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -94,7 +95,7 @@ const PollController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {

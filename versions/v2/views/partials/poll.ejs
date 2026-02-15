@@ -1,0 +1,47 @@
+<% if (locals.poll) { %>
+    <h4>Poll</h4><br>
+    <% const totalVotes=poll.options.reduce((sum, opt)=> sum + opt.votes, 0);
+        const showForm = locals.user && !locals.hasVoted;
+        const pollSlug = poll.question.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        %>
+        <a href="/<%= pollSlug %>"><b>
+                <%= poll.question %>
+            </b></a><br>
+
+        <% if (showForm) { %>
+            <form action="/poll/vote/<%= poll.id %>" method="POST">
+                <% } %>
+
+                    <% poll.options.forEach((option, index)=> {
+                        const percent = totalVotes > 0 ? Math.round((option.votes / totalVotes) * 100) : 0;
+                        %>
+                        <div style="margin-bottom: 5px;">
+                            <% if (showForm) { %>
+                                <input type="radio" name="optionIndex" value="<%= index %>" id="opt-<%= index %>"
+                                    style="vertical-align: middle;">
+                                <label for="opt-<%= index %>">
+                                    <%= option.text %> (<%= option.votes %>) (<%= percent %>%)
+                                </label>
+                                <% } else { %>
+                                    <%= option.text %> (<%= option.votes %>) (<%= percent %>%)
+                                                <% } %>
+                                                    <div class="pollbar" style="width:<%= percent %>%;"></div>
+                        </div>
+                        <% }); %>
+
+                            <% if (showForm) { %>
+                                <br>
+                                <input type="submit" value="Vote" style="font-size: 10px;">
+            </form>
+            <% } %>
+
+                <img class="pre" src="/images/layout/prenav.gif"> Amount of votes: <%= totalVotes %><br>
+                    <img class="pre" src="/images/layout/prenav.gif"> Poll created on: <%= new
+                        Date(poll.createdAt).toLocaleDateString() %><br>
+                        <div style="cursor: pointer;">
+                            <a href="/<%= pollSlug %>" style="text-decoration: none; color: inherit;">
+                                <img class="pre" src="/images/layout/prenav.gif"> Comments: <%= locals.pollCommentCount
+                                    || 0 %>
+                            </a>
+                        </div>
+                        <% } %>

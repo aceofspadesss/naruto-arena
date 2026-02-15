@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Balance Changes - Naruto Arena Admin</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <!-- Quill.js Rich Text Editor -->
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <style>
+        .admin-container {
+            width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        #editor-container {
+            height: 400px;
+            background: white;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            cursor: pointer;
+            background: #eee;
+            border: 1px solid #999;
+            text-decoration: none;
+            color: black;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: #4a90d9;
+            color: white;
+            border-color: #3a7bc0;
+        }
+
+        .ql-toolbar {
+            background: #f5f5f5;
+        }
+
+        .post-meta {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .nav-links {
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <div class="nav-links">
+            <a href="/" class="btn">← Back to Site</a>
+            <a href="/admin/news" class="btn">News</a>
+            <a href="/admin/users" class="btn">Users</a>
+            <a href="/admin/polls" class="btn">Polls</a>
+        </div>
+
+        <h1>Edit Balance Changes</h1>
+
+        <% if (success) { %>
+            <div class="success-message">
+                <%= success %>
+            </div>
+            <% } %>
+
+                <% if (updatedAt) { %>
+                    <div class="post-meta">
+                        Last updated: <strong>
+                            <%= new Date(updatedAt).toLocaleString() %>
+                        </strong>
+                    </div>
+                    <% } %>
+
+                        <form id="balance-form" action="/admin/balance-changes" method="POST">
+                            <div class="form-group">
+                                <label>Content:</label>
+                                <div id="editor-container"></div>
+                                <input type="hidden" name="content" id="content-field">
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <a href="/latest-balance-changes" class="btn" target="_blank">View Page</a>
+                            </div>
+                        </form>
+    </div>
+
+    <!-- Store content in a script tag to avoid EJS parsing issues -->
+    <script id="initial-content" type="application/json"><%- JSON.stringify(content) %></script>
+
+    <!-- Quill.js -->
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    <script>
+        // Initialize Quill editor
+        var quill = new Quill('#editor-container', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    ['link'],
+                    ['clean']
+                ]
+            }
+        });
+
+        // Load existing content from the JSON script tag
+        var initialContent = JSON.parse(document.getElementById('initial-content').textContent || '""');
+        if (initialContent) {
+            quill.root.innerHTML = initialContent;
+        }
+
+        // Before form submit, copy Quill content to hidden field
+        document.getElementById('balance-form').addEventListener('submit', function (e) {
+            var content = quill.root.innerHTML;
+            if (content === '<p><br></p>') {
+                e.preventDefault();
+                alert('Please enter some content.');
+                return false;
+            }
+            document.getElementById('content-field').value = content;
+        });
+    </script>
+</body>
+
+</html>

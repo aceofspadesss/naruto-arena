@@ -1,0 +1,10 @@
+<!-- Top 10 Ladder Partial -->
+<h4>Top 10 Ladder</h4><br>
+
+<% if (ladderTop10 && ladderTop10.length > 0) { %>
+<% ladderTop10.forEach((player, index) => { const streak = player.streak || 0; const streakStr = streak >= 0 ? "+" + streak : "" + streak; %>
+<%= index + 1 %>: <a href="/profile/<%= player.username %>"><%= player.username %></a> <%= player.wins %> - <%= player.losses %> (<%= streakStr %>)<br>
+<% }); %>
+<% } else { %>
+No ranked players yet.<br>
+<% } %>

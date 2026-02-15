@@ -6,13 +6,14 @@ const MessageModel = require('../models/MessageModel');
 const BalanceChangesModel = require('../models/BalanceChangesModel');
 const SearchService = require('../services/SearchService');
 const CharacterModel = require('../models/CharacterModel');
+const { publicPath } = require('../utils/paths');
 
 const PageController = {
     // ... (existing code)
     search: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -26,7 +27,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -71,7 +72,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -101,7 +102,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -132,7 +133,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -164,7 +165,7 @@ const PageController = {
         const EmailService = require('../services/EmailService');
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -226,7 +227,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -265,7 +266,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -330,7 +331,7 @@ const PageController = {
     gameManual: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -344,7 +345,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -369,7 +370,7 @@ const PageController = {
     latestBalanceChanges: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -383,7 +384,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -411,7 +412,7 @@ const PageController = {
     faq: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -425,7 +426,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -450,7 +451,7 @@ const PageController = {
     news: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -464,7 +465,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -492,7 +493,7 @@ const PageController = {
     contact: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -506,7 +507,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -533,7 +534,7 @@ const PageController = {
     memberList: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -547,7 +548,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -601,7 +602,7 @@ const PageController = {
     usersOnline: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
         const BattleModel = require('../models/BattleModel');
 
@@ -616,7 +617,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -683,7 +684,7 @@ const PageController = {
     privacyPolicy: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -697,7 +698,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -722,7 +723,7 @@ const PageController = {
     legalDisclaimer: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -736,7 +737,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -761,7 +762,7 @@ const PageController = {
     termsOfUse: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -775,7 +776,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -800,7 +801,7 @@ const PageController = {
     theBasics: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -814,7 +815,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -839,7 +840,7 @@ const PageController = {
     theNinjaLadder: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -853,7 +854,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -878,7 +879,7 @@ const PageController = {
     sitemap: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -892,7 +893,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -917,7 +918,7 @@ const PageController = {
     pollArchive: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -931,7 +932,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -995,7 +996,7 @@ const PageController = {
     ninjaLadder: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1009,7 +1010,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -1060,7 +1061,7 @@ const PageController = {
     newsArchive: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1074,7 +1075,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -1149,7 +1150,7 @@ const PageController = {
     charactersAndSkills: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1163,7 +1164,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -1213,7 +1214,7 @@ const PageController = {
             return next();
         }
 
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1227,7 +1228,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -1265,7 +1266,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1300,7 +1301,7 @@ const PageController = {
         // For now, let's rely on the view's onerror handler or simple logic if avatar property exists
 
         // Check for player card
-        const playerCardPath = path.join(__dirname, '../../public/images/myplayercard', `${profileUser.id}.jpg`);
+        const playerCardPath = publicPath('images', 'myplayercard', `${profileUser.id}.jpg`);
         const hasPlayerCard = fs.existsSync(playerCardPath);
 
         res.render('profile', {
@@ -1327,7 +1328,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1341,7 +1342,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -1408,7 +1409,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1422,7 +1423,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -1494,7 +1495,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1508,7 +1509,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -1567,7 +1568,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1581,7 +1582,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -1595,7 +1596,7 @@ const PageController = {
         }
 
         // Get preset avatars
-        const presetDir = path.join(__dirname, '../../public/images/avatars/preset');
+        const presetDir = publicPath('images', 'avatars', 'preset');
         let allAvatars = [];
 
         try {
@@ -1615,7 +1616,7 @@ const PageController = {
         const presetAvatars = allAvatars.slice(startIndex, startIndex + avatarsPerPage);
 
         // Get current avatar
-        const userAvatarPath = path.join(__dirname, '../../public/images/avatars', `${user.id}.jpg`);
+        const userAvatarPath = publicPath('images', 'avatars', `${user.id}.jpg`);
         let currentAvatar = user.avatar || '/images/avatars/default.jpg';
 
         // Check if user has a custom avatar
@@ -1661,7 +1662,7 @@ const PageController = {
         const path = require('path');
 
         // Verify the preset avatar exists
-        const presetPath = path.join(__dirname, '../../public/images/avatars/preset', preset_avatar);
+        const presetPath = publicPath('images', 'avatars', 'preset', preset_avatar);
         try {
             await fs.promises.access(presetPath);
         } catch (e) {
@@ -1669,7 +1670,7 @@ const PageController = {
         }
 
         // Delete any existing custom avatar
-        const customAvatarPath = path.join(__dirname, '../../public/images/avatars', `${user.id}.jpg`);
+        const customAvatarPath = publicPath('images', 'avatars', `${user.id}.jpg`);
         try {
             await fs.promises.unlink(customAvatarPath);
         } catch (e) {
@@ -1701,7 +1702,7 @@ const PageController = {
         }
 
         const tempPath = req.file.path;
-        const targetPath = path.join(__dirname, '../../public/images/avatars', `${user.id}.jpg`);
+        const targetPath = publicPath('images', 'avatars', `${user.id}.jpg`);
 
         try {
             // Validate image dimensions (must be 75x75)
@@ -1741,7 +1742,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1756,7 +1757,7 @@ const PageController = {
 
         const statistics = UserModel.getStatistics();
         // Random screenshot selection
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -1799,7 +1800,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1813,7 +1814,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -1872,7 +1873,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -1886,7 +1887,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -1991,7 +1992,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg'; // default
 
         try {
@@ -2005,7 +2006,7 @@ const PageController = {
         }
 
         // Random screenshot selection
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg'; // default
 
         try {
@@ -2049,7 +2050,7 @@ const PageController = {
 
         const fs = require('fs');
         const path = require('path');
-        const headerDir = path.join(__dirname, '../../public/images/randomheader');
+        const headerDir = publicPath('images', 'randomheader');
         let randomHeaderImage = 'header1.jpg';
 
         try {
@@ -2063,7 +2064,7 @@ const PageController = {
         }
 
         const statistics = UserModel.getStatistics();
-        const screenshotDir = path.join(__dirname, '../../public/images/randomscreenshot');
+        const screenshotDir = publicPath('images', 'randomscreenshot');
         let randomScreenshot = 'battle1.jpg';
 
         try {
@@ -2077,7 +2078,7 @@ const PageController = {
         }
 
         // Check if player card exists
-        const playerCardPath = path.join(__dirname, '../../public/images/myplayercard', `${user.id}.jpg`);
+        const playerCardPath = publicPath('images', 'myplayercard', `${user.id}.jpg`);
         const hasPlayerCard = fs.existsSync(playerCardPath);
 
         res.render('my_player_card', {

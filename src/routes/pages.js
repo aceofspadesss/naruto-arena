@@ -11,11 +11,12 @@ const BalanceChangesController = require('../controllers/BalanceChangesControlle
 const checkRole = require('../middleware/checkRole');
 const UserModel = require('../models/UserModel');
 const MessageModel = require('../models/MessageModel');
+const { publicPath } = require('../utils/paths');
 
 // Multer configuration for avatar uploads
 const avatarStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '../../public/images/avatars'));
+        cb(null, publicPath('images', 'avatars'));
     },
     filename: (req, file, cb) => {
         // Will be renamed after validation in controller

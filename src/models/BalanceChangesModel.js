@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
-const path = require('path');
+const { dataPath } = require('../utils/paths');
 
-const BALANCE_CHANGES_FILE = path.join(__dirname, '../../data/balance_changes.json');
+const BALANCE_CHANGES_FILE = dataPath('balance_changes.json');
 
 const BalanceChangesModel = {
     async getContent() {
