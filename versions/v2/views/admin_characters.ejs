@@ -702,6 +702,7 @@
                 <option value="mark">Mark</option>
                 <option value="target_restrict_marked">Restrict: Marked Only</option>
                 <option value="health_set">Health Set</option>
+                <option value="health_reduce_percent">Health Reduce %</option>
                 <option value="remove_chakra">Remove Chakra</option>
                 <option value="drain_chakra">Drain Chakra</option>
                 <option value="disable_damage_reduction">Disable Dmg Reduct</option>
@@ -759,7 +760,7 @@
                 // Check against original effect to preserve values if type matches
                 const isOriginal = (type === initialType);
 
-                if (['damage', 'aoe_damage', 'affliction_damage', 'heal', 'damage_reduction', 'damage_boost', 'health_set', 'remove_chakra', 'drain_chakra', 'target_restrict_marked'].includes(type)) {
+                if (['damage', 'aoe_damage', 'affliction_damage', 'heal', 'damage_reduction', 'damage_boost', 'health_set', 'health_reduce_percent', 'remove_chakra', 'drain_chakra', 'target_restrict_marked'].includes(type)) {
                     const amt = document.createElement('input');
                     amt.type = 'number';
                     amt.placeholder = type === 'target_restrict_marked' ? 'Mark ID' : 'Amount';
@@ -768,7 +769,7 @@
                     inputsDiv.appendChild(amt);
                 }
 
-                if (['damage', 'aoe_damage', 'affliction_damage', 'stun', 'damage_reduction', 'damage_boost', 'invulnerable', 'skill_unlock', 'target_transform', 'disable_damage_reduction', 'target_restrict_marked', 'remove_chakra', 'drain_chakra', 'mark'].includes(type)) {
+                if (['damage', 'aoe_damage', 'affliction_damage', 'heal', 'stun', 'damage_reduction', 'damage_boost', 'invulnerable', 'skill_unlock', 'target_transform', 'disable_damage_reduction', 'target_restrict_marked', 'remove_chakra', 'drain_chakra', 'mark'].includes(type)) {
                     const dur = document.createElement('input');
                     dur.type = 'number';
                     dur.placeholder = 'Duration (Rounds)';

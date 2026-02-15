@@ -2,13 +2,13 @@
   {
     "id": "6",
     "name": "Uzumaki Naruto",
-    "description": "Using his signature move Shadow Clones, Naruto is able to perform powerful moves such as Uzumaki Naruto Combo and Rasengan.",
+    "description": "Using his signature move, Shadow Clones, Naruto is able to perform powerful moves such as the Uzumaki Naruto Combo and Rasengan.",
     "skills": [
       {
         "name": "Shadow Clones",
-        "description": "Naruto makes mutliple shadow clones hiding his true body. During this time, all damage done to Naruto has a 50 percent reduction. This effect lasts 5 rounds.",
+        "description": "Naruto makes mutliple shadow clones hiding his true body. During this time, all damage done to Naruto has a 50 percent reduction. This effect lasts 4 rounds.",
         "chakra": "4",
-        "cooldown": 5,
+        "cooldown": 4,
         "max_active_stacks": 0,
         "target": "self",
         "effects": [
@@ -16,7 +16,7 @@
             "type": "damage_reduction",
             "target": "self",
             "amount": 50,
-            "duration": 5
+            "duration": 4
           }
         ],
         "id": "21"
@@ -40,16 +40,16 @@
       },
       {
         "name": "Rasengan",
-        "description": "Deals 40 damage to a single opponent, and leaves it unable to preform a skill for 1 round. Requires Shadow Clones.",
-        "chakra": "33",
-        "cooldown": 0,
+        "description": "Deals 45 damage to a single opponent, and the target is unable to perform a skill for 1 round. Requires Shadow Clones.",
+        "chakra": "30",
+        "cooldown": 1,
         "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
           {
             "type": "damage",
             "target": "enemy",
-            "amount": 40
+            "amount": 45
           },
           {
             "type": "stun",
@@ -63,8 +63,8 @@
       {
         "name": "Sexy Technique",
         "description": "Makes Uzumaki Naruto invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
         "max_active_stacks": 0,
         "target": "self",
         "effects": [
@@ -89,6 +89,7 @@
         "description": "Sakura goes on a rampage, improving her K.O. Punch by 200 percent and taking 50 percent less damage for the upcoming 5 rounds.",
         "chakra": "00",
         "cooldown": 5,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -113,6 +114,7 @@
         "description": "Deals 15 damage and knocks the target unconscious leaving the target unable to perform a skill for 1 round.",
         "chakra": "1",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
           {
@@ -133,6 +135,7 @@
         "description": "Sakura cures a teammember for 30 health points.",
         "chakra": "3",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "ally",
         "effects": [
           {
@@ -146,8 +149,9 @@
       {
         "name": "Sakura Replacement Technique",
         "description": "Makes Haruno Sakura invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -158,18 +162,20 @@
         ],
         "id": "106"
       }
-    ]
+    ],
+    "locked": false
   },
   {
     "id": "13",
     "name": "Uchiha Sasuke",
-    "description": "The sole survivor of the Uchiha clan massacre. Using his sharingan Sasuke is able to anticipate incoming attacks and is able to do advanced offensive moves.",
+    "description": "The sole survivor of the Uchiha clan massacre. Using his sharingan, Sasuke is able to anticipate incoming attacks and is capable of advanced offensive moves.",
     "skills": [
       {
         "name": "Sasuke Replacement Technique",
         "description": "Makes Uchiha Sasuke invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -182,16 +188,17 @@
       },
       {
         "name": "Sharingan",
-        "description": "Sasuke activates his sharingan, all damage versus Sasuke is reduced by 50 percent. Lasts 5 rounds.",
+        "description": "Sasuke activates his sharingan, all damage versus Sasuke is reduced by 50 percent. Lasts 4 rounds.",
         "chakra": "2",
-        "cooldown": 5,
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
             "type": "damage_reduction",
             "target": "self",
             "amount": 50,
-            "duration": 5
+            "duration": 4
           }
         ],
         "id": "56"
@@ -199,8 +206,9 @@
       {
         "name": "Chidori",
         "description": "Deals 60 damage to the target. Requires sharingan to perform.",
-        "chakra": "33",
-        "cooldown": 0,
+        "chakra": "30",
+        "cooldown": 1,
+        "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
           {
@@ -217,6 +225,7 @@
         "description": "Deals 30 damage to the target.",
         "chakra": "10",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
           {
@@ -227,18 +236,20 @@
         ],
         "id": "58"
       }
-    ]
+    ],
+    "locked": false
   },
   {
     "id": "19",
     "name": "Haku",
-    "description": "Haku is the sole survivor of his clan, with the bloodline ability to control water. This ability allows him to capture all of his enemies and hurt them all at once.",
+    "description": "Haku is the sole survivor of his clan and is the subordinate of Momochi Zabuza. His bloodline ability allows him to potentially disable and attack all his enemies.",
     "skills": [
       {
         "name": "Water Needles",
         "description": "Deals 30 damage to the target(s). This skill becomes area of effect when Demonic Ice Mirrors is activated.",
         "chakra": "20",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
           {
@@ -254,6 +265,7 @@
         "description": "Puts the target(s) in a coma leaving the target(s) unable to perform a skill for 2 rounds. This skill becomes area of effect when Demonic Ice Mirrors is activated.",
         "chakra": "30",
         "cooldown": 2,
+        "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
           {
@@ -266,28 +278,28 @@
       },
       {
         "name": "Demonic Ice Mirrors",
-        "description": "Haku creates Demonic Ice Mirrors for 5 rounds. During this time, Water Needles and Acupuncture become area of effect and damage done to Haku is reduced by 50 percent.",
-        "chakra": "432",
-        "cooldown": 6,
+        "description": "Haku creates Demonic Ice Mirrors for 3 rounds. During this time, Water Needles and Acupuncture become area of effect and Haku becomes invulnerable.",
+        "chakra": "32",
+        "cooldown": 5,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
-            "type": "damage_reduction",
+            "type": "invulnerable",
             "target": "self",
-            "amount": 50,
-            "duration": 5
+            "duration": 3
           },
           {
             "type": "target_transform",
             "target": "self",
-            "duration": 5,
+            "duration": 3,
             "skill_id": "79",
             "hidden": true
           },
           {
             "type": "target_transform",
             "target": "self",
-            "duration": 5,
+            "duration": 3,
             "skill_id": "80",
             "hidden": true
           }
@@ -297,8 +309,9 @@
       {
         "name": "Mirror Transfer",
         "description": "Makes Shiro Haku invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -309,18 +322,19 @@
         ],
         "id": "82"
       }
-    ]
+    ],
+    "locked": false
   },
   {
     "id": "1",
     "name": "Rock Lee",
-    "description": "Lee is a Taijutsu specialist. He has been trained by his sensei Gai, and is able to do extreme damage by opening chakra gates.",
+    "description": "Lee is a Taijutsu specialist. Under the study of Maito Gai he has learned how to open his chakra gates, vastly increasing the strength of his lotus technique.",
     "skills": [
       {
         "name": "Drunken Fist Style Taijutsu",
-        "description": "Starting this turn, Lee deals 45 damage to a single opponent over three rounds. During this time, all damage done to Lee is reduced by 50 percent.",
+        "description": "Starting this turn, Lee deals 45 damage to a single opponent over three rounds. During this time, all damage done to Lee is reduced by 66 percent.",
         "chakra": "10",
-        "cooldown": 3,
+        "cooldown": 2,
         "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
@@ -333,24 +347,24 @@
           {
             "type": "damage_reduction",
             "target": "self",
-            "amount": 50,
+            "amount": 66,
             "duration": 3
           }
         ],
         "id": "1"
       },
       {
-        "name": "5 Gates opening",
-        "description": "Improves lotus to a total of 400 percent damage, and makes Lee invulnerable for the upcoming two rounds. Lee his health drops to 10.",
-        "chakra": "100",
+        "name": "5th Gate Opening",
+        "description": "Improves lotus to a total of 400 percent damage, and makes Lee invulnerable for the upcoming two rounds. Lee looses 80 percent of his current health.",
+        "chakra": "10",
         "cooldown": 2,
         "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
-            "type": "health_set",
+            "type": "health_reduce_percent",
             "target": "self",
-            "amount": 10
+            "amount": 80
           },
           {
             "type": "invulnerable",
@@ -370,7 +384,7 @@
       },
       {
         "name": "Lotus",
-        "description": "Deals 30 damage to an opponent (Please note that does skill does 120 damage when gate opening is activated).",
+        "description": "Deals 30 damage to an opponent (Please note that this skill does 120 damage when 5th Gate Opening is in effect).",
         "chakra": "10",
         "cooldown": 0,
         "max_active_stacks": 0,
@@ -387,8 +401,8 @@
       {
         "name": "Evasion",
         "description": "Makes Rock Lee invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
         "max_active_stacks": 0,
         "target": "self",
         "effects": [
@@ -413,6 +427,7 @@
         "description": "Tenten prepares for her attacks. Lasts 5 rounds.",
         "chakra": "0",
         "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -426,8 +441,9 @@
       {
         "name": "Twin Rising Dragons",
         "description": "Deals 30 damage to all enemy targets. Requires Summoning Twin Rising Dragons.",
-        "chakra": "11",
+        "chakra": "10",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "all_enemies",
         "effects": [
           {
@@ -441,15 +457,21 @@
       },
       {
         "name": "Twin Rising Dragons Trap",
-        "description": "Traps the entire enemy team for one round. Requires Summoning Twin Rising Dragons.",
+        "description": "Traps the entire enemy team for one round and damages the team for 5 damage. Requires Summoning Twin Rising Dragons.",
         "chakra": "1",
-        "cooldown": 1,
+        "cooldown": 3,
+        "max_active_stacks": 0,
         "target": "all_enemies",
         "effects": [
           {
             "type": "stun",
             "target": "all_enemies",
             "duration": 1
+          },
+          {
+            "type": "damage",
+            "target": "all_enemies",
+            "amount": 5
           }
         ],
         "requires": "130",
@@ -458,8 +480,9 @@
       {
         "name": "Tenten Replacement Technique",
         "description": "Makes Tenten invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -470,7 +493,8 @@
         ],
         "id": "133"
       }
-    ]
+    ],
+    "locked": false
   },
   {
     "id": "4",
@@ -479,16 +503,16 @@
     "skills": [
       {
         "name": "Gentle Fist Taijutsu",
-        "description": "Neji attack his opponent for 2 rounds, dealing 25 damage per round.",
+        "description": "Neji attacks his opponent for 2 rounds, dealing 20 damage per round.",
         "chakra": "10",
-        "cooldown": 2,
+        "cooldown": 1,
         "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
           {
             "type": "damage",
             "target": "enemy",
-            "amount": 25,
+            "amount": 20,
             "duration": 2
           }
         ],
@@ -496,7 +520,7 @@
       },
       {
         "name": "Eight Trigram Palms Heavenly Spin",
-        "description": "Deals 15 damage to all enemies and makes Hyuuga Neji invulnerable for the next round.",
+        "description": "This skill deals 15 damage to all enemies and makes Hyuuga Neji invulnerable for one round.",
         "chakra": "20",
         "cooldown": 1,
         "max_active_stacks": 0,
@@ -517,8 +541,8 @@
         "id": "13"
       },
       {
-        "name": "Eight Trigrams Sixty-Four Palms Technique",
-        "description": "Removes 6 chakra from the enemy.",
+        "name": "Eight Trigram Sixty-Four Palms Technique",
+        "description": "Neji closes all of his opponents chakra points. The target loses 5 chakra and is unable to defend for one round.",
         "chakra": "120",
         "cooldown": 0,
         "max_active_stacks": 0,
@@ -527,7 +551,7 @@
           {
             "type": "remove_chakra",
             "target": "enemy",
-            "amount": 6,
+            "amount": 5,
             "duration": 1,
             "hidden": true
           }
@@ -537,8 +561,8 @@
       {
         "name": "Neji Replacement Technique",
         "description": "Makes Hyuuga Neji invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
         "max_active_stacks": 0,
         "target": "self",
         "effects": [
@@ -560,16 +584,16 @@
     "skills": [
       {
         "name": "Armor of Sand",
-        "description": "Gaara activates his armor of sand, all damage versus Gaara is reduced by 50 percent. Lasts 5 rounds.",
-        "chakra": "00",
-        "cooldown": 5,
+        "description": "Gaara activates his armor of sand, all damage versus Gaara is reduced by 75 percent. Lasts 5 rounds.",
+        "chakra": "0",
+        "cooldown": 4,
         "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
             "type": "damage_reduction",
             "target": "self",
-            "amount": 50,
+            "amount": 75,
             "duration": 5
           }
         ],
@@ -577,7 +601,7 @@
       },
       {
         "name": "Desert Coffin",
-        "description": "When the target is in Desert Coffin, he is unable to defend or use a skill for one round. Desert Coffin enables Desert Graveyard on the target.",
+        "description": "When the target is in Desert Coffin, he is unable to defend or use a skill for two round. Desert Coffin enables Desert Graveyard on the target.",
         "chakra": "30",
         "cooldown": 1,
         "max_active_stacks": 0,
@@ -586,13 +610,13 @@
           {
             "type": "stun",
             "target": "enemy",
-            "duration": 1,
+            "duration": 2,
             "hidden": true
           },
           {
             "type": "disable_damage_reduction",
             "target": "enemy",
-            "duration": 1,
+            "duration": 2,
             "hidden": true
           },
           {
@@ -630,8 +654,8 @@
       {
         "name": "Sand Shield",
         "description": "Makes Gaara of the Desert invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
         "max_active_stacks": 0,
         "target": "self",
         "effects": [
@@ -653,32 +677,32 @@
     "skills": [
       {
         "name": "Dynamic Air marking",
-        "description": "Kiba marks a single target, enabling Double Headed Wolf.",
-        "chakra": "0",
+        "description": "Kiba marks all enemies, enabling Double Headed Wolf. Air marking lasts 5 rounds.",
+        "chakra": "00",
         "cooldown": 0,
         "max_active_stacks": 0,
         "unique": true,
-        "target": "enemy",
+        "target": "all_enemies",
         "effects": [
           {
             "type": "skill_unlock",
             "target": "self",
-            "duration": 999,
+            "duration": 5,
             "hidden": true
           },
           {
             "type": "mark",
-            "target": "enemy",
-            "duration": 999
+            "target": "all_enemies",
+            "duration": 5
           }
         ],
         "id": "75"
       },
       {
         "name": "Double Headed Wolf",
-        "description": "Deals 60 damage to all marked opponents over three rounds. Kiba cannot be attacked during this time.",
-        "chakra": "12",
-        "cooldown": 3,
+        "description": "Deals 60 damage to all marked opponents and heals 15 health over three rounds. Kiba cannot be attacked during this time.",
+        "chakra": "20",
+        "cooldown": 4,
         "max_active_stacks": 0,
         "target": "all_marked",
         "target_req_effect": "75",
@@ -709,6 +733,12 @@
             "duration": 3,
             "skill_id": "77",
             "hidden": true
+          },
+          {
+            "type": "heal",
+            "target": "self",
+            "amount": 15,
+            "duration": 3
           }
         ],
         "requires": "75",
@@ -716,7 +746,7 @@
       },
       {
         "name": "Garouga",
-        "description": "Deals 30 damage to a single opponent. When Double Headed Wolf is in effect, Garouga deals 60 damage and can only be used on targets that are marked by Dynamic Air marking.",
+        "description": "Deals 30 damage to a single opponent. When Double Headed Wolf is in effect, Garouga deals 60 damage. Can only target enemies who are marked.",
         "chakra": "10",
         "cooldown": 0,
         "max_active_stacks": 0,
@@ -733,8 +763,8 @@
       {
         "name": "Smokebomb",
         "description": "Makes Kiba invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
         "max_active_stacks": 0,
         "target": "self",
         "effects": [
@@ -756,9 +786,10 @@
     "skills": [
       {
         "name": "Gentle Fist",
-        "description": "Hinata attacks a single target for 2 rounds, dealing 20 damage and removing 2 chakra cards per round. Requires Byakugan.",
-        "chakra": "12",
-        "cooldown": 2,
+        "description": "Hinata attacks a single target for 2 rounds, dealing 20 damage and removing 2 chakra per round. Requires Byakugan.",
+        "chakra": "100",
+        "cooldown": 1,
+        "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
           {
@@ -782,7 +813,8 @@
         "name": "Byakugan",
         "description": "Enables Hinata to use her techniques. The effect lasts 5 rounds.",
         "chakra": "2",
-        "cooldown": 5,
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -795,15 +827,16 @@
       },
       {
         "name": "Attack of the Eight Trigrams Sixty-Four Palms",
-        "description": "Deals 30 damage to all enemy targets. During the next round, all damage done to your team is reduced by 50 percent. Requires Byakugan.",
-        "chakra": "32",
+        "description": "Deals 25 damage to all enemy targets. During the next round, all damage done to your team is reduced by 50 percent. Requires Byakugan.",
+        "chakra": "300",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "all",
         "effects": [
           {
             "type": "aoe_damage",
             "target": "all_enemies",
-            "amount": 30
+            "amount": 25
           },
           {
             "type": "damage_reduction",
@@ -818,8 +851,9 @@
       {
         "name": "Protection of the Eight Trigrams Sixty-Four Palms",
         "description": "Makes Hinata invulnerable during the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -830,7 +864,8 @@
         ],
         "id": "110"
       }
-    ]
+    ],
+    "locked": false
   },
   {
     "id": "3",
@@ -841,7 +876,7 @@
         "name": "Chakra Leach",
         "description": "Shino uses his bugs to steal chakra from the enemy. Every target that has a bug on him/her gets 10 damage and 1 chakra drained.",
         "chakra": "2",
-        "cooldown": 0,
+        "cooldown": 1,
         "max_active_stacks": 0,
         "target": "all_marked",
         "target_req_effect": "9",
@@ -863,8 +898,8 @@
       {
         "name": "Bug Clone",
         "description": "Makes Aburame Shino invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
         "max_active_stacks": 0,
         "target": "self",
         "effects": [
@@ -903,7 +938,7 @@
         "name": "Bug Wall",
         "description": "The whole team becomes invulnerable for the upcoming 2 rounds.",
         "chakra": "220",
-        "cooldown": 2,
+        "cooldown": 5,
         "max_active_stacks": 0,
         "target": "all_allies",
         "effects": [
@@ -920,14 +955,15 @@
   },
   {
     "id": "14",
-    "name": "Kankurou",
+    "name": "Kankuro",
     "description": "Kankuro is a master puppeteer, and uses only puppets for fighting. His puppets can deal damage as well as poison enemies.",
     "skills": [
       {
         "name": "Puppet Replacement Technique",
         "description": "Makes Kankuro invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -942,7 +978,8 @@
         "name": "Puppet Preparation",
         "description": "Kankuro prepares his puppets for attack. Lasts 5 rounds.",
         "chakra": "0",
-        "cooldown": 5,
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -955,16 +992,17 @@
       },
       {
         "name": "Poison Bomb",
-        "description": "Requires Puppet Preparation. Deals 30 damage to all opponents over 3 rounds. This damage cannot be defended against once in effect.",
+        "description": "Requires Puppet Preparation. Deals 40 damage to all opponents over 4 rounds. This damage cannot be defended against once in effect.",
         "chakra": "00",
-        "cooldown": 3,
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "all_enemies",
         "effects": [
           {
             "type": "affliction_damage",
             "target": "all_enemies",
             "amount": 10,
-            "duration": 3
+            "duration": 4
           }
         ],
         "requires": "60",
@@ -975,6 +1013,7 @@
         "description": "Deals 60 damage to the target. Requires Puppet Preparation.",
         "chakra": "000",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
           {
@@ -996,24 +1035,26 @@
     "skills": [
       {
         "name": "Meditate",
-        "description": "Shikamaru thinks up a strategy. The tecnique stays active for 5 rounds.",
+        "description": "Shikamaru thinks up a strategy. The tecnique stays active for 4 rounds.",
         "chakra": "0",
-        "cooldown": 4,
+        "cooldown": 3,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
             "type": "skill_unlock",
             "target": "self",
-            "duration": 5
+            "duration": 4
           }
         ],
         "id": "29"
       },
       {
         "name": "Shadow Bind",
-        "description": "Captures either one, two, or three opponents, making them unable to perform a skill for two rounds. Requires Meditate.",
-        "chakra": "420",
+        "description": "Captures the enemy team making them unable to perform a skill for two rounds and boosts the damage of Neck Bind by 100 percent. Requires Meditate.",
+        "chakra": "42",
         "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "all_enemies",
         "effects": [
           {
@@ -1022,9 +1063,11 @@
             "duration": 2
           },
           {
-            "type": "skill_unlock",
+            "type": "damage_boost",
             "target": "self",
-            "duration": 2
+            "amount": 100,
+            "duration": 2,
+            "skill_id": "31"
           }
         ],
         "requires": "29",
@@ -1032,26 +1075,32 @@
       },
       {
         "name": "Shadow Neck Bind",
-        "description": "Deals 50 damage to a single opponent. Requires Shadow Bind.",
+        "description": "Deals 30 damage to a single opponent and disables their defence. Requires Meditate.",
         "chakra": "40",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "target_req_effect": "30",
         "effects": [
           {
             "type": "damage",
             "target": "enemy",
-            "amount": 50
+            "amount": 30
+          },
+          {
+            "type": "disable_damage_reduction",
+            "target": "enemy",
+            "duration": 1
           }
         ],
-        "requires": "30",
+        "requires": "29",
         "id": "31"
       },
       {
         "name": "Shikamaru Replacement Technique",
         "description": "Makes Shikamaru invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -1117,8 +1166,9 @@
       {
         "name": "Chouji Replacement Technique",
         "description": "Makes Chouji invulnerable to damage for this round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -1131,40 +1181,41 @@
       },
       {
         "name": "Akimichi Pills",
-        "description": "Boosts Chouji’s attacks with 100% percent damage for the rest of the game. Chouji receives 15 damage for each pill taken. Three pills can be taken max.",
+        "description": "Boosts Chouji his attacks with 100 percent damage for the rest of the game. Chouji receives 20 damage for each pill taken. Three pills can be taken max.",
         "chakra": "0",
         "cooldown": 0,
+        "max_active_stacks": 3,
         "target": "self",
         "effects": [
           {
             "type": "damage_boost",
             "target": "self",
             "amount": 100,
-            "duration": 9999,
+            "duration": 999,
             "skill_id": "65"
           },
           {
             "type": "damage",
             "target": "self",
-            "amount": 15
+            "amount": 20
           },
           {
             "type": "damage_boost",
             "target": "self",
             "amount": 100,
-            "duration": 9999,
+            "duration": 999,
             "skill_id": "66",
             "hidden": true
           }
         ],
-        "id": "64",
-        "max_active_stacks": 3
+        "id": "64"
       },
       {
         "name": "Meat Tank",
         "description": "Chouji transforms into a Meat Tank for 2 rounds, attacking a single opponent dealing 10 damage each round. During this time, Chouji is invulnerable to damage.",
-        "chakra": "20",
+        "chakra": "2",
         "cooldown": 2,
+        "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
           {
@@ -1186,6 +1237,7 @@
         "description": "Deals 20 damage to the target.",
         "chakra": "1",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
         "effects": [
           {
@@ -1206,15 +1258,16 @@
     "skills": [
       {
         "name": "Cutting Whirlwind",
-        "description": "Deals 20 damage to all enemy targets.",
-        "chakra": "300",
+        "description": "Deals 25 damage to all enemy targets.",
+        "chakra": "30",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "all_enemies",
         "effects": [
           {
             "type": "aoe_damage",
             "target": "all_enemies",
-            "amount": 20
+            "amount": 25
           }
         ],
         "id": "41"
@@ -1223,7 +1276,8 @@
         "name": "Dust Wind",
         "description": "The whole team becomes invulnerable for the upcoming 2 rounds.",
         "chakra": "330",
-        "cooldown": 2,
+        "cooldown": 5,
+        "max_active_stacks": 0,
         "target": "all_allies",
         "effects": [
           {
@@ -1236,15 +1290,16 @@
       },
       {
         "name": "Summoning Quick Beheading Dance",
-        "description": "Deals 40 damage to all enemy targets.",
-        "chakra": "3300",
-        "cooldown": 0,
+        "description": "Deals 35 damage to all enemy targets.",
+        "chakra": "300",
+        "cooldown": 1,
+        "max_active_stacks": 0,
         "target": "all_enemies",
         "effects": [
           {
             "type": "damage",
             "target": "all_enemies",
-            "amount": 40
+            "amount": 35
           }
         ],
         "id": "43"
@@ -1252,8 +1307,9 @@
       {
         "name": "Fan Defence Technique",
         "description": "Makes Temari invulnerable for the next round.",
-        "chakra": "00",
-        "cooldown": 2,
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "self",
         "effects": [
           {
@@ -1264,7 +1320,8 @@
         ],
         "id": "44"
       }
-    ]
+    ],
+    "locked": false
   },
   {
     "id": "24",

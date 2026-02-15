@@ -308,6 +308,9 @@ class BattleEngine {
                 if (targetPlayer.health[tIdx] > effect.amount) {
                     targetPlayer.health[tIdx] = effect.amount;
                 }
+            } else if (effect.type === "health_reduce_percent") {
+                const reduction = Math.floor(targetPlayer.health[tIdx] * (effect.amount / 100));
+                targetPlayer.health[tIdx] = Math.max(0, targetPlayer.health[tIdx] - reduction);
             } else if (effect.type === "heal") {
                 targetPlayer.health[tIdx] = Math.min(targetPlayer.maxHealth[tIdx], targetPlayer.health[tIdx] + effect.amount);
             } else if (effect.type === "remove_chakra") {
