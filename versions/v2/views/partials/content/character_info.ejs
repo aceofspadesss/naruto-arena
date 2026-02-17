@@ -1,85 +1,268 @@
-<div
-    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:auto;">
-    <div
-        style="padding: 0px 0px 0px 0px;  height:auto; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
+<div id="content">
+    <div class="brspacer">
         <h1>
             <%= character.name %>
-        </h1><br><a href='/'>Naruto Arena</a> > <a href='/game-manual/'>Game manual</a> > <a
-            href='/characters-and-skills/'>Characters & Skills</a> > <h2>
-            <%= character.name %>
-        </h2><br><br>
+        </h1><br>
+        <div id="pagepath"><a href="/">Naruto Arena</a> &gt; <a href="/game-manual/">Game manual</a> &gt; <a
+                href="/characters-and-skills/">Characters and Skills</a> &gt; <h2>
+                <%= character.name %>
+            </h2>
+        </div>
+    </div>
+    <div class="brspacer">
+        Naruto-Arena forces you to select 3 characters when you start a new <a href="/game-manual/" class="con"
+            title="game">game</a>. This page gives you an overview of all characters available in the Naruto-Arena <a
+            href="/game-manual/" class="con" title="game">game</a>. Not only can you view each character's skills, you
+        can also discuss the characters by posting comments.
+
+        <div class="brspacer">
+
+
+        </div>
 
         <center>
-        </center>
 
-        <center>
-
-            <div style="width:70%;" align="left">
+            <div class="description">
+                <img class="pre" src="/images/pres/pre3.gif">
                 <h2>
                     <%= character.name %>
                 </h2>
                 <div class="dots"></div>
-                <div class="color2" align="left" style="padding:3px;">
-                    <img class="border" align="left" src="/game/images/characters/<%= character.id %>/avatarlarge.jpg"
-                        hspace="5" vspace="3">
-                    <%= character.description %><br clear="all">
+                <div class="skilldescr">
+                    <img src="/game/images/characters/<%= character.id %>/avatarlarge.jpg" class="border" align="left">
+                    <%= character.description %>
                 </div>
                 <div class="dots"></div>
-                <div align="right">Requirement to unlock: <% if (character.locked) { %>Unreleased<% } else { %>0 wins<%
-                                } %>
-                </div>
-            </div><br />
+                <b>Requirement to unlock:</b>
+                <% if (character.locked) { %>Unreleased<% } else { %>No requirements<% } %>
+            </div>
 
             <% if (!character.locked && character.skills && character.skills.length> 0) { %>
                 <% for (var i=0; i < character.skills.length; i++) { var skill=character.skills[i]; %>
-                    <div align="left" style="width:45%; height:150px; float:left; margin: 6px 6px 6px 6px;">
-                        <h2>
+                    <div class="charskill">
+                        &nbsp;Skill: <h2>
                             <%= skill.name %>
                         </h2>
                         <div class="dots"></div>
-                        <div class="color2" align="left" style="padding:3px;">
-                            <img class="border" align="left" src="/game/images/skills/<%= skill.id %>/avatarlarge.jpg"
-                                hspace="5" vspace="3">
-                            <%= skill.description %><br clear="all" />
+                        <div class="skilldescr">
+                            <img src="/game/images/skills/<%= skill.id %>/avatarlarge.jpg" class="border" align="left">
+                            <%= skill.description %>
                         </div>
                         <div class="dots"></div>
-                        <div align="right">Chakra required: <% var chakraStr=skill.chakra || '' ; for (var j=0; j <
-                                chakraStr.length; j++) { var ct=chakraStr[j]; var ci='random' ; if (ct==='1' )
-                                ci='taijutsu' ; if (ct==='2' ) ci='bloodline' ; if (ct==='3' ) ci='ninjutsu' ; if
-                                (ct==='4' ) ci='genjutsu' ; %><img src='/images/chakra/<%= ci %>.gif' class='chakra'>
+                        <div class="fleft">&nbsp;<u>Cooldown:</u>
+                            <%= skill.cooldown %>
+                        </div>
+                        <div class="fright"><u>Chakra required:</u>
+                            <% var chakraStr=skill.chakra || '' ; for (var j=0; j < chakraStr.length; j++) { var
+                                ct=chakraStr[j]; var ci='random' ; if (ct==='1' ) ci='taijutsu' ; if (ct==='2' )
+                                ci='bloodline' ; if (ct==='3' ) ci='ninjutsu' ; if (ct==='4' ) ci='genjutsu' ; %><img
+                                    src='/images/chakra/<%= ci %>.gif' class='chakra'>
                                 <% } %>
                         </div>
                     </div>
                     <% } %>
                         <% } %>
 
-                            <br clear="all"><br /><br />
-                            <center>
-                                <div style="width:69%;">
 
-                                </div>
-                            </center>
-                            <br><br><br>
-                            <div class="dots"></div>
-                            <div class="nothing">
-                                Pagename: <b>
-                                    <%= character.name %>
-                                </b><br>
-                                Description: Naruto Arena focuses on characters and skills. In this guide you will see
-                                all of them plus you are able to discuss about them.<br>
-                                Related subjects: <h3>
-                                    <%= character.name.toLowerCase() %>
-                                </h3>, <h3>characters</h3>, <h3>skills</h3>, <h3>character</h3>, <h3>skill</h3><br><br>
-                                Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
-                                The holders of the copyrighted and/or trademarked material appearing on this site are as
-                                follows:<br>
-                                NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
-                                <a href="/privacy-policy/" class="con">Privacy policy</a> -
-                                <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
-                                <a href="/terms-of-use/" class="con">Terms of use</a>
+                            <div class="clear"></div>
+
+                            <div class="brspacer2">
+                                <center>
+                                    <center>
+                                        <div id="comments">
+                                            <% if (typeof comments !=='undefined' && comments && comments.length> 0) {
+                                                %>
+                                                <% comments.forEach(function(comment) { %>
+                                                    <%- include('../comment', { comment: comment }); %>
+                                                        <% }); %>
+                                                            <% } else { %>
+                                                                <div class="nothing">No comments yet.</div>
+                                                                <% } %>
+
+                                                                    <!-- Pagination -->
+                                                                    <% if (typeof totalPages !=='undefined' &&
+                                                                        totalPages> 1) { %>
+                                                                        <div class="dots"></div>
+                                                                        <div align="right">
+                                                                            <b>[Page <%= currentPage %>/<%= totalPages
+                                                                                        %>]</b>
+
+                                                                            <% if (currentPage> 1) { %>
+                                                                                <a
+                                                                                    href="/<%= character.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') %>/1">
+                                                                                    <font color="black">&lt;&lt;&lt;&lt;
+                                                                                    </font>
+                                                                                </a>
+                                                                                <a
+                                                                                    href="/<%= character.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') %>/<%= currentPage - 1 %>">
+                                                                                    <font color="black">&lt;&lt;</font>
+                                                                                </a>
+                                                                                <% } else { %>
+                                                                                    &lt;&lt;&lt;&lt; &lt;&lt;
+                                                                                    <% } %>
+
+                                                                                        <% let startPage=Math.max(1,
+                                                                                            currentPage - 3); let
+                                                                                            endPage=Math.min(totalPages,
+                                                                                            currentPage + 3); if
+                                                                                            (endPage - startPage < 6) {
+                                                                                            if (startPage===1) {
+                                                                                            endPage=Math.min(totalPages,
+                                                                                            startPage + 6); } else if
+                                                                                            (endPage===totalPages) {
+                                                                                            startPage=Math.max(1,
+                                                                                            endPage - 6); } } %>
+
+                                                                                            <% for(let i=startPage; i
+                                                                                                <=endPage; i++) { %>
+                                                                                                <% if (i===currentPage)
+                                                                                                    { %>
+                                                                                                    <u>
+                                                                                                        <%= i %>
+                                                                                                    </u>
+                                                                                                    <% } else { %>
+                                                                                                        <a
+                                                                                                            href="/<%= character.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') %>/<%= i %>">
+                                                                                                            <font
+                                                                                                                color="black">
+                                                                                                                <%= i %>
+                                                                                                            </font>
+                                                                                                        </a>
+                                                                                                        <% } %>
+                                                                                                            <% } %>
+
+                                                                                                                <% if
+                                                                                                                    (currentPage
+                                                                                                                    <
+                                                                                                                    totalPages)
+                                                                                                                    { %>
+                                                                                                                    <a
+                                                                                                                        href="/<%= character.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') %>/<%= currentPage + 1 %>">
+                                                                                                                        <font
+                                                                                                                            color="black">
+                                                                                                                            &gt;&gt;
+                                                                                                                        </font>
+                                                                                                                    </a>
+                                                                                                                    <a
+                                                                                                                        href="/<%= character.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') %>/<%= totalPages %>">
+                                                                                                                        <font
+                                                                                                                            color="black">
+                                                                                                                            &gt;&gt;&gt;&gt;
+                                                                                                                        </font>
+                                                                                                                    </a>
+                                                                                                                    <% } else
+                                                                                                                        {
+                                                                                                                        %>
+                                                                                                                        &gt;&gt;
+                                                                                                                        &gt;&gt;&gt;&gt;
+                                                                                                                        <% }
+                                                                                                                            %>
+                                                                        </div>
+                                                                        <% } %>
+
+                                                                            <div class="brspacer2">
+                                                                                <div class="error">
+                                                                                    <center>
+                                                                                        <% if (user) { %>
+                                                                                            <script>
+                                                                                                function quoteComment(author, content) {
+                                                                                                    const editor = document.getElementById('comment-editor');
+                                                                                                    const quoteHtml = `<div class='quote1'><b>Quote by ${author}</b><div class='quote2'>${content}</div></div><br>`;
+                                                                                                    editor.innerHTML = quoteHtml + editor.innerHTML;
+                                                                                                }
+                                                                                            </script>
+                                                                                            <form
+                                                                                                action="/character/<%= character.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') %>/comment"
+                                                                                                method="post"
+                                                                                                onsubmit="document.getElementById('comment-content').value = document.getElementById('comment-editor').innerHTML;">
+                                                                                                <input type="hidden"
+                                                                                                    name="content"
+                                                                                                    id="comment-content">
+                                                                                                Emotes:
+                                                                                                <% const
+                                                                                                    emotes=['amazed', 'amused'
+                                                                                                    , 'blink' , 'cheesy'
+                                                                                                    , 'confused'
+                                                                                                    , 'cool' , 'cry'
+                                                                                                    , 'embarressed'
+                                                                                                    , 'evil' , 'huh'
+                                                                                                    , 'laugh' , 'mad'
+                                                                                                    , 'notrust'
+                                                                                                    , 'noworry' , 'nuts'
+                                                                                                    , 'oh' , 'push'
+                                                                                                    , 'rolleyes' , 'sad'
+                                                                                                    , 'sick' , 'smile'
+                                                                                                    , 'suspicious'
+                                                                                                    , 'teeth' , 'tounge'
+                                                                                                    , 'unsure' , 'wacko'
+                                                                                                    , 'weird'
+                                                                                                    , 'wondering'
+                                                                                                    , 'worried' ]; %>
+                                                                                                    <div
+                                                                                                        style="max-height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px; text-align: left;">
+                                                                                                        <% emotes.forEach(function(emote)
+                                                                                                            { %>
+                                                                                                            <img src="/images/smilies/<%= emote %>.gif"
+                                                                                                                onclick="const img = document.createElement('img'); img.src = '/images/smilies/<%= emote %>.gif'; img.className = 'smilie'; document.getElementById('comment-editor').appendChild(img);"
+                                                                                                                style="cursor: pointer;"
+                                                                                                                title="<%= emote %>">
+                                                                                                            <% }); %>
+                                                                                                    </div>
+                                                                                                    <br>
+                                                                                                    <div id="comment-editor"
+                                                                                                        contenteditable="true"
+                                                                                                        style="width: 100%; height: 100px; border: 1px solid #7f9db9; background-color: white; overflow-y: scroll; text-align: left; color: black;">
+                                                                                                    </div>
+                                                                                                    <br>
+                                                                                                    <input type="submit"
+                                                                                                        value="Post Comment">
+                                                                                            </form>
+                                                                                            <% } else { %>
+                                                                                                <div
+                                                                                                    class="centererror">
+                                                                                                    You need to be
+                                                                                                    logged in to be able
+                                                                                                    to make a comment.
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="centererror">
+                                                                                                    <a
+                                                                                                        href="/register/"><u>Click
+                                                                                                            here to
+                                                                                                            register an
+                                                                                                            account.</u></a>
+                                                                                                </div>
+                                                                                                <% } %>
+                                                                                    </center>
+                                                                                </div>
+                                                                            </div>
+                                        </div>
+                                    </center>
                             </div>
-                            <div class="dots"></div><br>
+        </center>
     </div>
-</div>
-</div>
+    <div class="brspacer2">
+        <div class="dots"></div>
+        <div class="grey">
+            <div class="centerp">
+                Related subjects: <h3>
+                    <%= character.name.toLowerCase() %>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="brspacer">
+        <div class="brspacer">
+            <center>
+                Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+                The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+                NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.
+                <div class="centerp">
+                    <a href="/privacy-policy/" class="con">Privacy policy</a> -
+                    <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+                    <a href="/terms-of-use/" class="con">Terms of use</a>
+                </div>
+            </center>
+        </div>
+    </div>
 </div>

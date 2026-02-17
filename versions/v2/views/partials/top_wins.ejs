@@ -1,10 +1,19 @@
-<!-- Top 10 Most Wins Partial -->
-<h4>Top 10 Most Wins</h4><br>
-
+<div class="cbrspacer">
+  <h4 class="block">Top 10 Most Wins</h4>
+</div>
 <% if (topWins && topWins.length > 0) { %>
-<% topWins.forEach((player, index) => { %>
-<%= index + 1 %>: <a href="/profile/<%= player.username %>"><%= player.username %></a> <%= player.wins %> wins<br>
-<% }); %>
+  <% topWins.forEach((player, index) => { %>
+    <ul class="ladder">
+      <li>
+        <span><%= index + 1 %>.</span>
+        <div>
+          <a href="/profile/<%= player.username %>"><%= player.username %></a> <b><%= player.wins %></b> wins
+        </div>
+      </li>
+    </ul>
+  <% }); %>
 <% } else { %>
-No players with wins yet.<br>
+  <li>
+    <div>No ranked players yet.</div>
+  </li>
 <% } %>

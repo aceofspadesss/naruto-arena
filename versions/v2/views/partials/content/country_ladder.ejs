@@ -1,0 +1,99 @@
+<div id="content">
+    <div class="brspacer">
+        <h1>Country ladder</h1><br>
+        <div id="pagepath"><a href="/">Naruto Arena</a> &gt; <a href="/ladders/">Ladders</a> &gt; <h2>Country ladder
+            </h2>
+        </div>
+    </div>
+    <div class="brspacer">
+        <b>Note:</b> in order to let your <a href="/profile/" class="con" title="account">account</a> have influence on
+        this <a href="/the-ninja-ladder/" class="con" title="ladder">ladder</a> you should confirm that you've selected
+        the right country in your <a href="/profile/" class="con" title="profile">profile</a>. If you want to edit your
+        <a href="/profile/" class="con" title="profile">profile</a>, then select change settings in your control panel.
+        <div class="brspacer">
+            Every country that has at least 10 active players automatically competes in this <a
+                href="/the-ninja-ladder/" class="con" title="ladder">ladder</a>. If you want to know the most important
+            factor on how this <a href="/the-ninja-ladder/" class="con" title="ladder">ladder</a> is formed re<a
+                href="/profile/" class="con" title="member">member</a> that this <a href="/the-ninja-ladder/"
+                class="con" title="ladder">ladder</a> looks at the top 10 players of every country. The total number of
+            players in a country minus the average ladderrank of the top 10 players is used to calculate the country's
+            points. (formula: amount of points = total players - average ladderrank)
+        </div>
+
+        <div class="brspacer">
+
+
+        </div>
+
+        <div class="brspacer">
+            <table class="maxnb">
+                <% if (countryLadder && countryLadder.length> 0) { %>
+                    <tbody>
+                        <tr class="title">
+                            <td width="3%" class="center">Rank</td>
+                            <td width="3%"></td>
+                            <td width="38%">&nbsp;Country</td>
+                            <td width="30%" class="right"># Players&nbsp;</td>
+                            <td width="16%">&nbsp;# Points</td>
+                        </tr>
+                        <% countryLadder.forEach(function(country, index) { %>
+                            <tr class="<%= (index % 2 === 0) ? 'color1' : 'color2' %>" valign="bottom">
+                                <td class="lrank">#<%= index + 1 %>
+                                </td>
+                                <td><img src="/images/countries/<%= country.name.replace(/ /g, '-') %>.gif"
+                                        class="licon"></td>
+                                <td>
+                                    <%= country.name %>
+                                </td>
+                                <td class="right"><b>
+                                        <%= country.playerCount %> players
+                                    </b></td>
+                                <td><u>
+                                        <%= Math.round(country.points) %> points
+                                    </u></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="dots"></td>
+                            </tr>
+                            <% }); %>
+        </tbody>
+    <% } else { %>
+        <tbody>
+            <tr class="title">
+                <td width="100%" class="center" colspan="5">Status</td>
+            </tr>
+            <tr class="color1">
+                <td colspan="5" class="center">No countries currently qualify for the ladder (minimum 10
+                    active players required).</td>
+            </tr>
+        </tbody>
+    <% } %>
+</table>
+
+        </div>
+        <div class="brspacer">
+        </div>
+    </div>
+    <div class="brspacer2">
+        <div class="dots"></div>
+        <div class="grey">
+            <div class="centerp">
+                Related subjects: <h3>country ladder</h3>, <h3>countries</h3>, <h3>country</h3>
+            </div>
+        </div>
+    </div>
+    <div class="brspacer">
+        <div class="brspacer">
+            <center>
+                Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+                The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+                NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.
+                <div class="centerp">
+                    <a href="/privacy-policy/" class="con">Privacy policy</a> -
+                    <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+                    <a href="/terms-of-use/" class="con">Terms of use</a>
+                </div>
+            </center>
+        </div>
+    </div>
+</div>

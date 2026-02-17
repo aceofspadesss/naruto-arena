@@ -6,7 +6,9 @@ const PageController = require('../controllers/PageController');
 const PollController = require('../controllers/PollController');
 const UserController = require('../controllers/UserController');
 const NewsController = require('../controllers/NewsController');
+
 const BalanceChangesController = require('../controllers/BalanceChangesController');
+const CharacterController = require('../controllers/CharacterController');
 
 const checkRole = require('../middleware/checkRole');
 const UserModel = require('../models/UserModel');
@@ -144,6 +146,9 @@ router.get('/the-basics', PageController.theBasics);
 router.get('/contact', PageController.contact);
 router.get('/search/:query', PageController.search);
 router.get('/memberlist', PageController.memberList);
+router.get('/ninja-missions', PageController.ninjaMissions); // Existing
+router.get('/mission', PageController.mission); // New
+router.get('/ladders', PageController.ladders);
 router.get('/privacy-policy', PageController.privacyPolicy);
 router.get('/legal-disclaimer', PageController.legalDisclaimer);
 router.get('/terms-of-use', PageController.termsOfUse);
@@ -151,6 +156,7 @@ router.get('/sitemap', PageController.sitemap);
 router.get('/the-ninja-ladder', PageController.theNinjaLadder);
 router.get('/ninja-ladder', PageController.ninjaLadder);
 router.get('/ninja-ladder/:page', PageController.ninjaLadder);
+router.get('/country-ladder', PageController.countryLadder);
 router.get('/news-archive', PageController.newsArchive);
 router.get('/news', PageController.news);
 router.get('/pollarchive', PageController.pollArchive);
@@ -160,10 +166,12 @@ router.get('/users-online', PageController.usersOnline);
 // Dynamic character info page (must be before admin routes but after specific routes)
 router.get('/:slug/:page', NewsController.newsPage);
 router.get('/:slug/:page', PollController.pollPage);
+router.get('/:slug/:page', PageController.characterInfo); // Added pagination support
 router.get('/:slug', PageController.characterInfo);
 router.get('/:slug', PollController.pollPage);
 router.get('/:slug', NewsController.newsPage);
 router.post('/news/:slug/comment', NewsController.postComment);
+router.post('/character/:slug/comment', CharacterController.postComment);
 router.post('/poll/:slug/comment', PollController.postComment);
 
 router.get('/admin/characters', checkRole('admin'), PageController.adminCharacters);

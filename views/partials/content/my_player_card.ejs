@@ -30,9 +30,9 @@
                     style="border: 1px solid #999;">
                 <br><br>
                 Join The Naruto Online Multiplayer Game Naruto - Arena.com
-            <% } else { %>
-                <p><i>You haven't generated a player card yet. Use the form below to generate one!</i></p>
-            <% } %>
+                <% } else { %>
+                    <p><i>You haven't generated a player card yet. Use the form below to generate one!</i></p>
+                    <% } %>
         </div>
 
         <br><br>
@@ -76,12 +76,12 @@
                     <td width="50%" valign="top">
                         <b>HTML-Code:</b><br>
                         <textarea rows="5" cols="25" readonly
-                            style="font-size: 10px;">&lt;a href="http://www.naruto-arena.com/profile/<%= user %>"&gt;&lt;img src="http://www.naruto-arena.com/images/myplayercard/<%= userId %>.jpg" /&gt;&lt;/a&gt;</textarea>
+                            style="font-size: 10px;">&lt;a href="/profile/<%= user %>"&gt;&lt;img src="/images/myplayercard/<%= userId %>.jpg" /&gt;&lt;/a&gt;</textarea>
                     </td>
                     <td width="50%" valign="top">
                         <b>vB-Code:</b><br>
                         <textarea rows="5" cols="25" readonly
-                            style="font-size: 10px;">[URL="http://www.naruto-arena.com/profile/<%= user %>"][IMG]http://www.naruto-arena.com/images/myplayercard/<%= userId %>.jpg[/IMG][/URL]</textarea>
+                            style="font-size: 10px;">[URL="/profile/<%= user %>"][IMG]/images/myplayercard/<%= userId %>.jpg[/IMG][/URL]</textarea>
                     </td>
                 </tr>
             </table>

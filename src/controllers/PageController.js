@@ -7,6 +7,7 @@ const BalanceChangesModel = require('../models/BalanceChangesModel');
 const SearchService = require('../services/SearchService');
 const CharacterModel = require('../models/CharacterModel');
 const { publicPath } = require('../utils/paths');
+const { VERSION } = require('../config');
 
 const PageController = {
     // ... (existing code)
@@ -720,6 +721,123 @@ const PageController = {
         });
     },
 
+    ninjaMissions: async (req, res) => {
+        const fs = require('fs');
+        const path = require('path');
+        const headerDir = publicPath('images', 'randomheader');
+        let randomHeaderImage = 'header1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(headerDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomHeaderImage = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random header images:', error);
+        }
+
+        const statistics = UserModel.getStatistics();
+        const screenshotDir = publicPath('images', 'randomscreenshot');
+        let randomScreenshot = 'battle1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(screenshotDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomScreenshot = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random screenshot images:', error);
+        }
+
+        res.render('ninja_missions', {
+            user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
+            role: req.session.role,
+            randomHeaderImage,
+            statistics,
+            randomScreenshot
+        });
+    },
+
+    mission: async (req, res) => {
+        const fs = require('fs');
+        const path = require('path');
+        const headerDir = publicPath('images', 'randomheader');
+        let randomHeaderImage = 'header1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(headerDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomHeaderImage = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random header images:', error);
+        }
+
+        const statistics = UserModel.getStatistics();
+        const screenshotDir = publicPath('images', 'randomscreenshot');
+        let randomScreenshot = 'battle1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(screenshotDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomScreenshot = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random screenshot images:', error);
+        }
+
+        res.render('mission', {
+            user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
+            role: req.session.role,
+            randomHeaderImage,
+            statistics,
+            randomScreenshot
+        });
+    },
+
+    ladders: async (req, res) => {
+        const fs = require('fs');
+        const path = require('path');
+        const headerDir = publicPath('images', 'randomheader');
+        let randomHeaderImage = 'header1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(headerDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomHeaderImage = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random header images:', error);
+        }
+
+        const statistics = UserModel.getStatistics();
+        const screenshotDir = publicPath('images', 'randomscreenshot');
+        let randomScreenshot = 'battle1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(screenshotDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomScreenshot = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random screenshot images:', error);
+        }
+
+        res.render('ladders', {
+            user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
+            role: req.session.role,
+            randomHeaderImage,
+            statistics,
+            randomScreenshot
+        });
+    },
+
     legalDisclaimer: async (req, res) => {
         const fs = require('fs');
         const path = require('path');
@@ -1028,7 +1146,8 @@ const PageController = {
 
         // Pagination logic
         const currentPage = parseInt(req.params.page) || 1;
-        const usersPerPage = 25;
+        // Show 100 users per page for v2, 25 for others (v1)
+        const usersPerPage = VERSION === 'v2' ? 100 : 25;
         const totalRanked = rankedUsers.length;
         const totalPages = Math.ceil(totalRanked / usersPerPage);
 
@@ -1055,6 +1174,48 @@ const PageController = {
             currentPage: safeCurrentPage,
             totalPages,
             totalRanked
+        });
+    },
+
+    countryLadder: async (req, res) => {
+        const fs = require('fs');
+        const path = require('path');
+        const headerDir = publicPath('images', 'randomheader');
+        let randomHeaderImage = 'header1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(headerDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomHeaderImage = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random header images:', error);
+        }
+
+        const statistics = UserModel.getStatistics();
+        const screenshotDir = publicPath('images', 'randomscreenshot');
+        let randomScreenshot = 'battle1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(screenshotDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomScreenshot = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random screenshot images:', error);
+        }
+
+        const countryLadder = LadderService.getCountryLadder();
+
+        res.render('country_ladder', {
+            user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
+            role: req.session.role,
+            randomHeaderImage,
+            statistics,
+            randomScreenshot,
+            countryLadder
         });
     },
 
@@ -1241,13 +1402,35 @@ const PageController = {
             console.error('Error reading random screenshot images:', error);
         }
 
+        const CommentModel = require('../models/CommentModel');
+        const page = parseInt(req.params.page) || 1;
+        const limit = 15;
+        const totalComments = CommentModel.countByNewsSlug(slug);
+        const totalPages = Math.ceil(totalComments / limit);
+        const comments = CommentModel.getByNewsSlug(slug, page, limit);
+
+        // Get avatar and post count for each comment author
+        const commentsWithUserData = comments.map(comment => {
+            const user = UserModel.findById(comment.userId);
+            return {
+                ...comment,
+                authorAvatar: user ? (user.avatar || 'default.jpg') : 'default.jpg',
+                authorPosts: user ? (user.posts || 0) : 0,
+                authorRank: user ? (user.rank || 'Academy Student') : 'Academy Student'
+            };
+        });
+
         res.render('character_info', {
             user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
             role: req.session.role,
             randomHeaderImage,
             statistics,
             randomScreenshot,
-            character
+            character,
+            comments: commentsWithUserData,
+            currentPage: page,
+            totalPages: totalPages,
+            totalComments: totalComments
         });
     },
 
