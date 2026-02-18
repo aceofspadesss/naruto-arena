@@ -34,7 +34,7 @@
                 </div>
                 <div class="dots"></div>
                 <b>Requirement to unlock:</b>
-                <% if (character.locked) { %>Unreleased<% } else { %>No requirements<% } %>
+                <% if (character.locked) { %>Unreleased<% } else if (unlockMission) { %><%= unlockMission.name %><% } else { %>No requirements<% } %>
             </div>
 
             <% if (!character.locked && character.skills && character.skills.length> 0) { %>

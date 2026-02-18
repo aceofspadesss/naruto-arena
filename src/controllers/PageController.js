@@ -6,6 +6,8 @@ const MessageModel = require('../models/MessageModel');
 const BalanceChangesModel = require('../models/BalanceChangesModel');
 const SearchService = require('../services/SearchService');
 const CharacterModel = require('../models/CharacterModel');
+const MissionCategoryModel = require('../models/MissionCategoryModel');
+const MissionModel = require('../models/MissionModel');
 const { publicPath } = require('../utils/paths');
 const { VERSION } = require('../config');
 
@@ -751,12 +753,15 @@ const PageController = {
             console.error('Error reading random screenshot images:', error);
         }
 
+        const missionCategories = await MissionCategoryModel.getAll();
+
         res.render('ninja_missions', {
             user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
             role: req.session.role,
             randomHeaderImage,
             statistics,
-            randomScreenshot
+            randomScreenshot,
+            missionCategories
         });
     },
 
@@ -1420,6 +1425,11 @@ const PageController = {
             };
         });
 
+        const allMissions = await MissionModel.getAll();
+        const unlockMission = allMissions.find(m =>
+            m.rewards && m.rewards.type === 'character' && String(m.rewards.characterId) === String(character.id)
+        ) || null;
+
         res.render('character_info', {
             user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
             role: req.session.role,
@@ -1430,7 +1440,8 @@ const PageController = {
             comments: commentsWithUserData,
             currentPage: page,
             totalPages: totalPages,
-            totalComments: totalComments
+            totalComments: totalComments,
+            unlockMission
         });
     },
 

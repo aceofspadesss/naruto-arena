@@ -1,0 +1,89 @@
+<div id="content">
+	<div class="brspacer">
+		<h1><%= category.title %></h1><br>
+		<div id="pagepath">
+			<a href="/">Naruto Arena</a> &gt; <a href="/ninja-missions/">Ninja Missions</a> &gt; <h2><%= category.title %></h2>
+		</div>
+	</div>
+	<div class="brspacer">
+		<%- category.description %>
+
+		<div class="brspacer"></div>
+
+		<% missions.forEach(mission => { %>
+		<div class="floatleft">
+			<div class="brspacer">
+				<center>
+					<span class="title">
+						<img class="pre" src="/images/pres/pre3.gif"> <h5><%= mission.name %></h5>
+					</span>
+					<div class="centerp">
+						<b>Difficulty:</b> <%= mission.difficulty %>
+					</div>
+					<div class="padding">
+						<% if (mission.allMet || mission.isCompleted) { %>
+							<a href="/mission/<%= mission.slug %>/">
+								<img src="/images/missions/<%= mission.thumbnailId %>/image.jpg">
+							</a>
+						<% } else { %>
+							<img src="/images/missions/<%= mission.thumbnailId %>/image.jpg">
+						<% } %>
+					</div>
+					<div class="requirements">
+						<div class="title">Requirements:</div>
+						<div class="color2">
+							<div class="bg1">
+								<div class="bg2">
+									<% if (mission.isCompleted) { %>
+										<font class="succesfull"><b>Mission Completed!</b></font><br>
+										<a href="/mission/<%= mission.slug %>/"><h6>View this mission</h6></a>
+									<% } else { %>
+										<u>Ninja rank:</u> At least
+										<font class="<%= isLoggedIn && mission.rankMet ? 'succesfull' : 'error' %>">
+											<%= mission.requirements.rank %>
+										</font><br>
+
+										<% if (mission.prereqs.length > 0) { %>
+											<u>Missions Completed:</u> <% mission.prereqs.forEach((prereq, i) => { %><font class="<%= isLoggedIn && prereq.met ? 'succesfull' : 'error' %>"><%= prereq.name %></font><%= i < mission.prereqs.length - 1 ? ', ' : '' %><% }); %><br>
+										<% } %>
+
+										<% if (mission.allMet) { %>
+											<a href="/mission/<%= mission.slug %>/"><h6>View this mission</h6></a>
+										<% } %>
+									<% } %>
+								</div>
+							</div>
+						</div>
+						<div class="dots"></div>
+					</div>
+				</center>
+			</div>
+		</div>
+		<% }); %>
+
+		<div class="clear"></div>
+	</div>
+
+	<div class="brspacer2">
+		<div class="dots"></div>
+		<div class="grey">
+			<div class="centerp">
+				Related subjects: <h3><%= category.title.toLowerCase() %></h3>
+			</div>
+		</div>
+	</div>
+	<div class="brspacer">
+		<div class="brspacer">
+			<center>
+				Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+				The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+				NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.
+				<div class="centerp">
+					<a href="/privacy-policy/" class="con">Privacy policy</a> -
+					<a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+					<a href="/terms-of-use/" class="con">Terms of use</a>
+				</div>
+			</center>
+		</div>
+	</div>
+</div>

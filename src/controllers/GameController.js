@@ -4,6 +4,7 @@ const CharacterModel = require('../models/CharacterModel');
 const BattleEngine = require('../engine/BattleEngine');
 const MatchmakingService = require('../services/MatchmakingService');
 const LadderService = require('../services/LadderService');
+const MissionProgressService = require('../services/MissionProgressService');
 
 const TURN_TIMEOUT = 120000; // 2 minutes
 
@@ -29,7 +30,7 @@ class GameController {
         }
     }
 
-    static handleSelection(req, res) {
+    static async handleSelection(req, res) {
         if (!req.session.userId) {
             res.set('Content-Type', 'text/plain');
             return res.send('UserId=0');
@@ -71,8 +72,20 @@ class GameController {
         // Character Data
         const chars = CharacterModel.findAll();
 
-        // CharacterArray: "y1|||y2|||..."
-        const charArrayStr = chars.map(c => (c.locked ? "n" : "y") + c.id).join("|||");
+        // Determine which characters are locked via uncompleted missions
+        const MissionModel = require('../models/MissionModel');
+        const allMissions = await MissionModel.getAll();
+        const completedMissions = user.completedMissions || [];
+        const missionLockedCharIds = new Set(
+            allMissions
+                .filter(m => m.rewards?.type === 'character' && m.rewards.characterId && !completedMissions.includes(m.id))
+                .map(m => String(m.rewards.characterId))
+        );
+
+        // CharacterArray: "y1|||y2|||..." — "n" prefix for locked or mission-locked
+        const charArrayStr = chars.map(c =>
+            (c.locked || missionLockedCharIds.has(String(c.id)) ? "n" : "y") + c.id
+        ).join("|||");
         response += `&CharacterArray=${charArrayStr}`;
 
         // CharSpecs
@@ -184,6 +197,11 @@ class GameController {
                                 if (winner && loser) {
                                     LadderService.processMatchResult(user.id, battle.activeTurn);
                                 }
+
+                                const wTeam = battle.players[user.id]?.team || [];
+                                const lTeam = battle.players[battle.activeTurn]?.team || [];
+                                MissionProgressService.processWin(user.id, wTeam, lTeam);
+                                MissionProgressService.processLoss(battle.activeTurn, lTeam);
 
                                 status = "winner";
                             }

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Manage Missions - Naruto Arena Admin</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        .admin-container {
+            width: 1000px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th { background: #eee; }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            background: #eee;
+            border: 1px solid #999;
+            text-decoration: none;
+            color: black;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 13px;
+        }
+
+        .btn-danger { background: #ffdddd; }
+        .btn-primary { background: #4a90d9; color: white; border-color: #3a7bc0; }
+
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .mission-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border: 1px solid #ccc;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #e8e8e8;
+            border: 1px solid #bbb;
+            padding: 2px 8px;
+            font-size: 12px;
+        }
+
+        .prereq-list {
+            font-size: 11px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <h1>Manage Missions</h1>
+        <div class="admin-nav">
+            <a href="/admin/mission-categories" class="btn">Mission Categories</a>
+            <a href="/admin/characters" class="btn">Characters Admin</a>
+            <a href="/" class="btn">Back to Site</a>
+        </div>
+
+        <div class="filter-bar">
+            <strong>Filter by category:</strong>
+            <a href="/admin/missions" class="btn <%= !filterCategoryId ? 'btn-primary' : '' %>">All</a>
+            <% categories.forEach(cat => { %>
+                <a href="/admin/missions?category=<%= cat.id %>"
+                   class="btn <%= filterCategoryId === cat.id ? 'btn-primary' : '' %>">
+                    <%= cat.title %>
+                </a>
+            <% }); %>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+            <a href="/admin/missions/create<%= filterCategoryId ? '?category=' + filterCategoryId : '' %>" class="btn">+ Add Mission</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:40px;">Order</th>
+                    <th style="width:60px;">Image</th>
+                    <th style="width:200px;">Name</th>
+                    <th style="width:140px;">Difficulty</th>
+                    <th style="width:130px;">Min. Rank</th>
+                    <th>Prerequisites</th>
+                    <th style="width:160px;">Category</th>
+                    <th style="width:110px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (missions.length === 0) { %>
+                    <tr><td colspan="8">No missions found.</td></tr>
+                <% } else { %>
+                    <% missions.forEach(m => { %>
+                        <tr>
+                            <td><%= m.order %></td>
+                            <td>
+                                <img class="mission-img"
+                                     src="/images/missions/<%= m.thumbnailId %>/image.jpg"
+                                     onerror="this.style.display='none'">
+                            </td>
+                            <td><%= m.name %><br><code style="font-size:11px;color:#888"><%= m.slug %></code></td>
+                            <td><%= m.difficulty %></td>
+                            <td><%= m.requirements.rank %></td>
+                            <td>
+                                <% if (m.requirements.missionsCompleted.length === 0) { %>
+                                    <span style="color:#999">None</span>
+                                <% } else { %>
+                                    <div class="prereq-list">
+                                        <% m.requirements.missionsCompleted.forEach(id => { %>
+                                            <div>ID: <%= id %></div>
+                                        <% }); %>
+                                    </div>
+                                <% } %>
+                            </td>
+                            <td>
+                                <span class="category-tag">
+                                    <%= categoryMap[m.categoryId] ? categoryMap[m.categoryId].title : m.categoryId %>
+                                </span>
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    <a href="/admin/missions/edit/<%= m.id %>" class="btn">Edit</a>
+                                    <form action="/admin/missions/delete/<%= m.id %>" method="POST"
+                                          onsubmit="return confirm('Delete this mission?');">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }); %>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
