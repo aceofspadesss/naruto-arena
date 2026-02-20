@@ -1,0 +1,68 @@
+<div id="content">
+	<div class="brspacer">
+		<h1>Ninja Missions</h1><br><div id="pagepath"><a href="/">Naruto Arena</a> &gt; <h2>Ninja Missions</h2></div>
+	</div>
+	<div class="brspacer">
+Ninja missions are tasks that can be done to unlock more <a href="/characters-and-skills/" class="con" title="characters">characters</a>.<br><br>
+Step-by-step guide to do a mission:
+<ul>
+<li>1) Be the required rank or higher.</li>
+<li>2) Have any required missions completed.</li>
+<li>3) Press the <a href="/game-manual/" class="con" title="Start Playing">Start Playing</a> button.</li>
+<li>4) Select any <a href="/characters-and-skills/" class="con" title="characters">characters</a> involved in any missions you wish to work on.</li>
+<li>5) Play the <a href="/game-manual/" class="con" title="game">game</a> normally.</li>
+<li>6) Finally understand that missions are not a seperate <a href="/game-manual/" class="con" title="game">game</a> but work in the background passively.</li>
+</ul>
+
+<div class="brspacer">
+
+	<% missionCategories.forEach(cat => { %>
+	<center>
+		<div class="description">
+			<div class="descrtext">
+				<div class="descrheader">
+					<img class="pre" src="/images/pres/pre3.gif"> <a href="/<%= cat.slug %>/"><h2><%= cat.title %></h2></a>
+				</div>
+				<div class="descrcontent">
+					<%- cat.description %>
+				</div>
+				<div class="dots"></div>
+			</div>
+			<div class="descrimg">
+				<img src="/images/content/<%= cat.thumbnailId %>/thumbnail.jpg">
+			</div>
+			<div class="infolink">
+				<a href="/<%= cat.slug %>/"><h6>Check out the <%= cat.title %>!</h6></a>&nbsp;
+			</div>
+		</div>
+	</center>
+	<% }); %>
+
+</div>
+
+<div class="clear"></div>
+
+							</div>
+							<div class="brspacer2">
+								<div class="dots"></div>
+								<div class="grey">
+									<div class="centerp">
+										Related subjects: <h3>ninja missions</h3>
+									</div>
+								</div>
+							</div>
+							<div class="brspacer">
+								<div class="brspacer">
+									<center>
+										Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series. 
+										The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+										NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.
+										<div class="centerp">
+											<a href="/privacy-policy/" class="con">Privacy policy</a> - 
+											<a href="/legal-disclaimer/" class="con">Legal disclaimer</a> - 
+											<a href="/terms-of-use/" class="con">Terms of use</a>
+										</div>
+									</center>
+								</div>
+							</div>
+						</div>

@@ -1,0 +1,34 @@
+[
+    {
+        "id": "1",
+        "title": "The Sound 4 Missions",
+        "slug": "the-sound-4-missions",
+        "description": "The <a href=\"/the-sound-4-missions/\" class=\"con\" title=\"sound 4\">sound 4</a> are part of the <a href=\"/the-sound-4-missions/\" class=\"con\" title=\"Sound\">Sound</a> village. They are <a href=\"/orochimaru/\" class=\"con\" title=\"Orochimaru\">Orochimaru</a>'s strongest team. With the following missions you are able to unlock <a href=\"/jiroubou/\" class=\"con\" title=\"Jiroubou\">Jiroubou</a>, <a href=\"/kidoumaru/\" class=\"con\" title=\"Kidoumaru\">Kidoumaru</a>, <a href=\"/tayuya/\" class=\"con\" title=\"Tayuya\">Tayuya</a> and <a href=\"/sakon/\" class=\"con\" title=\"Sakon\">Sakon</a>.",
+        "thumbnailId": "49",
+        "order": 1
+    },
+    {
+        "id": "2",
+        "title": "Serve untill death missions",
+        "slug": "serve-untill-death-missions",
+        "description": "Many ninja have the goal of serving their superior. Are you able to serve untill death? With these missions you are able to unlock <a href=\"/momochi-zabuza/\" class=\"con\" title=\"Zabuza\">Zabuza</a>, <a href=\"/kaguya-kimimaro/\" class=\"con\" title=\"Kimimaro\">Kimimaro</a>, <a href=\"/yakushi-kabuto/\" class=\"con\" title=\"Kabuto\">Kabuto</a> and <a href=\"/shizune/\" class=\"con\" title=\"Shizune\">Shizune</a>.",
+        "thumbnailId": "51",
+        "order": 2
+    },
+    {
+        "id": "3",
+        "title": "The four teamleaders missions",
+        "slug": "the-four-teamleaders-missions",
+        "description": "After the genins are able to finish a A-Rank <a href=\"/mission/\" class=\"con\" title=\"mission\">mission</a>, their teamleader will <a href=\"/the-basics/\" class=\"con\" title=\"help\">help</a> and fight along with them. With these missions you are able to unlock <a href=\"/hatake-kakashi/\" class=\"con\" title=\"Kakashi\">Kakashi</a>, <a href=\"/maito-gai/\" class=\"con\" title=\"Gai\">Gai</a>, <a href=\"/yuhi-kurenai/\" class=\"con\" title=\"Kurenai\">Kurenai</a> and <a href=\"/sarutobi-asuma/\" class=\"con\" title=\"Asuma\">Asuma</a>.",
+        "thumbnailId": "53",
+        "order": 3
+    },
+    {
+        "id": "4",
+        "title": "The legendary four missions",
+        "slug": "the-legendary-four-missions",
+        "description": "The legendary sannins are the strongest ninjas raised in Konoha using huge Summons. With these missions you are able to unlock <a href=\"/jiraiya/\" class=\"con\" title=\"Jiraiya\">Jiraiya</a>, <a href=\"/tsunade/\" class=\"con\" title=\"Tsunade\">Tsunade</a>, <a href=\"/orochimaru/\" class=\"con\" title=\"Orochimaru\">Orochimaru</a> and <a href=\"/sandaime-hokage/\" class=\"con\" title=\"Sandaime\">Sandaime</a>.",
+        "thumbnailId": "55",
+        "order": 4
+    }
+]

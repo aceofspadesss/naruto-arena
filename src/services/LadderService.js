@@ -330,6 +330,57 @@ class LadderService {
                 streak: user.streak || 0
             }));
     }
+
+    /**
+     * Get Country Ladder rankings
+     * Rules:
+     * - Only countries with at least 10 active (ranked) players are included
+     * - Points = Total Players - Average Ladder Rank of Top 10 Players
+     * @returns {Array} Sorted array of country stats { name, playerCount, points }
+     */
+    static getCountryLadder() {
+        const rankedUsers = this.getRankedUsers();
+        const countries = {};
+
+        // Group ranked users by country
+        rankedUsers.forEach(user => {
+            if (!user.country) return; // Skip users without country
+
+            if (!countries[user.country]) {
+                countries[user.country] = [];
+            }
+            countries[user.country].push(user);
+        });
+
+        const ladder = [];
+
+        for (const [countryName, users] of Object.entries(countries)) {
+            // Filter: Must have at least 10 active (ranked) players
+            if (users.length < 10) continue;
+
+            // Sort users by rank (best to worst) just to be safe, though getRankedUsers returns them sorted
+            users.sort((a, b) => a.ladderPosition - b.ladderPosition);
+
+            // Get top 10 players for calculation
+            const top10 = users.slice(0, 10);
+
+            // Calculate Average Ladder Rank of Top 10
+            const totalRank = top10.reduce((sum, user) => sum + user.ladderPosition, 0);
+            const avgRank = totalRank / top10.length;
+
+            // Calculate Points: Total Players - Average Ladder Rank
+            const points = users.length - avgRank;
+
+            ladder.push({
+                name: countryName,
+                playerCount: users.length,
+                points: points
+            });
+        }
+
+        // Sort by points descending
+        return ladder.sort((a, b) => b.points - a.points);
+    }
 }
 
 module.exports = LadderService;

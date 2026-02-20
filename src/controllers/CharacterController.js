@@ -41,6 +41,24 @@ class CharacterController {
             res.sendStatus(404);
         }
     }
+    static async postComment(req, res) {
+        if (!req.session.userId) {
+            return res.status(401).send('Unauthorized');
+        }
+
+        const slug = req.params.slug;
+        const { content } = req.body;
+        const UserModel = require('../models/UserModel');
+        const CommentModel = require('../models/CommentModel');
+        const user = UserModel.findById(req.session.userId);
+
+        if (user && content) {
+            await CommentModel.create(slug, user.id, user.username, content);
+            UserModel.incrementPosts(user.id);
+        }
+
+        res.redirect('/' + slug);
+    }
 }
 
 module.exports = CharacterController;

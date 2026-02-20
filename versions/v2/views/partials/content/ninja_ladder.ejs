@@ -1,144 +1,101 @@
-<div
-    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
-    <div
-        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
-        <h1>Ninja ladder</h1><br><a href='/'>Naruto Arena</a> > <h2>Ninja ladder</h2><br><br>
+<div id="content">
+	<div class="brspacer">
+		<h1>Ninja ladder</h1><br>
+		<div id="pagepath"><a href="/">Naruto Arena</a> &gt; <a href="/ladders/">Ladders</a> &gt; <h2>Ninja ladder</h2>
+		</div>
+	</div>
+	<div class="brspacer">
+		<a href="/the-ninja-ladder/" class="con" title="The ninja ladder">The ninja ladder</a> is the most important <a
+			href="/the-ninja-ladder/" class="con" title="ladder">ladder</a> of the Naruto-Arena <a href="/game-manual/"
+			class="con" title="game">game</a>. It's an international <a href="/the-ninja-ladder/" class="con"
+			title="ladder">ladder</a> which everyone automatically joins when he or she starts playing the Naruto-Arena
+		<a href="/game-manual/" class="con" title="game">game</a>. It shows a player's individual <a
+			href="/characters-and-skills/" class="con" title="skill">skill</a> in their quest of becoming hokage.
 
+		<div class="brspacer"></div>
 
-        <center>
-        </center>
-
-
-        <table width="100%">
-
-            <tr class="" valign="bottom">
-                <td width="10%">
-                    <h5>Rank</h5>
-                </td>
-                <td width="30%">
-                    <h5>Username</h5>
-                </td>
-                <td width="30%">
-                    <h5>Ninja rank</h5>
-                </td>
-                <td width="10%">
-                    <h5>Wins</h5>
-                </td>
-                <td width="10%">
-                    <h5>Losses</h5>
-                </td>
-                <td width="10%">
-                    <h5>Streak</h5>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="6">
-                    <div class="dots"></div>
-                </td>
-            </tr>
-
-            <% if (rankedUsers && rankedUsers.length> 0) { %>
-                <% rankedUsers.forEach(function(player, index) { %>
-                    <tr class="<%= index % 2 === 0 ? 'color1' : 'color2' %>" valign="bottom">
-                        <td># <%= player.ladderPosition %>
-                        </td>
-                        <td><a href="/profile/<%= player.username %>/">
-                                <%= player.username %>
-                            </a></td>
-                        <td>
-                            <% let rankImage='academystudent.gif' ; if (player.ninjaRank==='Genin' )
-                                rankImage='genin.gif' ; else if (player.ninjaRank==='Chuunin' ) rankImage='chuunin.gif'
-                                ; else if (player.ninjaRank==='Jounin' ) rankImage='jounin.gif' ; else if
-                                (player.ninjaRank==='Special Jounin' ) rankImage='specialjounin.gif' ; else if
-                                (player.ninjaRank==='Legendary Sannin' ) rankImage='sannin.gif' ; else if
-                                (player.ninjaRank==='Hokage' ) rankImage='hokage.gif' ; %>
-                                <img src="/images/ninjaranks/<%= rankImage %>" class="rank">
-                                <%= player.ninjaRank %>
-                        </td>
-                        <td>
-                            <%= player.wins || 0 %>
-                        </td>
-                        <td>
-                            <%= player.losses || 0 %>
-                        </td>
-                        <td>
-                            <%= (player.streak> 0 ? '+' : '') + (player.streak || 0) %>
-                        </td>
-                    </tr>
-                    <% }); %>
-                        <% } else { %>
-                            <tr>
-                                <td colspan="6" align="center">No ranked players found.</td>
-                            </tr>
-                            <% } %>
-
-                                <tr>
-                                    <td colspan="6">
-                                        <div class="dots"></div>
-                                    </td>
-                                </tr>
-        </table>
-
-        <% if (totalPages> 1) { %>
-            <div style="float:left;">
-                [Page <%= currentPage %>/<%= totalPages %>] &nbsp;
-
-                        <% if (currentPage> 1) { %>
-                            <a href="/ninja-ladder/<%= currentPage - 1 %>/">&nbsp;&nbsp;<img class='pre'
-                                    src='/images/layout/pre.gif'></a>
-                            <% } %>
-
-                                <% let startPage=Math.max(1, currentPage - 3); let endPage=Math.min(totalPages,
-                                    startPage + 6); if (endPage - startPage < 6) { startPage=Math.max(1, endPage - 6); }
-                                    for (let i=startPage; i <=endPage; i++) { if (i===currentPage) { %>
-                                    <u>
-                                        <%= i %>
-                                    </u>
-                                    <% } else { %>
-                                        <a href="/ninja-ladder/<%= i %>/">
-                                            <%= i %>
-                                        </a>
-                                        <% } %>
-                                            <% } %>
-
-                                                <% if (currentPage < totalPages) { %>
-                                                    <a href="/ninja-ladder/<%= currentPage + 1 %>/">&nbsp;&nbsp;<img
-                                                            class='pre' src='/images/layout/pre.gif'
-                                                            style="transform: scaleX(-1);"></a>
-                                                    <% } %>
-            </div>
-
-            <div align="right" style="float:right">
-                <script language="javascript">
-                    function gotolink(linktogo) {
-                        window.location = linktogo;
-                    }
-                </script>
-                <SELECT name="listingselect" onChange="gotolink(this.options[this.selectedIndex].value)">
-                    <% for(let i=1; i <=totalPages; i++) { %>
-                        <OPTION value="/ninja-ladder/<%= i %>/" <%=i===currentPage ? 'SELECTED' : '' %>>&nbsp;Page <%= i
-                                %>&nbsp;</OPTION>
-                        <% } %>
-                </SELECT>
-            </div>
-            <% } %> <br><br><br>
-                <div class="dots"></div>
-                <div class="nothing">
-                    Pagename: <b>Ninja ladder</b><br>
-                    Description: A webbased naruto online multiplayer game. Featuring a tactical game with ladders and
-                    tournaments.<br>
-                    Related subjects: <h3>ninja ladder</h3>, <h3>ladder</h3>, <h3>competition</h3>, <h3>ninjaladder</h3>
-                    <br><br>
-                    Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
-                    The holders of the copyrighted and/or trademarked material appearing on this site are as
-                    follows:<br>
-                    NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
-                    <a href="/privacy-policy/" class="con">Privacy policy</a> -
-                    <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
-                    <a href="/terms-of-use/" class="con">Terms of use</a>
-                </div>
-                <div class="dots"></div><br>
-    </div>
-</div>
-</div>
+		<div class="brspacer">
+			<table class="maxnb">
+				<tbody>
+					<tr class="title">
+						<td width="10%" class="center">Rank</td>
+						<td width="10%"></td>
+						<td width="27%">&nbsp;Username</td>
+						<td width="28%">&nbsp;&nbsp;<img class="pre" src="/images/pres/pre3.gif">&nbsp;&nbsp;&nbsp;Ninja
+							rank</td>
+						<td width="10%" class="right"># wins&nbsp;</td>
+						<td width="10%">&nbsp;# Losses</td>
+						<td width="5%" class="right">Streak</td>
+					</tr>
+					<% if (rankedUsers && rankedUsers.length> 0) { %>
+						<% rankedUsers.forEach(function(player, index) { %>
+							<tr class="<%= index % 2 === 0 ? 'color1' : 'color2' %>" valign="bottom">
+								<td class="lrank"># <%= player.ladderPosition %>
+								</td>
+								<td>
+									<% if (player.country) { %>
+										<img src="/images/countries/<%= player.country %>.gif" align="right"
+											class="licon">
+										<% } %>
+								</td>
+								<td><a href="/profile/<%= player.username %>/">
+										<%= player.username %>
+									</a></td>
+								<% let rankImage='academystudent.gif' ; if (player.ninjaRank==='Genin' )
+									rankImage='genin.gif' ; else if (player.ninjaRank==='Chuunin' )
+									rankImage='chuunin.gif' ; else if (player.ninjaRank==='Jounin' )
+									rankImage='jounin.gif' ; else if (player.ninjaRank==='Special Jounin' )
+									rankImage='specialjounin.gif' ; else if (player.ninjaRank==='Legendary Sannin' )
+									rankImage='sannin.gif' ; else if (player.ninjaRank==='Hokage' )
+									rankImage='hokage.gif' ; %>
+									<td><img src="/images/ninjaranks/<%= rankImage %>" class="rank">&nbsp;&nbsp;<%=
+											player.ninjaRank %>
+									</td>
+									<td class="right"><b>
+											<%= player.wins %>
+										</b></td>
+									<td><u>
+											<%= player.losses %>
+										</u></td>
+									<td class="right">
+										<%= player.streak> 0 ? '+' + player.streak : player.streak %>
+									</td>
+							</tr>
+							<% }); %>
+								<% } else { %>
+									<tr>
+										<td colspan="6" align="center">No ranked players found.</td>
+									</tr>
+									<% } %>
+										<tr>
+											<td colspan="7" class="dots"></td>
+										</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="brspacer">
+		</div>
+	</div>
+	<div class="brspacer2">
+		<div class="dots"></div>
+		<div class="grey">
+			<div class="centerp">
+				Related subjects: <h3>ninja ladder</h3>, <h3>ladder</h3>, <h3>competition</h3>, <h3>ninjaladder</h3>
+			</div>
+		</div>
+	</div>
+	<div class="brspacer">
+		<div class="brspacer">
+			<center>
+				Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+				The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+				NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.
+				<div class="centerp">
+					<a href="/privacy-policy/" class="con">Privacy policy</a> -
+					<a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+					<a href="/terms-of-use/" class="con">Terms of use</a>
+				</div>
+			</center>
+		</div>
+	</div>
 </div>

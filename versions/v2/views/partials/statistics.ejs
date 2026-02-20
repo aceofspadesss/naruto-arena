@@ -1,22 +1,15 @@
-<h4>Statistics</h4><br>
-<b>Members:</b>
-<br>Total members: <u>
-    <%= statistics.totalMembers %>
-</u>
-<br><a href="/memberlist/"><u>Show
-        memberlist</u></a>
+<div class="brspacer">
+    <h4 class="block">Statistics</h4>
+    <div class="marker">
+        <b>Members:</b>
+        <br />Total members: <span><%= statistics.totalMembers %></span>
+        <br /><a href="/memberlist/" class="statlinks">Show memberlist</a>
 
-<br><br><b>Online:</b>
-<br>Admins online: <u>
-    <%= statistics.adminsOnline %>
-</u>
-<br>Moderators online: <u>
-    <%= statistics.moderatorsOnline %>
-</u>
-<br>Members online: <u>
-    <%= statistics.membersOnline %>
-</u>
-<br><a href="/users-online/"><u>Show
-        users
-        online</u></a>
-<br><br>
+        <br /><b>Online:</b>
+        <br />Admins online: <span><%= statistics.adminsOnline %></span>
+        <br />Moderators online: <span><%= statistics.moderatorsOnline %></span>
+        <br />Members online: <span><%= statistics.membersOnline %></span>
+        <br /><a href="/users-online/" class="statlinks">Show users online</a>
+        <br><br>
+    </div>
+</div>

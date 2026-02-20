@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Mission - Naruto Arena Admin</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <style>
+        .admin-container {
+            width: 860px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+
+        .form-group { margin-bottom: 15px; }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            cursor: pointer;
+            background: #eee;
+            border: 1px solid #999;
+            text-decoration: none;
+            color: black;
+            margin-right: 10px;
+        }
+
+        .btn-primary { background: #4a90d9; color: white; border-color: #3a7bc0; }
+        .btn-danger { background: #d94a4a; color: white; border-color: #c03a3a; font-size: 12px; padding: 4px 10px; }
+        .btn-add { background: #5aab5a; color: white; border-color: #3a8c3a; }
+
+        .thumbnail-preview-wrap {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        #thumbnail-preview {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 1px solid #ccc;
+        }
+
+        .hint { font-size: 12px; color: #666; margin-top: 4px; }
+
+        .prereq-list {
+            max-height: 160px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 8px;
+            background: #fafafa;
+        }
+
+        .prereq-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 3px 0;
+        }
+
+        /* Goals */
+        #goals-list { margin-bottom: 8px; }
+
+        .goal-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .goal-row select, .goal-row input[type="number"] {
+            width: auto;
+            padding: 5px;
+            font-size: 13px;
+        }
+
+        .goal-row .char-select { min-width: 200px; }
+        .goal-row .count-input { width: 70px; }
+
+        /* Rewards */
+        .reward-section { border: 1px solid #ddd; padding: 12px; background: #fafafa; }
+        .reward-char-preview { width: 60px; height: 60px; object-fit: cover; border: 1px solid #ccc; display: none; vertical-align: middle; }
+
+        /* Quill */
+        #description-editor { height: 160px; background: white; }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <h1>Edit Mission</h1>
+        <form action="/admin/missions/edit/<%= mission.id %>" method="POST" id="mission-form">
+
+            <!-- Name + Slug -->
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" name="name" value="<%= mission.name %>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Slug (URL path):</label>
+                <input type="text" name="slug" value="<%= mission.slug %>" required>
+                <div class="hint">Used as the URL: /mission/<em><%= mission.slug %></em>/</div>
+            </div>
+
+            <!-- Difficulty -->
+            <div class="form-group">
+                <label>Difficulty:</label>
+                <select name="difficulty">
+                    <% ['Practice Session','D Rank Mission','C Rank Mission','B Rank Mission','A Rank Mission','S Rank Mission'].forEach(d => { %>
+                        <option value="<%= d %>" <%= mission.difficulty === d ? 'selected' : '' %>><%= d %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <!-- Thumbnail -->
+            <div class="form-group">
+                <label>Thumbnail Image ID:</label>
+                <select name="thumbnailId" id="thumbnail-select">
+                    <% thumbnailIds.forEach(id => { %>
+                        <option value="<%= id %>" <%= id === mission.thumbnailId ? 'selected' : '' %>><%= id %></option>
+                    <% }); %>
+                </select>
+                <div class="thumbnail-preview-wrap">
+                    <img id="thumbnail-preview"
+                         src="/images/missions/<%= mission.thumbnailId %>/image.jpg"
+                         alt="Preview">
+                    <span class="hint">Preview of selected thumbnail</span>
+                </div>
+            </div>
+
+            <!-- Rank requirement -->
+            <div class="form-group">
+                <label>Required Ninja Rank (minimum):</label>
+                <select name="rank">
+                    <% ranks.forEach(r => { %>
+                        <option value="<%= r %>" <%= mission.requirements.rank === r ? 'selected' : '' %>><%= r %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <!-- Prerequisite missions -->
+            <div class="form-group">
+                <label>Prerequisite Missions Completed:</label>
+                <div class="prereq-list">
+                    <% if (allMissions.length === 0) { %>
+                        <span style="color:#999; font-size:13px;">No other missions available.</span>
+                    <% } else { %>
+                        <% allMissions.forEach(m => { %>
+                            <div class="prereq-item">
+                                <input type="checkbox" name="missionsCompleted" value="<%= m.id %>"
+                                       id="prereq-<%= m.id %>"
+                                       <%= mission.requirements.missionsCompleted.includes(m.id) ? 'checked' : '' %>>
+                                <label for="prereq-<%= m.id %>" style="font-weight:normal; margin:0;">
+                                    <%= m.name %> <span style="color:#999; font-size:11px;">(ID: <%= m.id %>)</span>
+                                </label>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                <label>Description:</label>
+                <div id="description-editor"></div>
+                <input type="hidden" name="description" id="description-input">
+            </div>
+
+            <!-- Goals -->
+            <div class="form-group">
+                <label>Mission Goals:</label>
+                <div id="goals-list"></div>
+                <button type="button" class="btn btn-add" onclick="addGoal()">+ Add Goal</button>
+                <div class="hint">Goals describe what the player must accomplish to complete this mission.</div>
+            </div>
+
+            <!-- Rewards -->
+            <div class="form-group">
+                <label>Mission Reward:</label>
+                <div class="reward-section">
+                    <div style="margin-bottom: 8px;">
+                        <label style="display:inline; font-weight:normal;">
+                            <input type="radio" name="rewardType" value="text"
+                                <%= (!mission.rewards || mission.rewards.type !== 'character') ? 'checked' : '' %>
+                                onchange="toggleRewardType()"> Text description
+                        </label>
+                        &nbsp;&nbsp;
+                        <label style="display:inline; font-weight:normal;">
+                            <input type="radio" name="rewardType" value="character"
+                                <%= (mission.rewards && mission.rewards.type === 'character') ? 'checked' : '' %>
+                                onchange="toggleRewardType()"> Unlock character
+                        </label>
+                    </div>
+                    <div id="reward-text-wrap" style="<%= (mission.rewards && mission.rewards.type === 'character') ? 'display:none' : '' %>">
+                        <textarea name="rewardText" rows="3" placeholder="Describe the reward..."><%= (mission.rewards && mission.rewards.type === 'text') ? mission.rewards.value : '' %></textarea>
+                    </div>
+                    <div id="reward-char-wrap" style="<%= (mission.rewards && mission.rewards.type === 'character') ? 'display:flex' : 'display:none' %>; align-items:center; gap:12px;">
+                        <select name="rewardCharacterId" id="reward-char-select" onchange="updateRewardCharPreview()">
+                            <option value="">-- Select character --</option>
+                            <% characters.forEach(c => { %>
+                                <option value="<%= c.id %>"
+                                    <%= (mission.rewards && mission.rewards.type === 'character' && mission.rewards.characterId == c.id) ? 'selected' : '' %>>
+                                    <%= c.name %>
+                                </option>
+                            <% }); %>
+                        </select>
+                        <img id="reward-char-preview" class="reward-char-preview"
+                             src="<%= (mission.rewards && mission.rewards.type === 'character' && mission.rewards.characterId) ? '/game/images/characters/' + mission.rewards.characterId + '/avatarlarge.jpg' : '' %>"
+                             style="<%= (mission.rewards && mission.rewards.type === 'character' && mission.rewards.characterId) ? 'display:block' : 'display:none' %>"
+                             alt="Character">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order -->
+            <div class="form-group">
+                <label>Display Order:</label>
+                <input type="number" name="order" value="<%= mission.order %>" min="1" style="width: 100px;">
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="/admin/missions?category=<%= mission.categoryId %>" class="btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Existing goals data from server -->
+    <script>
+        const CHARACTERS = <%- JSON.stringify(characters.map(c => ({ id: c.id, name: c.name }))) %>;
+        const EXISTING_GOALS = <%- JSON.stringify(mission.goals || []) %>;
+    </script>
+
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    <script>
+        // Quill editor — pre-load existing description
+        const quill = new Quill('#description-editor', { theme: 'snow' });
+        quill.root.innerHTML = <%- JSON.stringify(mission.description || '') %>;
+
+        // Thumbnail preview
+        const thumbSelect = document.getElementById('thumbnail-select');
+        const thumbPreview = document.getElementById('thumbnail-preview');
+        thumbSelect.addEventListener('change', function () {
+            thumbPreview.src = '/images/missions/' + this.value + '/image.jpg';
+        });
+
+        // Reward type toggle
+        function toggleRewardType() {
+            const type = document.querySelector('input[name="rewardType"]:checked').value;
+            document.getElementById('reward-text-wrap').style.display = type === 'text' ? '' : 'none';
+            document.getElementById('reward-char-wrap').style.display = type === 'character' ? 'flex' : 'none';
+        }
+
+        function updateRewardCharPreview() {
+            const id = document.getElementById('reward-char-select').value;
+            const img = document.getElementById('reward-char-preview');
+            if (id) {
+                img.src = '/game/images/characters/' + id + '/avatarlarge.jpg';
+                img.style.display = 'block';
+            } else {
+                img.style.display = 'none';
+            }
+        }
+
+        // Goals builder
+        let goalIndex = 0;
+
+        function charOptions(selectedId) {
+            return CHARACTERS.map(c =>
+                `<option value="${c.id}" ${String(c.id) === String(selectedId) ? 'selected' : ''}>${c.name}</option>`
+            ).join('');
+        }
+
+        function addGoal(type, charId, count, againstCharId, char2Id, char3Id) {
+            type = type || 'wins_with';
+            count = count || 1;
+            const idx = goalIndex++;
+            const row = document.createElement('div');
+            row.className = 'goal-row';
+            row.dataset.idx = idx;
+            row.innerHTML = buildGoalHTML(idx, type, charId, count, againstCharId, char2Id, char3Id);
+            document.getElementById('goals-list').appendChild(row);
+        }
+
+        function buildGoalHTML(idx, type, charId, count, againstCharId, char2Id, char3Id) {
+            const typeSelect = `<select name="goalType[]" onchange="onGoalTypeChange(this, ${idx})">
+                <option value="wins_with" ${type==='wins_with'?'selected':''}>Win X games with character</option>
+                <option value="wins_in_row_with" ${type==='wins_in_row_with'?'selected':''}>Win X games in a row with character</option>
+                <option value="wins_against_with" ${type==='wins_against_with'?'selected':''}>Win X games against character with character</option>
+                <option value="wins_in_row_with_either" ${type==='wins_in_row_with_either'?'selected':''}>Win X games in a row with character Y or character Z</option>
+                <option value="wins_with_any" ${type==='wins_with_any'?'selected':''}>Win X games with character Y, Z, or A in team</option>
+            </select>`;
+
+            const charSelect = `<select name="goalCharacterId[]" class="char-select">${charOptions(charId)}</select>`;
+            const countInput = `<input type="number" name="goalCount[]" class="count-input" value="${count}" min="1" max="9999">`;
+            const againstSelect = type === 'wins_against_with'
+                ? `<span id="against-wrap-${idx}">vs <select name="goalAgainstCharacterId[]" class="char-select">${charOptions(againstCharId)}</select></span>`
+                : `<span id="against-wrap-${idx}" style="display:none">vs <select name="goalAgainstCharacterId[]" class="char-select">${charOptions('')}</select></span>`;
+            const char2Select = (type === 'wins_in_row_with_either' || type === 'wins_with_any')
+                ? `<span id="char2-wrap-${idx}"> or <select name="goalCharacter2Id[]" class="char-select">${charOptions(char2Id)}</select></span>`
+                : `<span id="char2-wrap-${idx}" style="display:none"> or <select name="goalCharacter2Id[]" class="char-select">${charOptions('')}</select></span>`;
+            const char3Select = type === 'wins_with_any'
+                ? `<span id="char3-wrap-${idx}"> or <select name="goalCharacter3Id[]" class="char-select">${charOptions(char3Id)}</select></span>`
+                : `<span id="char3-wrap-${idx}" style="display:none"> or <select name="goalCharacter3Id[]" class="char-select">${charOptions('')}</select></span>`;
+            const removeBtn = `<button type="button" class="btn btn-danger" onclick="removeGoal(this)">Remove</button>`;
+
+            return `${typeSelect} with ${charSelect} ${againstSelect} ${char2Select} ${char3Select} × ${countInput} times ${removeBtn}`;
+        }
+
+        function onGoalTypeChange(sel, idx) {
+            document.getElementById('against-wrap-' + idx).style.display = sel.value === 'wins_against_with' ? '' : 'none';
+            document.getElementById('char2-wrap-' + idx).style.display = (sel.value === 'wins_in_row_with_either' || sel.value === 'wins_with_any') ? '' : 'none';
+            document.getElementById('char3-wrap-' + idx).style.display = sel.value === 'wins_with_any' ? '' : 'none';
+        }
+
+        function removeGoal(btn) {
+            btn.closest('.goal-row').remove();
+        }
+
+        // Pre-populate existing goals
+        EXISTING_GOALS.forEach(g => {
+            addGoal(g.type, g.characterId, g.count, g.againstCharacterId, g.character2Id, g.character3Id);
+        });
+
+        // Form submit: copy Quill HTML
+        document.getElementById('mission-form').addEventListener('submit', function () {
+            document.getElementById('description-input').value = quill.root.innerHTML;
+        });
+    </script>
+</body>
+
+</html>

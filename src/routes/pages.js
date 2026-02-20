@@ -6,7 +6,11 @@ const PageController = require('../controllers/PageController');
 const PollController = require('../controllers/PollController');
 const UserController = require('../controllers/UserController');
 const NewsController = require('../controllers/NewsController');
+
 const BalanceChangesController = require('../controllers/BalanceChangesController');
+const CharacterController = require('../controllers/CharacterController');
+const MissionCategoryController = require('../controllers/MissionCategoryController');
+const MissionController = require('../controllers/MissionController');
 
 const checkRole = require('../middleware/checkRole');
 const UserModel = require('../models/UserModel');
@@ -144,6 +148,10 @@ router.get('/the-basics', PageController.theBasics);
 router.get('/contact', PageController.contact);
 router.get('/search/:query', PageController.search);
 router.get('/memberlist', PageController.memberList);
+router.get('/ninja-missions', PageController.ninjaMissions); // Existing
+router.get('/mission', PageController.mission);
+router.get('/mission/:slug', MissionCategoryController.missionInfoPage);
+router.get('/ladders', PageController.ladders);
 router.get('/privacy-policy', PageController.privacyPolicy);
 router.get('/legal-disclaimer', PageController.legalDisclaimer);
 router.get('/terms-of-use', PageController.termsOfUse);
@@ -151,19 +159,25 @@ router.get('/sitemap', PageController.sitemap);
 router.get('/the-ninja-ladder', PageController.theNinjaLadder);
 router.get('/ninja-ladder', PageController.ninjaLadder);
 router.get('/ninja-ladder/:page', PageController.ninjaLadder);
+router.get('/country-ladder', PageController.countryLadder);
 router.get('/news-archive', PageController.newsArchive);
 router.get('/news', PageController.news);
 router.get('/pollarchive', PageController.pollArchive);
 router.get('/characters-and-skills', PageController.charactersAndSkills);
 router.get('/users-online', PageController.usersOnline);
 
+// Mission category pages (slug-based, before generic /:slug catch-alls)
+router.get('/:slug', MissionCategoryController.categoryPage);
+
 // Dynamic character info page (must be before admin routes but after specific routes)
 router.get('/:slug/:page', NewsController.newsPage);
 router.get('/:slug/:page', PollController.pollPage);
+router.get('/:slug/:page', PageController.characterInfo); // Added pagination support
 router.get('/:slug', PageController.characterInfo);
 router.get('/:slug', PollController.pollPage);
 router.get('/:slug', NewsController.newsPage);
 router.post('/news/:slug/comment', NewsController.postComment);
+router.post('/character/:slug/comment', CharacterController.postComment);
 router.post('/poll/:slug/comment', PollController.postComment);
 
 router.get('/admin/characters', checkRole('admin'), PageController.adminCharacters);
@@ -198,5 +212,21 @@ router.post('/admin/news/delete/:id', checkRole(['admin', 'moderator']), NewsCon
 // Admin Balance Changes Routes
 router.get('/admin/balance-changes', checkRole(['admin', 'moderator']), BalanceChangesController.editPage);
 router.post('/admin/balance-changes', checkRole(['admin', 'moderator']), BalanceChangesController.editAction);
+
+// Admin Mission Category Routes
+router.get('/admin/mission-categories', checkRole(['admin', 'moderator']), MissionCategoryController.list);
+router.get('/admin/mission-categories/create', checkRole(['admin', 'moderator']), MissionCategoryController.createPage);
+router.post('/admin/mission-categories/create', checkRole(['admin', 'moderator']), MissionCategoryController.createAction);
+router.get('/admin/mission-categories/edit/:id', checkRole(['admin', 'moderator']), MissionCategoryController.editPage);
+router.post('/admin/mission-categories/edit/:id', checkRole(['admin', 'moderator']), MissionCategoryController.editAction);
+router.post('/admin/mission-categories/delete/:id', checkRole(['admin', 'moderator']), MissionCategoryController.deleteAction);
+
+// Admin Mission Routes
+router.get('/admin/missions', checkRole(['admin', 'moderator']), MissionController.list);
+router.get('/admin/missions/create', checkRole(['admin', 'moderator']), MissionController.createPage);
+router.post('/admin/missions/create', checkRole(['admin', 'moderator']), MissionController.createAction);
+router.get('/admin/missions/edit/:id', checkRole(['admin', 'moderator']), MissionController.editPage);
+router.post('/admin/missions/edit/:id', checkRole(['admin', 'moderator']), MissionController.editAction);
+router.post('/admin/missions/delete/:id', checkRole(['admin', 'moderator']), MissionController.deleteAction);
 
 module.exports = router;

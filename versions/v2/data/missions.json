@@ -1,0 +1,543 @@
+[
+    {
+        "id": "1",
+        "categoryId": "1",
+        "name": "Sasukes quest for power",
+        "slug": "sasukes-quest-for-power",
+        "difficulty": "Practice Session",
+        "thumbnailId": "1",
+        "requirements": {
+            "rank": "Academy Student",
+            "missionsCompleted": []
+        },
+        "order": 1,
+        "description": "<p>After&nbsp;<a href=\"http://localhost:3000/uchiha-sasuke/\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(40, 0, 146);\">Uchiha Sasuke</a>&nbsp;received the curse seal from&nbsp;<a href=\"http://localhost:3000/orochimaru/\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(40, 0, 146);\">Orochimaru</a>,&nbsp;<a href=\"http://localhost:3000/uchiha-sasuke/\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(40, 0, 146);\">Sasuke</a>&nbsp;has been completely possessed by his lust for power. There is no place for&nbsp;<a href=\"http://localhost:3000/game-manual/\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(40, 0, 146);\">friends</a>&nbsp;in his world. In order to show&nbsp;<a href=\"http://localhost:3000/orochimaru/\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(40, 0, 146);\">Orochimaru</a>&nbsp;that he is worthy,&nbsp;<a href=\"http://localhost:3000/uchiha-sasuke/\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(40, 0, 146);\">Sasuke</a>&nbsp;has to defeat all Konoha ninja atleast once.</p><p><br></p><p>Once&nbsp;<a href=\"http://localhost:3000/uchiha-sasuke/\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(40, 0, 146);\">Sasuke</a>&nbsp;has proven himself worthy, the Sound Four will make&nbsp;<a href=\"http://localhost:3000/game-manual/\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(40, 0, 146);\">contact</a>&nbsp;and bring&nbsp;<a href=\"http://localhost:3000/uchiha-sasuke/\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(40, 0, 146);\">Sasuke</a>&nbsp;to&nbsp;<a href=\"http://localhost:3000/orochimaru/\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(40, 0, 146);\">Orochimaru</a>.</p>",
+        "goals": [
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 1,
+                "againstCharacterId": "23"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 1,
+                "againstCharacterId": "6"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 1,
+                "againstCharacterId": "1"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 1,
+                "againstCharacterId": "31"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 1,
+                "againstCharacterId": "4"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 1,
+                "againstCharacterId": "18"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 1,
+                "againstCharacterId": "27"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 1,
+                "againstCharacterId": "3"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 1,
+                "againstCharacterId": "8"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 1,
+                "againstCharacterId": "29"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 1,
+                "againstCharacterId": "15"
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": "Mission \"Sasuke's quest for power\" completion."
+        }
+    },
+    {
+        "id": "2",
+        "categoryId": "1",
+        "name": "The search for Jiroubou",
+        "slug": "the-search-for-jiroubou",
+        "difficulty": "D Rank Mission",
+        "thumbnailId": "2",
+        "requirements": {
+            "rank": "Genin",
+            "missionsCompleted": [
+                "1"
+            ]
+        },
+        "order": 2,
+        "description": "<p>After Uchiha Sasuke left the village with the Sound Four, Naruto has been given the order to form a small group to rescue Sasuke. Akimichi Chouji wants to join, but he will have to train to improve his strength.</p><p><br></p><p>Once Chouji is strong enough, he will be able to face Jiroubou and win.</p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with",
+                "characterId": "15",
+                "count": 4
+            }
+        ],
+        "rewards": {
+            "type": "character",
+            "characterId": "24"
+        }
+    },
+    {
+        "id": "3",
+        "categoryId": "1",
+        "name": "The search for Kidoumaru",
+        "slug": "the-search-for-kidoumaru",
+        "difficulty": "D Rank Mission",
+        "thumbnailId": "3",
+        "requirements": {
+            "rank": "Genin",
+            "missionsCompleted": [
+                "1"
+            ]
+        },
+        "order": 3,
+        "description": "<p><br></p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with",
+                "characterId": "4",
+                "count": 4
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": ""
+        }
+    },
+    {
+        "id": "4",
+        "categoryId": "1",
+        "name": "The search for Tayuya",
+        "slug": "the-search-for-tayuya",
+        "difficulty": "C Rank Mission",
+        "thumbnailId": "4",
+        "requirements": {
+            "rank": "Chuunin",
+            "missionsCompleted": [
+                "1"
+            ]
+        },
+        "order": 4,
+        "description": "<p><br></p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with_either",
+                "characterId": "8",
+                "count": 5,
+                "character2Id": "11"
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": ""
+        }
+    },
+    {
+        "id": "5",
+        "categoryId": "1",
+        "name": "The search for Sakon",
+        "slug": "the-search-for-sakon",
+        "difficulty": "C Rank Mission",
+        "thumbnailId": "5",
+        "requirements": {
+            "rank": "Chuunin",
+            "missionsCompleted": [
+                "1"
+            ]
+        },
+        "order": 5,
+        "description": "<p><br></p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with_either",
+                "characterId": "18",
+                "count": 5,
+                "character2Id": "14"
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": ""
+        }
+    },
+    {
+        "id": "1771361768792",
+        "categoryId": "2",
+        "name": "The first mission",
+        "slug": "the-first-mission",
+        "difficulty": "D Rank Mission",
+        "thumbnailId": "6",
+        "requirements": {
+            "rank": "Genin",
+            "missionsCompleted": []
+        },
+        "order": 1,
+        "description": "<p><br></p>",
+        "goals": [
+            {
+                "type": "wins_with_any",
+                "characterId": "6",
+                "count": 15
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": "Mission \"The first mission\" completion."
+        }
+    },
+    {
+        "id": "1771362004940",
+        "categoryId": "2",
+        "name": "Devotion",
+        "slug": "devotion",
+        "difficulty": "B Rank Mission",
+        "thumbnailId": "7",
+        "requirements": {
+            "rank": "Special Jounin",
+            "missionsCompleted": [
+                "1771361768792"
+            ]
+        },
+        "order": 2,
+        "description": "<p><br></p>",
+        "goals": [
+            {
+                "type": "wins_with",
+                "characterId": "19",
+                "count": 15
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": ""
+        }
+    },
+    {
+        "id": "1771362123139",
+        "categoryId": "2",
+        "name": "A small test",
+        "slug": "a-small-test",
+        "difficulty": "D Rank Mission",
+        "thumbnailId": "8",
+        "requirements": {
+            "rank": "Genin",
+            "missionsCompleted": []
+        },
+        "order": 3,
+        "description": "<p><br></p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with",
+                "characterId": "6",
+                "count": 4
+            },
+            {
+                "type": "wins_with",
+                "characterId": "23",
+                "count": 4
+            },
+            {
+                "type": "wins_with",
+                "characterId": "13",
+                "count": 4
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": "Mission \"A small test\" completion."
+        }
+    },
+    {
+        "id": "1771362170006",
+        "categoryId": "2",
+        "name": "Survival",
+        "slug": "survival",
+        "difficulty": "B Rank Mission",
+        "thumbnailId": "9",
+        "requirements": {
+            "rank": "Special Jounin",
+            "missionsCompleted": [
+                "1771362123139"
+            ]
+        },
+        "order": 4,
+        "description": "<p><br></p>",
+        "goals": [
+            {
+                "type": "wins_with_any",
+                "characterId": "6",
+                "count": 18
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": ""
+        }
+    },
+    {
+        "id": "1771362212687",
+        "categoryId": "2",
+        "name": "The fifth of the Sound",
+        "slug": "the-fifth-of-the-sound",
+        "difficulty": "C Rank Mission",
+        "thumbnailId": "10",
+        "requirements": {
+            "rank": "Chuunin",
+            "missionsCompleted": []
+        },
+        "order": 5
+    },
+    {
+        "id": "1771362348541",
+        "categoryId": "2",
+        "name": "The search for Kimimaru",
+        "slug": "the-search-for-kimimaru",
+        "difficulty": "B Rank Mission",
+        "thumbnailId": "11",
+        "requirements": {
+            "rank": "Special Jounin",
+            "missionsCompleted": [
+                "1771362212687"
+            ]
+        },
+        "order": 6
+    },
+    {
+        "id": "1771362467357",
+        "categoryId": "2",
+        "name": "Medical Training",
+        "slug": "medical-training",
+        "difficulty": "B Rank Mission",
+        "thumbnailId": "12",
+        "requirements": {
+            "rank": "Special Jounin",
+            "missionsCompleted": [
+                "1771361768792",
+                "1771362170006"
+            ]
+        },
+        "order": 7
+    },
+    {
+        "id": "1771362787277",
+        "categoryId": "3",
+        "name": "Team of Kakashi",
+        "slug": "team-of-kakashi",
+        "difficulty": "B Rank Mission",
+        "thumbnailId": "13",
+        "requirements": {
+            "rank": "Special Jounin",
+            "missionsCompleted": []
+        },
+        "order": 1
+    },
+    {
+        "id": "1771362809860",
+        "categoryId": "3",
+        "name": "Team 7 Fights as a Team",
+        "slug": "team-7-fights-as-a-team",
+        "difficulty": "A Rank Mission",
+        "thumbnailId": "14",
+        "requirements": {
+            "rank": "Jounin",
+            "missionsCompleted": [
+                "1771362787277"
+            ]
+        },
+        "order": 2
+    },
+    {
+        "id": "1771362880092",
+        "categoryId": "3",
+        "name": "Team of Kurenai",
+        "slug": "team-of-kurenai",
+        "difficulty": "B Rank Mission",
+        "thumbnailId": "15",
+        "requirements": {
+            "rank": "Special Jounin",
+            "missionsCompleted": []
+        },
+        "order": 3
+    },
+    {
+        "id": "1771362919095",
+        "categoryId": "3",
+        "name": "Team 8 Scouting at its best",
+        "slug": "team-8-scouting-at-its-best",
+        "difficulty": "A Rank Mission",
+        "thumbnailId": "16",
+        "requirements": {
+            "rank": "Jounin",
+            "missionsCompleted": [
+                "1771362880092"
+            ]
+        },
+        "order": 4
+    },
+    {
+        "id": "1771362961374",
+        "categoryId": "3",
+        "name": "Team of Gai",
+        "slug": "team-of-gai",
+        "difficulty": "B Rank Mission",
+        "thumbnailId": "17",
+        "requirements": {
+            "rank": "Special Jounin",
+            "missionsCompleted": []
+        },
+        "order": 5
+    },
+    {
+        "id": "1771363001823",
+        "categoryId": "3",
+        "name": "Team 9 The best taijustu team",
+        "slug": "team-9-the-best-taijustu-team",
+        "difficulty": "A Rank Mission",
+        "thumbnailId": "18",
+        "requirements": {
+            "rank": "Jounin",
+            "missionsCompleted": [
+                "1771362961374"
+            ]
+        },
+        "order": 6
+    },
+    {
+        "id": "1771363057912",
+        "categoryId": "3",
+        "name": "Team of Asume",
+        "slug": "team-of-asume",
+        "difficulty": "B Rank Mission",
+        "thumbnailId": "19",
+        "requirements": {
+            "rank": "Special Jounin",
+            "missionsCompleted": []
+        },
+        "order": 7
+    },
+    {
+        "id": "1771363116726",
+        "categoryId": "3",
+        "name": "Team 10 Fights vs the Sound",
+        "slug": "team-10-fights-vs-the-sound",
+        "difficulty": "A Rank Mission",
+        "thumbnailId": "20",
+        "requirements": {
+            "rank": "Jounin",
+            "missionsCompleted": [
+                "1771363057912"
+            ]
+        },
+        "order": 8
+    },
+    {
+        "id": "1771363212483",
+        "categoryId": "4",
+        "name": "Chaos! Prelude to the Sannin",
+        "slug": "chaos-prelude-to-the-sannin",
+        "difficulty": "A Rank Mission",
+        "thumbnailId": "21",
+        "requirements": {
+            "rank": "Jounin",
+            "missionsCompleted": []
+        },
+        "order": 1
+    },
+    {
+        "id": "1771363250119",
+        "categoryId": "4",
+        "name": "Disiples of the Toad",
+        "slug": "disiples-of-the-toad",
+        "difficulty": "S Rank Mission",
+        "thumbnailId": "22",
+        "requirements": {
+            "rank": "Legendary Sannin",
+            "missionsCompleted": [
+                "1771363212483"
+            ]
+        },
+        "order": 2
+    },
+    {
+        "id": "1771363284685",
+        "categoryId": "4",
+        "name": "Disiples of the Slug",
+        "slug": "disiples-of-the-slug",
+        "difficulty": "S Rank Mission",
+        "thumbnailId": "23",
+        "requirements": {
+            "rank": "Legendary Sannin",
+            "missionsCompleted": [
+                "1771363212483"
+            ]
+        },
+        "order": 3
+    },
+    {
+        "id": "1771363310415",
+        "categoryId": "4",
+        "name": "Disiples of the Snake",
+        "slug": "disiples-of-the-snake",
+        "difficulty": "S Rank Mission",
+        "thumbnailId": "24",
+        "requirements": {
+            "rank": "Legendary Sannin",
+            "missionsCompleted": [
+                "1771363212483"
+            ]
+        },
+        "order": 4
+    },
+    {
+        "id": "1771363339685",
+        "categoryId": "4",
+        "name": "The God of the Shinobi",
+        "slug": "the-god-of-the-shinobi",
+        "difficulty": "S Rank Mission",
+        "thumbnailId": "25",
+        "requirements": {
+            "rank": "Legendary Sannin",
+            "missionsCompleted": [
+                "1771363250119",
+                "1771363284685",
+                "1771363310415"
+            ]
+        },
+        "order": 5
+    }
+]
