@@ -1,20 +1,25 @@
-<h4>Search function</h4><br>
-Search the entire site:
-<script language="javascript">
-
-	function gosearchbar() {
-		var searchvalue = document.searchbar.searchquery.value;
-		if (searchvalue != "") {
-			var completeurl = "/search/" + searchvalue + "/";
-		} else {
-			var completeurl = "/search/";
+<div class="brspacer">
+	<h4 class="block">Search function</h4>
+	<script type="text/javascript" language="javascript">
+		function gosearchbar(){
+			var searchvalue = document.searchbar.searchquery.value;
+			if (searchvalue != ""){
+				var completeurl = "/search/" + searchvalue + "/";
+			}else{
+				var completeurl = "/search/";
+			}
+			window.location = completeurl;
 		}
-		window.location = completeurl;
-	}
-
-</script>
-<form method='GET' name='searchbar' onsubmit="event.preventDefault(); gosearchbar();">
-	<b>SEARCH</b> <input type="text" size="15" name="searchquery" onKeyDown="if(event.keyCode==13) gosearchbar();">
-	<a href="#" onClick="gosearchbar()"><b>GO</b></a>
-</form>
-Search the <a href="/sitemap/" name="sitemap">Sitemap</a>
+	</script>
+	<form action="" method="GET" name="searchbar" onsubmit="event.preventDefault(); gosearchbar();">
+		<label for="searchquery"><b>Search the entire site:</b></label><br />
+		<div class="fleft">
+			<input type="text" size="15" name="searchquery" id="searchquery" onKeyDown="if(event.keyCode==13) event.keyCode=9; if(event.keyCode==9) gosearchbar();" />
+		</div>
+		<div class="fleft">
+			&nbsp;<a href="#" onClick="gosearchbar()"><b>GO</b></a>
+		</div>
+		<div class="clear"></div>
+	</form>
+	<a href="/sitemap/" name="sitemap"><b>Search the Sitemap</b></a>
+</div>

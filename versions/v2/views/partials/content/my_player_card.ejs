@@ -1,93 +1,110 @@
-<div
-    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1200px;">
-    <div
-        style="padding: 0px 0px 0px 0px;  height:1200px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
-        <h1>My Player Card</h1><br><a href='/'>Naruto Arena</a> > <a href='/control-panel'>Control panel</a> > <h2>My
-            Player Card</h2>
-        <br><br>
-
-        <center>
-            <% if (typeof success !=='undefined' && success) { %>
-                <div class="succesfull">
-                    <%= success %>
-                </div><br>
-                <% } %>
-                    <% if (typeof error !=='undefined' && error) { %>
-                        <div class="error">
-                            <%= error %>
-                        </div><br>
-                        <% } %>
-        </center>
-
-        The Player Card is a nice image that you can use as a signature on different sites and forums. It shows your
-        up-to-date account stats. An an excellent way to show-off with your account!
-        <br><br>
-
-        <!-- Player Card Image Display -->
-        <div class="center">
-            <% if (hasPlayerCard) { %>
-                <img src="/images/myplayercard/<%= userId %>.jpg?t=<%= Date.now() %>" alt="My Player Card"
-                    style="border: 1px solid #999;">
-                <br><br>
-                Join The Naruto Online Multiplayer Game Naruto - Arena.com
-            <% } else { %>
-                <p><i>You haven't generated a player card yet. Use the form below to generate one!</i></p>
-            <% } %>
-        </div>
-
-        <br><br>
-
-        <!-- Player Card Options Form -->
-        <form method="post" action="/my-player-card/update">
-            <fieldset style="border: 1px solid #999; padding: 10px; margin-bottom: 20px;">
-                <legend style="font-weight: bold;">Player Card Options</legend>
-
-                By checking/unchecking this checkbox your player card will show/hide your last 3 characters.
-                <br><br>
-
-                <table class="color" width="100%">
-                    <tr class="color1">
-                        <td width="180"><b>Show characters:</b></td>
-                        <td><input type="checkbox" name="show_characters" id="show_characters" <% if (showCharacters) {
-                                %>checked<% } %>></td>
-                    </tr>
-                </table>
-            </fieldset>
-
-            <br>
-
-            <!-- Update Button -->
-            <div class="center">
-                <input type="submit" value="Update Player Card">
-            </div>
-        </form>
-
-        <br><br>
-
-        <!-- Site/BB-Code Section -->
-        <fieldset style="border: 1px solid #999; padding: 10px;">
-            <legend style="font-weight: bold;">Site/BB-Code</legend>
-
-            You can use the player card as your signature on sites/forums by simply copy/pasting the following code:
-            <br><br>
-
-            <table width="100%" cellspacing="10">
-                <tr>
-                    <td width="50%" valign="top">
-                        <b>HTML-Code:</b><br>
-                        <textarea rows="5" cols="25" readonly
-                            style="font-size: 10px;">&lt;a href="http://www.naruto-arena.com/profile/<%= user %>"&gt;&lt;img src="http://www.naruto-arena.com/images/myplayercard/<%= userId %>.jpg" /&gt;&lt;/a&gt;</textarea>
-                    </td>
-                    <td width="50%" valign="top">
-                        <b>vB-Code:</b><br>
-                        <textarea rows="5" cols="25" readonly
-                            style="font-size: 10px;">[URL="http://www.naruto-arena.com/profile/<%= user %>"][IMG]http://www.naruto-arena.com/images/myplayercard/<%= userId %>.jpg[/IMG][/URL]</textarea>
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-
-        <br><br><br>
-        <div class="dots"></div><br>
+<div id="content">
+    <div class="brspacer">
+        <h1>My Player Card</h1><br><div id="pagepath"><a href="/">Naruto Arena</a> &gt; <a href="/main/">Main</a> &gt; <a href="/control-panel/">Control panel</a> &gt; <h2>My Player Card</h2></div>
     </div>
+    <div class="brspacer">
+<div class="brspacer">
 </div>
+
+<% if (typeof success !=='undefined' && success) { %>
+    <div class="succesfull" style="text-align: center;">
+        <%= success %>
+    </div>
+<% } %>
+<% if (typeof error !=='undefined' && error) { %>
+    <div class="error" style="text-align: center;">
+        <%= error %>
+    </div>
+<% } %>
+
+The Player Card is a nice image that you can use as a signature on different sites and forums. It shows your
+up-to-date account stats. An an excellent way to show-off with your account!
+<br><br>
+
+<!-- Player Card Image Display -->
+<div class="centerp">
+    <% if (hasPlayerCard) { %>
+        <img src="/images/myplayercard/<%= userId %>.jpg?t=<%= Date.now() %>" alt="My Player Card"
+            style="border: 1px solid #999;">
+        <br><br>
+        Join The Naruto Online Multiplayer Game Naruto - Arena.com
+    <% } else { %>
+        <p><i>You haven't generated a player card yet. Use the form below to generate one!</i></p>
+    <% } %>
+</div>
+
+<br><br>
+
+<!-- Player Card Options Form -->
+<form method="post" action="/my-player-card/update">
+    <fieldset style="border: 1px solid #999; padding: 10px; margin-bottom: 20px;">
+        <legend style="font-weight: bold;">Player Card Options</legend>
+
+        By checking/unchecking this checkbox your player card will show/hide your last 3 characters.
+        <br><br>
+
+        <table class="max">
+            <tbody><tr class="color1">
+                <td width="180"><b>Show characters:</b></td>
+                <td><input type="checkbox" class="nb" name="show_characters" id="show_characters" <% if (showCharacters) { %>checked<% } %>></td>
+            </tr></tbody>
+        </table>
+    </fieldset>
+
+    <br>
+
+    <!-- Update Button -->
+    <div class="centerp">
+        <input type="submit" class="button" value="Update Player Card">
+    </div>
+</form>
+
+<br><br>
+
+<!-- Site/BB-Code Section -->
+<fieldset style="border: 1px solid #999; padding: 10px;">
+    <legend style="font-weight: bold;">Site/BB-Code</legend>
+
+    You can use the player card as your signature on sites/forums by simply copy/pasting the following code:
+    <br><br>
+
+    <table width="100%" cellspacing="10">
+        <tr>
+            <td width="50%" valign="top">
+                <b>HTML-Code:</b><br>
+                <textarea rows="5" cols="25" readonly
+                    style="font-size: 10px;">&lt;a href="/profile/<%= user %>"&gt;&lt;img src="/images/myplayercard/<%= userId %>.jpg" /&gt;&lt;/a&gt;</textarea>
+            </td>
+            <td width="50%" valign="top">
+                <b>vB-Code:</b><br>
+                <textarea rows="5" cols="25" readonly
+                    style="font-size: 10px;">[URL="/profile/<%= user %>"][IMG]/images/myplayercard/<%= userId %>.jpg[/IMG][/URL]</textarea>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+							</div>
+							<div class="brspacer2">
+								<div class="dots"></div>
+								<div class="grey">
+									<div class="centerp">
+										Related subjects: <h3>player card</h3>, <h3>signature</h3>, <h3>stats</h3>
+									</div>
+								</div>
+							</div>
+							<div class="brspacer">
+								<div class="brspacer">
+									<center>
+										Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+										The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+										NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.
+										<div class="centerp">
+											<a href="/privacy-policy/" class="con">Privacy policy</a> -
+											<a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+											<a href="/terms-of-use/" class="con">Terms of use</a>
+										</div>
+									</center>
+								</div>
+							</div>
+						</div>

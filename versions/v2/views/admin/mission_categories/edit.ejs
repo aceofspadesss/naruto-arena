@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Mission Category - Naruto Arena Admin</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <style>
+        .admin-container {
+            width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        #description-editor {
+            height: 150px;
+            background: white;
+        }
+
+        .ql-toolbar {
+            background: #f5f5f5;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            cursor: pointer;
+            background: #eee;
+            border: 1px solid #999;
+            text-decoration: none;
+            color: black;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: #4a90d9;
+            color: white;
+            border-color: #3a7bc0;
+        }
+
+        .thumbnail-preview-wrap {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        #thumbnail-preview {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 1px solid #ccc;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <h1>Edit Mission Category</h1>
+        <form action="/admin/mission-categories/edit/<%= category.id %>" method="POST">
+            <div class="form-group">
+                <label>Title:</label>
+                <input type="text" name="title" value="<%= category.title %>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Slug (URL path):</label>
+                <input type="text" name="slug" value="<%= category.slug %>" required>
+                <div class="hint">Used as the URL: /<em><%= category.slug %></em>/</div>
+            </div>
+
+            <div class="form-group">
+                <label>Thumbnail Image ID:</label>
+                <select name="thumbnailId" id="thumbnail-select">
+                    <% thumbnailIds.forEach(id => { %>
+                        <option value="<%= id %>" <%= id === category.thumbnailId ? 'selected' : '' %>><%= id %></option>
+                    <% }); %>
+                </select>
+                <div class="thumbnail-preview-wrap">
+                    <img id="thumbnail-preview" src="/images/content/<%= category.thumbnailId %>/thumbnail.jpg" alt="Preview">
+                    <span class="hint">Preview of selected thumbnail</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Description:</label>
+                <div id="description-editor"></div>
+                <input type="hidden" name="description" id="description-field">
+            </div>
+
+            <div class="form-group">
+                <label>Display Order:</label>
+                <input type="number" name="order" value="<%= category.order %>" min="1" style="width: 100px;">
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="/admin/mission-categories" class="btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    <script>
+        var quill = new Quill('#description-editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    ['link'],
+                    ['clean']
+                ]
+            }
+        });
+
+        quill.root.innerHTML = <%- JSON.stringify(category.description) %>;
+
+        document.querySelector('form').addEventListener('submit', function () {
+            document.getElementById('description-field').value = quill.root.innerHTML;
+        });
+
+        const select = document.getElementById('thumbnail-select');
+        const preview = document.getElementById('thumbnail-preview');
+
+        select.addEventListener('change', function () {
+            const id = this.value;
+            if (id) {
+                preview.src = '/images/content/' + id + '/thumbnail.jpg';
+            }
+        });
+    </script>
+</body>
+
+</html>

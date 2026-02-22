@@ -1209,7 +1209,7 @@
         "chakra": "0",
         "cooldown": 4,
         "max_active_stacks": 0,
-        "target": "enemy",
+        "target": "self",
         "effects": [
           {
             "type": "invulnerable",
@@ -1390,46 +1390,79 @@
   {
     "id": "24",
     "name": "Jiroubou",
-    "description": "Jiroubou is a fat member of the Sound four. His fighting style is called Achiever of Nirvana Fist, which involves powerful physical attacks.",
+    "description": "Jiroubou is the largest member of the Sound four. His fighting style involves powerful physical attacks in combination with manipulation of earth.",
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Nirvana Fist Style Taijutsu",
+        "description": "Deals 30 damage to a single opponent.",
+        "chakra": "10",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 30
+          }
+        ],
+        "id": "112"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Earth Seal Mud Cannonball",
+        "description": "Deals 20 damage to all opponents.",
+        "chakra": "10",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "all_enemies",
+            "amount": 20
+          }
+        ],
+        "id": "113"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Dungeon Chamber of Nothingness",
+        "description": "Jiroubou captures the enemy team in a prison of earth. Jiroubou steals two chakra from an opponent and his entire team is invulnerable for one round.",
+        "chakra": "330",
+        "cooldown": 5,
+        "max_active_stacks": 0,
+        "target": "all",
+        "effects": [
+          {
+            "type": "drain_chakra",
+            "target": "enemy",
+            "amount": 2
+          },
+          {
+            "type": "invulnerable",
+            "target": "all_allies",
+            "duration": 1
+          }
+        ],
+        "id": "114"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Earth Wall Land Flip",
+        "description": "Makes Jiroubou Invulnerable for the next round.",
         "chakra": "0",
-        "cooldown": 0,
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "115"
       }
     ],
-    "locked": true
+    "locked": false
   },
   {
     "id": "17",

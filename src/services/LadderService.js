@@ -219,7 +219,14 @@ class LadderService {
 
         // Calculate winner's new position
         const oldPosition = winner.ladderPosition;
-        const newPosition = this.calculateNewPosition(oldPosition, loserNinjaRank, totalRanked);
+        let newPosition = this.calculateNewPosition(oldPosition, loserNinjaRank, totalRanked);
+
+        // Guarantee at least 1 position of climb when beating a strictly better-ranked player
+        // (the 25% formula rounds to 0 for small differences, e.g. with only 2-3 players)
+        if (loser && loser.ladderPosition !== null && loser.ladderPosition !== undefined &&
+                loser.ladderPosition < oldPosition && newPosition === oldPosition) {
+            newPosition = oldPosition - 1;
+        }
 
         if (newPosition < oldPosition) {
             // Winner is moving up - shift affected players down
@@ -233,6 +240,18 @@ class LadderService {
             });
 
             winner.ladderPosition = newPosition;
+        } else if (loser && loser.ladderPosition !== null && loser.ladderPosition !== undefined &&
+                   loser.ladderPosition === oldPosition) {
+            // Both at the same position (tie) — drop the loser by 1 to break the tie
+            const loserNewPosition = loser.ladderPosition + 1;
+            users.forEach(u => {
+                if (String(u.id) !== String(loserId) &&
+                    u.ladderPosition !== null &&
+                    u.ladderPosition >= loserNewPosition) {
+                    u.ladderPosition++;
+                }
+            });
+            loser.ladderPosition = loserNewPosition;
         }
 
         // Update winner's ninja rank
@@ -329,6 +348,57 @@ class LadderService {
                 username: user.username,
                 streak: user.streak || 0
             }));
+    }
+
+    /**
+     * Get Country Ladder rankings
+     * Rules:
+     * - Only countries with at least 10 active (ranked) players are included
+     * - Points = Total Players - Average Ladder Rank of Top 10 Players
+     * @returns {Array} Sorted array of country stats { name, playerCount, points }
+     */
+    static getCountryLadder() {
+        const rankedUsers = this.getRankedUsers();
+        const countries = {};
+
+        // Group ranked users by country
+        rankedUsers.forEach(user => {
+            if (!user.country) return; // Skip users without country
+
+            if (!countries[user.country]) {
+                countries[user.country] = [];
+            }
+            countries[user.country].push(user);
+        });
+
+        const ladder = [];
+
+        for (const [countryName, users] of Object.entries(countries)) {
+            // Filter: Must have at least 10 active (ranked) players
+            if (users.length < 10) continue;
+
+            // Sort users by rank (best to worst) just to be safe, though getRankedUsers returns them sorted
+            users.sort((a, b) => a.ladderPosition - b.ladderPosition);
+
+            // Get top 10 players for calculation
+            const top10 = users.slice(0, 10);
+
+            // Calculate Average Ladder Rank of Top 10
+            const totalRank = top10.reduce((sum, user) => sum + user.ladderPosition, 0);
+            const avgRank = totalRank / top10.length;
+
+            // Calculate Points: Total Players - Average Ladder Rank
+            const points = users.length - avgRank;
+
+            ladder.push({
+                name: countryName,
+                playerCount: users.length,
+                points: points
+            });
+        }
+
+        // Sort by points descending
+        return ladder.sort((a, b) => b.points - a.points);
     }
 }
 

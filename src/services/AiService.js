@@ -36,7 +36,8 @@ class AiService {
     }
 
     static getRandomRank() {
-        const ranks = ['Academy Student', 'Genin', 'Chuunin', 'Jounin', 'Anbu', 'Kage'];
+        // Must match the rank names used by LadderService / ladderConfig
+        const ranks = ['Genin', 'Chuunin', 'Special Jounin', 'Jounin', 'Legendary Sannin'];
         return ranks[Math.floor(Math.random() * ranks.length)];
     }
 
@@ -53,8 +54,9 @@ class AiService {
 
         console.log(`[AI] Thinking for turn ${battle.turn}...`);
 
-        // 1. Maintain or Choose Vendetta
-        if (aiPlayer.vendettaTarget === undefined || aiPlayer.vendettaTarget === null || !this.isAlive(opponent, aiPlayer.vendettaTarget)) {
+        // 1. Maintain or Choose Vendetta (random selection, re-pick randomly when target dies)
+        const currentVendetta = aiPlayer.vendettaTarget;
+        if (currentVendetta === undefined || currentVendetta === null || !this.isAlive(opponent, currentVendetta)) {
             aiPlayer.vendettaTarget = this.chooseVendetta(opponent);
             console.log(`[AI] New Vendetta Target: ${aiPlayer.vendettaTarget}`);
         } else {
@@ -79,8 +81,12 @@ class AiService {
         aiPlayer.health.forEach((hp, charIdx) => {
             if (hp <= 0) return;
 
-            // Stun Check (Basic check, engine handles real check but AI shouldn't try)
-            if (EffectSystem.hasEffectType(aiPlayer.activeEffects[charIdx], 'stun')) return;
+            // Stun Check: skip this ninja if stunned
+            const charEffectsForStun = aiPlayer.activeEffects && aiPlayer.activeEffects[charIdx];
+            if (EffectSystem.hasEffectType(charEffectsForStun, 'stun')) {
+                console.log(`[AI] Ninja ${charIdx} is stunned, skipping.`);
+                return;
+            }
 
             // Aggression Check per Ninja
             const ninjaAggression = Math.floor(Math.random() * 3);
@@ -104,6 +110,8 @@ class AiService {
 
             if (prereqMove) {
                 // Prefer using the prerequisite to set up for next turn
+                this.deductChakra(aiPlayer.chakra, this.parseChakraCost(prereqMove._skillChakra));
+                delete prereqMove._skillChakra;
                 actions.push(prereqMove);
                 console.log(`[AI] Ninja ${charIdx} using prerequisite skill to set up for next turn.`);
             } else if (validMoves.length > 0) {
@@ -126,8 +134,12 @@ class AiService {
                 // Pick one
                 const finalMove = weightedMoves[Math.floor(Math.random() * weightedMoves.length)];
 
-                // Remove helper prop
+                // Deduct chakra cost so subsequent ninja selections account for it
+                this.deductChakra(aiPlayer.chakra, this.parseChakraCost(finalMove._skillChakra));
+
+                // Remove helper props
                 delete finalMove.isEnemyTarget;
+                delete finalMove._skillChakra;
 
                 actions.push(finalMove);
             }
@@ -184,20 +196,25 @@ class AiService {
 
             // Check prereq is usable (not on cooldown, has chakra)
             if (actor.cooldowns[charIdx][prereqSkillIdx] > 0) continue;
-            if (!this.hasEnoughChakra(actor.chakra, prereqSkill.cost)) continue;
+            const prereqCost = this.parseChakraCost(prereqSkill.chakra);
+            if (!this.hasEnoughChakra(actor.chakra, prereqCost)) continue;
 
             // Get valid targets for the prerequisite skill
             const prereqTargets = this.getValidTargets(prereqSkill, actor, opponent, charIdx, battle);
             if (prereqTargets.length === 0) continue;
 
-            const prereqTarget = prereqTargets[Math.floor(Math.random() * prereqTargets.length)];
+            // Prefer vendetta target if available, otherwise random
+            const vendettaIdx = actor.vendettaTarget;
+            const vendettaTarget = prereqTargets.find(t => parseInt(t.slice(-1)) === vendettaIdx);
+            const prereqTarget = vendettaTarget || prereqTargets[Math.floor(Math.random() * prereqTargets.length)];
             console.log(`[AI] Ninja ${charIdx} using prerequisite ${prereqSkill.name} to unlock ${skill.name}`);
 
             return {
                 charIndex: charIdx,
                 skillIndex: prereqSkillIdx,
                 charId: charId,
-                targetId: prereqTarget
+                targetId: prereqTarget,
+                _skillChakra: prereqSkill.chakra
             };
         }
 
@@ -215,8 +232,9 @@ class AiService {
             // 1. Cooldown Check
             if (actor.cooldowns[charIdx][skillIdx] > 0) return;
 
-            // 2. Chakra Check
-            if (!this.hasEnoughChakra(actor.chakra, skill.cost)) return;
+            // 2. Chakra Check (use skill.chakra string, not skill.cost which doesn't exist)
+            const skillCost = this.parseChakraCost(skill.chakra);
+            if (!this.hasEnoughChakra(actor.chakra, skillCost)) return;
 
             // 3. Requirement Check
             if (skill.requires) {
@@ -228,9 +246,9 @@ class AiService {
                 if (!hasReq) return;
             }
 
-            // 3. Target Check
+            // 4. Target Check
             const validTargets = this.getValidTargets(skill, actor, opponent, charIdx, battle);
-            const isEnemyTarget = (skill.target === 'enemy' || skill.target === 'all_enemies');
+            const isEnemyTarget = (skill.target === 'enemy' || skill.target === 'all_enemies' || skill.target === 'all_marked');
 
             validTargets.forEach(targetId => {
                 moves.push({
@@ -238,7 +256,8 @@ class AiService {
                     skillIndex: skillIdx,
                     charId: charId,
                     targetId: targetId,
-                    isEnemyTarget: isEnemyTarget
+                    isEnemyTarget: isEnemyTarget,
+                    _skillChakra: skill.chakra
                 });
             });
         });
@@ -246,12 +265,39 @@ class AiService {
         return moves;
     }
 
+    static parseChakraCost(chakraStr) {
+        const cost = { tai: 0, blo: 0, nin: 0, gen: 0, rnd: 0 };
+        if (!chakraStr) return cost;
+        for (const char of String(chakraStr)) {
+            if (char === '1') cost.tai++;
+            else if (char === '2') cost.blo++;
+            else if (char === '3') cost.nin++;
+            else if (char === '4') cost.gen++;
+            else if (char === '0') cost.rnd++;
+        }
+        cost.rnd = cost.tai + cost.blo + cost.nin + cost.gen;
+        return cost;
+    }
+
     static hasEnoughChakra(pool, cost) {
         if (!cost) return true;
-        for (const type in cost) {
-            if (pool[type] < cost[type]) return false;
+        // Check specific type requirements
+        for (const type of ['tai', 'blo', 'nin', 'gen']) {
+            if ((cost[type] || 0) > 0 && pool[type] < cost[type]) return false;
         }
+        // Check random (any type) requirements
+        if ((cost.rnd || 0) > pool.rnd) return false;
         return true;
+    }
+
+    static deductChakra(pool, cost) {
+        if (!cost) return;
+        for (const type of ['tai', 'blo', 'nin', 'gen']) {
+            if (cost[type] > 0) {
+                pool[type] = Math.max(0, pool[type] - cost[type]);
+            }
+        }
+        pool.rnd = pool.tai + pool.blo + pool.nin + pool.gen;
     }
 
     static getValidTargets(skill, actor, opponent, charIdx, battle) {
@@ -284,6 +330,27 @@ class AiService {
 
                 targets.push(`${opponentPrefix}${idx}`);
             });
+        }
+        // All Marked Enemies (e.g. Chakra Leach targeting enemies with Female Bug mark)
+        else if (skill.target === 'all_marked') {
+            const markId = skill.target_req_effect;
+            let hasAnyMarkedTarget = false;
+            opponent.health.forEach((hp, idx) => {
+                if (hp <= 0) return;
+                if (EffectSystem.hasEffectType(opponent.activeEffects[idx], 'invulnerable')) return;
+                if (markId && !EffectSystem.hasMark(opponent.activeEffects[idx], markId, actor.id)) return;
+                hasAnyMarkedTarget = true;
+            });
+            // For all_marked, the targetId is the first valid marked enemy (engine hits all marked)
+            if (hasAnyMarkedTarget) {
+                const firstMarked = opponent.health.findIndex((hp, idx) => {
+                    if (hp <= 0) return false;
+                    if (EffectSystem.hasEffectType(opponent.activeEffects[idx], 'invulnerable')) return false;
+                    if (markId && !EffectSystem.hasMark(opponent.activeEffects[idx], markId, actor.id)) return false;
+                    return true;
+                });
+                if (firstMarked !== -1) targets.push(`${opponentPrefix}${firstMarked}`);
+            }
         }
         // Ally Targeted
         else if (skill.target === 'ally' || skill.target === 'self' || skill.target === 'all_allies') {

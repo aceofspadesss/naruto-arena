@@ -66,7 +66,7 @@ const PollController = {
         const { optionIndex } = req.body;
         const success = await PollModel.vote(req.params.id, parseInt(optionIndex), req.session.userId);
 
-        res.redirect('/');
+        res.redirect(req.get('Referer') || '/');
     },
 
     // Public: Poll Page
@@ -125,7 +125,7 @@ const PollController = {
             const user = UserModel.findById(comment.userId);
             return {
                 ...comment,
-                authorAvatar: user ? (user.avatar || 'default.jpg') : 'default.jpg',
+                authorAvatar: user ? (user.avatar || '/images/avatars/default.jpg') : '/images/avatars/default.jpg',
                 authorPosts: user ? (user.posts || 0) : 0,
                 authorRank: user ? (user.rank || 'Academy Student') : 'Academy Student'
             };

@@ -1,11 +1,20 @@
-<h4>Latest news</h4><br>
-<% if (locals.news && news.length> 0) { %>
-    <% news.slice(0, 5).forEach(function(post) { %>
-        <% const newsSlug=post.title.toLowerCase().replace(/\s+/g, '-' ).replace(/[^a-z0-9-]/g, '' ); %>
-            <img class="pre" src="/images/layout/prenav.gif"> <a href="/<%= newsSlug %>"><u>
-                    <%= post.title %>
-                </u></a><br>
-            <% }); %>
-                <% } else { %>
-                    <img class="pre" src="/images/layout/prenav.gif"> <span>No news yet</span><br>
-                    <% } %>
+<div class="brspacer">
+<h4 class="block">Latest news</h4>
+<ul class="newst">
+    <% if (locals.news && news.length> 0) { %>
+        <% news.slice(0, 5).forEach(function(post) { %>
+            <% const newsSlug=post.title.toLowerCase().replace(/\s+/g, '-' ).replace(/[^a-z0-9-]/g, '' ); %>
+                <li>
+                    <div><img class='pre' src='/images/pres/prenav.gif' />&nbsp;</div>
+                    <div>
+                        <a href="/<%= newsSlug %>"><u><%= post.title %></u></a>
+                    </div>
+                </li>
+                <% }); %>
+                    <% } else { %>
+                        <li>
+                            <div><img class="pre" src="/images/pres/prenav.gif"> <span>No news yet</span></div>
+                        </li>
+                        <% } %>
+</ul>
+</div>

@@ -1,77 +1,84 @@
-<div
-    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
-    <div
-        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
-        <h1>Reset Account</h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <h2>Reset Account</h2>
-        <br><br>
-
-
-        <center>
-            <% if (typeof success !=='undefined' && success) { %>
-                <div class="succesfull">
-                    <%= success %>
-                </div><br>
-                <% } %>
-        </center>
-
-        <% if (typeof error !=='undefined' && error) { %>
-            <div class="error">
-                <%= error %>
-            </div><br>
-            <% } %>
-
-                <form method="post">
-                    <table class="color" width="100%">
-                        <tr>
-                            <td colspan="2" class="title"><b>Reset Account</b></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="color2">This will reset your account statistics to their default
-                                values:</td>
-                        </tr>
-                        <tr class="color1">
-                            <td width="25%"><b>Wins:</b></td>
-                            <td width="75%">0</td>
-                        </tr>
-                        <tr class="color1">
-                            <td width="25%"><b>Losses:</b></td>
-                            <td width="75%">0</td>
-                        </tr>
-                        <tr class="color1">
-                            <td width="25%"><b>Streak:</b></td>
-                            <td width="75%">0</td>
-                        </tr>
-                        <tr class="color1">
-                            <td width="25%"><b>Level:</b></td>
-                            <td width="75%">1</td>
-                        </tr>
-                        <tr class="color1">
-                            <td width="25%"><b>Ladder Position:</b></td>
-                            <td width="75%">None</td>
-                        </tr>
-                        <tr class="color1">
-                            <td width="25%"><b>Rank:</b></td>
-                            <td width="75%">Academy Student</td>
-                        </tr>
-                        <tr>
-                            <td class="dots" colspan="2"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="color2"><b>Warning:</b> This action cannot be undone!</td>
-                        </tr>
-                        <tr>
-                            <td class="dots" colspan="2"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <center><br><input type="submit" name="resetaccount" value="Reset Account">
-                                </center>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-
-                <br><br><br>
-                <div class="dots"></div><br>
+<div id="content">
+    <div class="brspacer">
+        <h1>Reset Account</h1><br><div id="pagepath"><a href="/">Naruto Arena</a> &gt; <a href="/main/">Main</a> &gt; <a href="/control-panel/">Control panel</a> &gt; <h2>Reset Account</h2></div>
     </div>
+    <div class="brspacer">
+<div class="brspacer">
 </div>
+
+<% if (typeof success !=='undefined' && success) { %>
+    <div class="succesfull" style="text-align: center;">
+        <%= success %>
+    </div>
+<% } %>
+<% if (typeof error !=='undefined' && error) { %>
+    <div class="error" style="text-align: center;">
+        <%= error %>
+    </div>
+<% } %>
+
+<form method="post" class="formdata">
+	<table class="max">
+		<tbody><tr>
+			<td class="title" colspan="2"><img class="pre" src="/images/pres/pre3.gif"> Reset Account</td>
+		</tr>
+		<tr class="color2">
+			<td class="info" colspan="2">This will reset your account statistics to their default values:</td>
+		</tr>
+		<tr class="color1">
+			<td width="25%"><b>Wins:</b></td>
+			<td width="75%">0</td>
+		</tr>
+		<tr class="color1">
+			<td><b>Losses:</b></td>
+			<td>0</td>
+		</tr>
+		<tr class="color1">
+			<td><b>Streak:</b></td>
+			<td>0</td>
+		</tr>
+		<tr class="color1">
+			<td><b>Level:</b></td>
+			<td>1</td>
+		</tr>
+		<tr class="color1">
+			<td><b>Ladder Position:</b></td>
+			<td>None</td>
+		</tr>
+		<tr class="color1">
+			<td><b>Rank:</b></td>
+			<td>Academy Student</td>
+		</tr>
+		<tr class="color2">
+			<td class="info" colspan="2"><b>Warning:</b> This action cannot be undone!</td>
+		</tr>
+		<tr><td class="dots" colspan="2"></td></tr>
+	</tbody></table>
+	<div class="centerp">
+		<input type="submit" class="button" name="resetaccount" value="Reset Account">
+	</div>
+</form>
+							</div>
+							<div class="brspacer2">
+								<div class="dots"></div>
+								<div class="grey">
+									<div class="centerp">
+										Related subjects: <h3>reset account</h3>, <h3>reset stats</h3>, <h3>account</h3>
+									</div>
+								</div>
+							</div>
+							<div class="brspacer">
+								<div class="brspacer">
+									<center>
+										Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+										The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+										NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.
+										<div class="centerp">
+											<a href="/privacy-policy/" class="con">Privacy policy</a> -
+											<a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+											<a href="/terms-of-use/" class="con">Terms of use</a>
+										</div>
+									</center>
+								</div>
+							</div>
+						</div>

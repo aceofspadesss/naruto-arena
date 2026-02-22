@@ -17,6 +17,9 @@ class AuthController {
 
             req.session.userId = user.id;
             req.session.role = user.role;
+            if (req.body.cookie === 'yes') {
+                req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
+            }
             res.redirect('/');
         } else {
             // Check if the login came from the login page or sidebar
@@ -30,7 +33,12 @@ class AuthController {
     }
 
     static register(req, res) {
-        const { username1, password1, password2, email, emailhide, discord, youtube, country } = req.body;
+        const { username1, password1, password2, email, emailhide, discord, youtube, country, termsofuse, legaldisclaimer, privacypolicy } = req.body;
+
+        // Validate agreements
+        if (termsofuse !== '1' || legaldisclaimer !== '1' || privacypolicy !== '1') {
+            return res.redirect('/register?error=agreements&message=You must agree to the Terms of use, Legal disclaimer, and Privacy policy');
+        }
 
         // Validate username
         if (!username1 || username1.length < 3 || username1.length > 17) {

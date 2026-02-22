@@ -1,10 +1,28 @@
-<!-- Top 10 Ladder Partial -->
-<h4>Top 10 Ladder</h4><br>
-
-<% if (ladderTop10 && ladderTop10.length > 0) { %>
-<% ladderTop10.forEach((player, index) => { const streak = player.streak || 0; const streakStr = streak >= 0 ? "+" + streak : "" + streak; %>
-<%= index + 1 %>: <a href="/profile/<%= player.username %>"><%= player.username %></a> <%= player.wins %> - <%= player.losses %> (<%= streakStr %>)<br>
-<% }); %>
-<% } else { %>
-No ranked players yet.<br>
-<% } %>
+<div class="brspacer">
+  <h4 class="block">Top 10 Ladder</h4>
+</div>
+<ul class="ladder">
+  <% if (ladderTop10 && ladderTop10.length> 0) { %>
+    <% ladderTop10.forEach((player, index)=> { const streak = player.streak || 0; const streakStr = streak >= 0 ? "+" +
+      streak : "" + streak; %>
+      <li>
+        <span class="ladder1">
+          <%= (index + 1).toString().padStart(2, '0' ) %>
+        </span>
+        <div><a href="/profile/<%= player.username %>">
+            <%= player.username %>
+          </a><br />
+          <b>
+            <%= player.wins %>
+          </b> wins - <b>
+            <%= player.losses %>
+          </b> losses (<%= streakStr %>)
+        </div>
+      </li>
+      <% }); %>
+        <% } else { %>
+          <li>
+            <div>No ranked players yet.</div>
+          </li>
+          <% } %>
+</ul>

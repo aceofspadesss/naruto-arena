@@ -5,6 +5,7 @@ const ChakraSystem = require('./ChakraSystem');
 const EffectSystem = require('./EffectSystem');
 const LadderService = require('../services/LadderService');
 const AiService = require('../services/AiService');
+const MissionProgressService = require('../services/MissionProgressService');
 const { resolveTargetId } = require('../utils');
 
 /**
@@ -529,6 +530,11 @@ class BattleEngine {
                     console.log(`[Ladder] Match result processed: ${winner.username} beat ${loser.username}`);
                 }
 
+                const winnerTeam = battle.players[winnerId]?.team || [];
+                const loserTeam  = battle.players[loserId]?.team  || [];
+                MissionProgressService.processWin(winnerId, winnerTeam, loserTeam);
+                MissionProgressService.processLoss(loserId, loserTeam);
+
             } else if (!winnerIsAi && loserIsAi) {
                 // Player beat AI
                 console.log(`[Battle] Player beat AI. Calculating ladder update.`);
@@ -553,7 +559,14 @@ class BattleEngine {
                     const loserNinjaRank = aiLoser.rank || 'Academy Student';
                     const oldPosition = winner.ladderPosition;
 
-                    const newPosition = LadderService.calculateNewPosition(oldPosition, loserNinjaRank, totalRanked);
+                    let newPosition = LadderService.calculateNewPosition(oldPosition, loserNinjaRank, totalRanked);
+
+                    // Guarantee at least 1 position of climb when AI rank would suggest the player
+                    // should advance but the 25% formula rounds to 0 (common with small ladders)
+                    const aiGroupTop = LadderService.getTopPositionForNinjaRank(loserNinjaRank, totalRanked);
+                    if (aiGroupTop < oldPosition && newPosition === oldPosition) {
+                        newPosition = oldPosition - 1;
+                    }
 
                     if (newPosition < oldPosition) {
                         // Shift others
@@ -576,6 +589,10 @@ class BattleEngine {
 
                     UserModel.saveUsers(users);
                     console.log(`[Ladder] AI Match result: ${winner.username} beat AI (${loserNinjaRank}). Pos: ${oldPosition} -> ${newPosition}`);
+
+                    const winnerTeam = battle.players[winnerId]?.team || [];
+                    const aiTeam     = battle.players[loserId]?.team  || [];
+                    MissionProgressService.processWin(winnerId, winnerTeam, aiTeam);
                 }
 
             } else if (winnerIsAi && !loserIsAi) {
@@ -588,6 +605,9 @@ class BattleEngine {
                     const prevStreak = loser.streak || 0;
                     loser.streak = prevStreak <= 0 ? prevStreak - 1 : -1;
                     UserModel.saveUsers(users);
+
+                    const loserTeam = battle.players[loserId]?.team || [];
+                    MissionProgressService.processLoss(loserId, loserTeam);
                 }
             }
         }
