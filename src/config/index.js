@@ -1,11 +1,9 @@
 require('dotenv').config();
 const path = require('path');
 
-const VERSION = process.env.VERSION || 'default';
+const VERSION = process.env.VERSION || 'v1';
 const ROOT_DIR = path.resolve(__dirname, '../..');
-const DATA_DIR = VERSION === 'default'
-    ? path.join(ROOT_DIR, 'data')
-    : path.join(ROOT_DIR, 'versions', VERSION, 'data');
+const DATA_DIR = path.join(ROOT_DIR, 'versions', VERSION, 'data');
 
 module.exports = {
     VERSION,
