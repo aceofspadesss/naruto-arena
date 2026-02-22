@@ -1,49 +1,60 @@
-<div
-    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
-    <div
-        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
-        <h1>Login</h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <h2>Login</h2><br><br>
-
-
-        <center>
-        </center>
-
-        <center>
-            <fieldset>
-                <legend>
-                    <h5>Login to your account</h5>
-                </legend>
-
-                <form method="post" style="margin: 0px 0px 0px 0px;">
-                    <div>Username: <input size="50" maxlength="16" value="" name="username"></div>
-                    <div>Password: <input style="margin-top:5px;" value="" size="50" type="password" name="password">
-                    </div>
-                    <input type="checkbox" class="box" CHECKED value="yes" name="cookie">
-                    Stay logged in
-                    <% if (typeof loginError !=='undefined' && loginError) { %>
-                        <div class="error" style="text-align: center;">
-                            <%= loginError %>
-                        </div>
-                        <% } %>
-                            <br><br />
-                            <input type="submit" value="Login" style="width:60px" name="submit2">
-                            <input type="button" value="Register" style="width:60px"
-                                onClick="location.href='/register/'">
-                </form><br><a href="/lost-password/"><u>Lost your password?</u></a>
-        </center>
-        </fieldset> <br><br><br>
-        <div class="dots"></div>
-        <div class="nothing">
-            Pagename: <b>Login</b><br>
-            Description: On this page you can login in to your account.<br>
-            Related subjects: <h3>login</h3>, <h3>login</h3>, <h3>log-in</h3><br><br>
-            Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
-            The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
-            NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
-            <a href="/privacy-policy/" class="con">Privacy policy</a> -
-            <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
-            <a href="/terms-of-use/" class="con">Terms of use</a>
-        </div>
-        <div class="dots"></div><br>
+<div id="content">
+    <div class="brspacer">
+        <h1>Login</h1><br><div id="pagepath"><a href="/">Naruto Arena</a> &gt; <a href="/main/">Main</a> &gt; <h2>Login</h2></div>
     </div>
+    <div class="brspacer">
+If you're a registered <a href="/profile/" class="con" title="member">member</a>, please enter your username and password to continue. If you do not have a registered <a href="/profile/" class="con" title="account">account</a>, please <a href="/register/" class="con" title="register">register</a> one in order to continue.
+
+<div class="brspacer">
+
+
+</div>
+
+<fieldset class="color2">
+	<legend>Login to your account</legend>
+	<div class="padding2">
+		<form action="" method="post">
+			<label for="username"><u>Username:</u></label><br>
+			<input maxlength="16" value="" name="username" id="username"><br>
+			<label for="password"><u>Password:</u></label><br>
+			<input value="" type="password" name="password" id="password">
+			<br><input type="checkbox" class="nb" checked="" value="yes" name="cookie" id="cookie"> <label for="cookie">Stay logged in</label>
+            <% if (typeof loginError !=='undefined' && loginError) { %>
+                <div class="error" style="text-align: center;">
+                    <%= loginError %>
+                </div>
+            <% } %>
+			<div class="padding">
+				<input type="submit" class="button" value="Login" name="submit2">
+				<input type="button" class="button" value="Register" onclick="location.href='/register/'">
+			</div>
+			<div class="right">
+				<a href="/lost-password/" class="right"><u>Lost your password?</u></a>
+			</div>
+		</form>
+	</div>
+</fieldset>							
+</div>
+<div class="brspacer2">
+    <div class="dots"></div>
+    <div class="grey">
+        <div class="centerp">
+            Related subjects: <h3>login</h3>, <h3>login</h3>, <h3>log-in</h3>
+        </div>
+    </div>
+</div>
+<div class="brspacer">
+    <div class="brspacer">
+        <center>
+            Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series. 
+            The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+            NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.
+            <div class="centerp">
+                <a href="/privacy-policy/" class="con">Privacy policy</a> - 
+                <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> - 
+                <a href="/terms-of-use/" class="con">Terms of use</a>
+            </div>
+        </center>
+    </div>
+</div>
 </div>

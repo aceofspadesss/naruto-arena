@@ -102,7 +102,7 @@ const NewsController = {
             const user = UserModel.findById(comment.userId);
             return {
                 ...comment,
-                authorAvatar: user ? (user.avatar || 'default.jpg') : 'default.jpg',
+                authorAvatar: user ? (user.avatar || '/images/avatars/default.jpg') : '/images/avatars/default.jpg',
                 authorPosts: user ? (user.posts || 0) : 0, // Assuming posts count is tracked, if not default to 0
                 authorRank: user ? (user.rank || 'Academy Student') : 'Academy Student'
             };

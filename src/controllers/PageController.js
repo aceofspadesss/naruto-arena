@@ -44,18 +44,24 @@ const PageController = {
         }
 
         const query = req.params.query;
-        let searchResults = [];
+        let allResults = [];
         let viewName = 'search';
 
         if (query) {
             viewName = 'search_results';
-            // Perform search
             try {
-                searchResults = await SearchService.search(query);
+                allResults = await SearchService.search(query);
             } catch (e) {
                 console.error('Error searching:', e);
             }
         }
+
+        const totalResults = allResults.length;
+        const itemsPerPage = VERSION === 'v2' ? 3 : totalResults || 1;
+        const totalPages = Math.ceil(totalResults / itemsPerPage) || 1;
+        const currentPage = Math.max(1, Math.min(parseInt(req.params.page) || 1, totalPages));
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const searchResults = allResults.slice(startIndex, startIndex + itemsPerPage);
 
         res.render(viewName, {
             user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
@@ -64,7 +70,10 @@ const PageController = {
             statistics,
             randomScreenshot,
             searchQuery: query,
-            searchResults
+            searchResults,
+            currentPage,
+            totalPages,
+            totalResults
         });
     },
     login: async (req, res) => {
@@ -532,9 +541,91 @@ const PageController = {
         });
     },
 
+    contactAndChat: async (req, res) => {
+        const fs = require('fs');
+        const path = require('path');
+        const headerDir = publicPath('images', 'randomheader');
+        let randomHeaderImage = 'header1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(headerDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomHeaderImage = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random header images:', error);
+        }
+
+        const statistics = UserModel.getStatistics();
+        const screenshotDir = publicPath('images', 'randomscreenshot');
+        let randomScreenshot = 'battle1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(screenshotDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomScreenshot = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random screenshot images:', error);
+        }
+
+        res.render('contact_and_chat', {
+            user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
+            role: req.session.role,
+            randomHeaderImage,
+            statistics,
+            randomScreenshot
+        });
+    },
+
+    narutoArenaIrcChannel: async (req, res) => {
+        const fs = require('fs');
+        const path = require('path');
+        const headerDir = publicPath('images', 'randomheader');
+        let randomHeaderImage = 'header1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(headerDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomHeaderImage = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random header images:', error);
+        }
+
+        const statistics = UserModel.getStatistics();
+        const screenshotDir = publicPath('images', 'randomscreenshot');
+        let randomScreenshot = 'battle1.jpg';
+
+        try {
+            const files = await fs.promises.readdir(screenshotDir);
+            const images = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+            if (images.length > 0) {
+                randomScreenshot = images[Math.floor(Math.random() * images.length)];
+            }
+        } catch (error) {
+            console.error('Error reading random screenshot images:', error);
+        }
+
+        res.render('naruto_arena_irc_channel', {
+            user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
+            role: req.session.role,
+            randomHeaderImage,
+            statistics,
+            randomScreenshot
+        });
+    },
+
 
 
     memberList: async (req, res) => {
+        if (VERSION === 'v2' && !req.session.userId) {
+            return res.redirect('/login/');
+        }
+
         const fs = require('fs');
         const path = require('path');
         const headerDir = publicPath('images', 'randomheader');
@@ -1029,12 +1120,23 @@ const PageController = {
             console.error('Error reading random screenshot images:', error);
         }
 
+        const polls = (await PollModel.getAll()).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        const news = (await NewsModel.getAll()).slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        const missionCategories = await MissionCategoryModel.getAll();
+        const characters = CharacterModel.findAll()
+            .slice()
+            .sort((a, b) => a.name.localeCompare(b.name));
+
         res.render('sitemap', {
             user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
             role: req.session.role,
             randomHeaderImage,
             statistics,
-            randomScreenshot
+            randomScreenshot,
+            polls,
+            news,
+            missionCategories,
+            characters
         });
     },
 
@@ -1419,7 +1521,7 @@ const PageController = {
             const user = UserModel.findById(comment.userId);
             return {
                 ...comment,
-                authorAvatar: user ? (user.avatar || 'default.jpg') : 'default.jpg',
+                authorAvatar: user ? (user.avatar || '/images/avatars/default.jpg') : '/images/avatars/default.jpg',
                 authorPosts: user ? (user.posts || 0) : 0,
                 authorRank: user ? (user.rank || 'Academy Student') : 'Academy Student'
             };
@@ -1498,6 +1600,38 @@ const PageController = {
         const playerCardPath = publicPath('images', 'myplayercard', `${profileUser.id}.jpg`);
         const hasPlayerCard = fs.existsSync(playerCardPath);
 
+        // Fetch recent ladder games (last 24 hours) involving this user
+        const BattleModel = require('../models/BattleModel');
+        const twentyFourHoursAgo = Date.now() - 24 * 60 * 60 * 1000;
+        const allBattles = BattleModel.getBattles();
+
+        const recentLadderGames = Object.values(allBattles)
+            .filter(b =>
+                b.status === 'finished' &&
+                b.creationTime >= twentyFourHoursAgo &&
+                b.order && b.order.some(pid => String(pid) === String(profileUser.id))
+            )
+            .sort((a, b) => b.creationTime - a.creationTime)
+            .map(b => {
+                const playerIds = b.order || Object.keys(b.players);
+                const players = playerIds.map(pid => {
+                    const playerData = b.players[pid];
+                    if (playerData && playerData.isAi) {
+                        return { id: pid, username: playerData.username || 'Computer', isAi: true };
+                    }
+                    const u = UserModel.findById(pid);
+                    return { id: pid, username: u ? u.username : pid, isAi: false };
+                });
+
+                const winnerPlayer = players.find(p => String(p.id) === String(b.winner));
+                return {
+                    time: b.creationTime,
+                    players,
+                    winnerId: b.winner,
+                    winnerUsername: winnerPlayer ? winnerPlayer.username : 'Unknown'
+                };
+            });
+
         res.render('profile', {
             user: req.session.userId ? UserModel.findById(req.session.userId)?.username : null,
             role: req.session.role,
@@ -1506,7 +1640,8 @@ const PageController = {
             profileUser,
             hasPlayerCard,
             locationTitle,
-            locationUrl
+            locationUrl,
+            recentLadderGames
         });
     },
 

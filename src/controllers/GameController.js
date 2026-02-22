@@ -365,7 +365,7 @@ class GameController {
             `players=${buildPlayerData(user, userState)}|||${buildPlayerData(opponent ? opponent : { username: "CPU", rank: "Genin" }, opponentState)}` +
             `&PlayerText=${p1Text}|||${p2Text}` +
             `&characters=${buildCharString(userState.team, userState)}|||${buildCharString(opponentState ? opponentState.team : userState.team, opponentState)}` +
-            `&skills=${this.buildSkillsString(userState.team, userState.cooldowns, userState.activeEffects, user.id, opponentState ? opponentState.activeEffects : null)}|||${this.buildSkillsString(opponentState.team, opponentState.cooldowns, opponentState.activeEffects, opponent ? opponent.id : "cpu", userState ? userState.activeEffects : null)}` +
+            `&skills=${this.buildSkillsString(userState.team, userState.cooldowns, userState.activeEffects, user.id, opponentState ? opponentState.activeEffects : null, opponentState ? opponentState.health : null)}|||${this.buildSkillsString(opponentState.team, opponentState.cooldowns, opponentState.activeEffects, opponent ? opponent.id : "cpu", userState ? userState.activeEffects : null, userState ? userState.health : null)}` +
             `&targets=${targetsString}|||${this.buildTargetsString(opponentState.team, opponentState, userState, opponent ? opponent.id : 'cpu')}` +
             `&effects=${this.buildEffectsString(userState ? userState.activeEffects : null)}|||${this.buildEffectsString(opponentState ? opponentState.activeEffects : null)}` +
             `&initial_chakra=10///10///10///10///0` +
@@ -390,7 +390,7 @@ class GameController {
         return cost;
     }
 
-    static buildSkillsString(team, cooldowns, activeEffects, userId, opponentActiveEffects) {
+    static buildSkillsString(team, cooldowns, activeEffects, userId, opponentActiveEffects, opponentHealth) {
         return team.map((charId, cIdx) => {
             const c = CharacterModel.findById(charId);
             if (!c || !c.skills) return new Array(4).fill("0[[[Empty[[[Desc[[[0[[[0[[[0[[[0[[[0[[[0000[[[0[[[no[[[0").join("///");
@@ -483,12 +483,16 @@ class GameController {
                         if (allAffected) isAvailable = "no";
                     }
 
-                    // Grey out enemy-targeting skills if all enemies are invulnerable
+                    // Grey out enemy-targeting skills if all LIVING enemies are invulnerable
                     if (isAvailable === "go" && opponentActiveEffects && (s.target === "enemy" || s.target === "all_enemies" || s.target === "all_marked")) {
-                        const allInvulnerable = opponentActiveEffects.every(charEffects =>
-                            charEffects && charEffects.some(e => e.type === "invulnerable")
+                        const livingEnemySlots = opponentActiveEffects.map((_, idx) => idx).filter(idx =>
+                            !opponentHealth || opponentHealth[idx] > 0
                         );
-                        if (allInvulnerable) isAvailable = "no";
+                        const allLivingInvulnerable = livingEnemySlots.length > 0 && livingEnemySlots.every(idx => {
+                            const charEffects = opponentActiveEffects[idx];
+                            return charEffects && charEffects.some(e => e.type === "invulnerable") && !charEffects.some(e => e.type === "disable_invulnerable");
+                        });
+                        if (allLivingInvulnerable) isAvailable = "no";
                     }
 
                     // Requirement Logic

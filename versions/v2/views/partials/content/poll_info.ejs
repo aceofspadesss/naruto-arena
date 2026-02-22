@@ -1,250 +1,165 @@
-<div
-    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
-    <div
-        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
-        <h1>
-            <%= viewPoll.question %>
-        </h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <a href='/pollarchive/'>Pollarchive</a> >
-        <h2>
-            <%= viewPoll.question %>
-        </h2><br><br>
+<div id="content">
+    <div class="brspacer">
+        <h1><%= viewPoll.question %></h1><br>
+        <div id="pagepath"><a href="/">Naruto Arena</a> &gt; <a href="/main/">Main</a> &gt; <a href="/pollarchive/">Pollarchive</a> &gt; <h2><%= viewPoll.question %></h2></div>
+    </div>
+    <div class="brspacer">
 
-        <% const totalVotes=viewPoll.options.reduce((sum, opt)=> sum + opt.votes, 0);
-            const showForm = locals.user && !locals.userVoted;
-            %>
+        <div class="brspacer">
+        </div>
 
-            <center>
-            </center>
+        <% const totalVotes = viewPoll.options.reduce((sum, opt) => sum + opt.votes, 0);
+           const showForm = locals.user && !locals.userVoted; %>
 
-            <b>
-                <%= viewPoll.question %>
-            </b><br>
-
-            <% if (showForm) { %>
-                <form action="/poll/vote/<%= viewPoll.id %>" method="POST">
-                    <% } %>
-
-                        <% viewPoll.options.forEach((option, index)=> {
-                            const percent = totalVotes > 0 ? Math.round((option.votes / totalVotes) * 100) : 0;
-                            %>
-                            <div style="margin-bottom: 5px;">
+        <center>
+            <div class="half">
+                <div class="title"><img class="pre" src="/images/pres/pre3.gif"> <%= viewPoll.question %></div>
+                <div class="color2">
+                    <div class="bg1">
+                        <div class="bg2">
+                            <div class="padding2">
                                 <% if (showForm) { %>
-                                    <input type="radio" name="optionIndex" value="<%= index %>" id="opt-<%= index %>"
-                                        style="vertical-align: middle;">
-                                    <label for="opt-<%= index %>">
-                                        <%= option.text %> (<%= option.votes %>) (<%= percent %>%)
-                                    </label>
+                                <form action="/poll/vote/<%= viewPoll.id %>" method="POST">
+                                <% } %>
+                                <% viewPoll.options.forEach(function(option, index) {
+                                    const percent = totalVotes > 0 ? Math.round((option.votes / totalVotes) * 100) : 0; %>
+                                    <% if (showForm) { %>
+                                    <input type="radio" name="optionIndex" value="<%= index %>" id="opt-<%= index %>" style="vertical-align: middle;">
+                                    <label for="opt-<%= index %>"><%= option.text %></label>
                                     <% } else { %>
-                                        <%= option.text %> (<%= option.votes %>) (<%= percent %>%)
-                                                    <% } %>
-                                                        <div class="pollbar" style="width:<%= percent %>%;"></div>
-                            </div>
-                            <% }); %>
-
+                                    <%= option.text %>
+                                    <% } %>
+                                    <u>(<%= option.votes %>)</u> <b>(<%= percent %>%)</b>
+                                    <div class="pollbar" style="width:<%= percent %>%;"></div>
+                                <% }); %>
                                 <% if (showForm) { %>
                                     <br>
                                     <input type="submit" value="Vote" style="font-size: 10px;">
-                </form>
-                <% } %>
-
-                    <br />
-                    <img class='pre' src='/images/layout/pre.gif'> Amount of votes: <%= totalVotes %><br>
-                        <img class='pre' src='/images/layout/pre.gif'> Poll created on: <%= new
-                            Date(viewPoll.createdAt).toLocaleDateString() %>
-
-                            <br><br />
-                            <!-- <center> -->
-                            <div style="width:69%;">
-                                <div class="dots"></div>
-                                <div align="right"><b>(<%= typeof totalComments !=='undefined' ? totalComments :
-                                            (comments ? comments.length : 0) %>)</b> comments</div>
-                                <br>
-
-                                <!-- Comments section -->
-                                <% if (comments && comments.length> 0) { %>
-                                    <% comments.forEach(function(comment) { %>
-                                        <%- include('../comment', { comment: comment }); %>
-                                            <% }); %>
-                                                <% } else { %>
-                                                    <div class="nothing">No comments yet.</div>
-                                                    <% } %>
-
-                                                        <!-- Pagination -->
-                                                        <% if (typeof totalPages !=='undefined' && totalPages> 1) { %>
-                                                            <div class="dots"></div>
-                                                            <div align="right">
-                                                                <b>[Page <%= currentPage %>/<%= totalPages %>]</b>
-                                                                <% if (currentPage> 1) { %>
-                                                                    <a href="/<%= viewPoll.slug %>/1">
-                                                                        <font color="black">&lt;&lt;&lt;&lt;</font>
-                                                                    </a>
-                                                                    <a
-                                                                        href="/<%= viewPoll.slug %>/<%= currentPage - 1 %>">
-                                                                        <font color="black">&lt;&lt;</font>
-                                                                    </a>
-                                                                    <% } else { %>
-                                                                        &lt;&lt;&lt;&lt; &lt;&lt;
-                                                                        <% } %>
-
-                                                                            <% let startPage=Math.max(1, currentPage -
-                                                                                3); let endPage=Math.min(totalPages,
-                                                                                currentPage + 3); if (endPage -
-                                                                                startPage < 6) { if (startPage===1) {
-                                                                                endPage=Math.min(totalPages, startPage +
-                                                                                6); } else if (endPage===totalPages) {
-                                                                                startPage=Math.max(1, endPage - 6); } }
-                                                                                %>
-
-                                                                                <% for(let i=startPage; i <=endPage;
-                                                                                    i++) { %>
-                                                                                    <% if (i===currentPage) { %>
-                                                                                        <u>
-                                                                                            <%= i %>
-                                                                                        </u>
-                                                                                        <% } else { %>
-                                                                                            <a
-                                                                                                href="/<%= viewPoll.slug %>/<%= i %>">
-                                                                                                <font color="black">
-                                                                                                    <%= i %>
-                                                                                                </font>
-                                                                                            </a>
-                                                                                            <% } %>
-                                                                                                <% } %>
-
-                                                                                                    <% if (currentPage <
-                                                                                                        totalPages) { %>
-                                                                                                        <a
-                                                                                                            href="/<%= viewPoll.slug %>/<%= currentPage + 1 %>">
-                                                                                                            <font
-                                                                                                                color="black">
-                                                                                                                &gt;&gt;
-                                                                                                            </font>
-                                                                                                        </a>
-                                                                                                        <a
-                                                                                                            href="/<%= viewPoll.slug %>/<%= totalPages %>">
-                                                                                                            <font
-                                                                                                                color="black">
-                                                                                                                &gt;&gt;&gt;&gt;
-                                                                                                            </font>
-                                                                                                        </a>
-                                                                                                        <% } else { %>
-                                                                                                            &gt;&gt;
-                                                                                                            &gt;&gt;&gt;&gt;
-                                                                                                            <% } %>
-
-                                                                                                                <select
-                                                                                                                    name="listingselect"
-                                                                                                                    onchange="window.location.href=this.value"
-                                                                                                                    style="font-size: 10px;">
-                                                                                                                    <% for(let
-                                                                                                                        i=1;
-                                                                                                                        i
-                                                                                                                        <=totalPages;
-                                                                                                                        i++)
-                                                                                                                        {
-                                                                                                                        %>
-                                                                                                                        <option
-                                                                                                                            value="/<%= viewPoll.slug %>/<%= i %>/"
-                                                                                                                            <%=i===currentPage
-                                                                                                                            ? 'selected'
-                                                                                                                            : ''
-                                                                                                                            %>
-                                                                                                                            >&nbsp;Page
-                                                                                                                            <%= i
-                                                                                                                                %>
-                                                                                                                                &nbsp;
-                                                                                                                        </option>
-                                                                                                                        <% }
-                                                                                                                            %>
-                                                                                                                </select>
-                                                            </div>
-                                                            <% } %>
-
-                                                                <br clear="all" />
-
-                                                                <br>
-                                                                <div class="error">
-                                                                    <center>
-                                                                        <% if (user) { %>
-                                                                            <script>
-                                                                                function quoteComment(author, content) {
-                                                                                    const editor = document.getElementById('comment-editor');
-                                                                                    const quoteHtml = `<div class='quote1'><b>Quote by ${author}</b><div class='quote2'>${content}</div></div><br>`;
-                                                                                    editor.innerHTML = quoteHtml + editor.innerHTML;
-                                                                                }
-                                                                            </script>
-                                                                            <form
-                                                                                action="/poll/<%= viewPoll.slug %>/comment"
-                                                                                method="post"
-                                                                                onsubmit="document.getElementById('comment-content').value = document.getElementById('comment-editor').innerHTML;">
-                                                                                <input type="hidden" name="content"
-                                                                                    id="comment-content">
-                                                                                Emotes:
-                                                                                <% const emotes=['amazed', 'amused'
-                                                                                    , 'blink' , 'cheesy' , 'confused'
-                                                                                    , 'cool' , 'cry' , 'embarressed'
-                                                                                    , 'evil' , 'huh' , 'laugh' , 'mad'
-                                                                                    , 'notrust' , 'noworry' , 'nuts'
-                                                                                    , 'oh' , 'push' , 'rolleyes' , 'sad'
-                                                                                    , 'sick' , 'smile' , 'suspicious'
-                                                                                    , 'teeth' , 'tounge' , 'unsure'
-                                                                                    , 'wacko' , 'weird' , 'wondering'
-                                                                                    , 'worried' ]; %>
-                                                                                    <div
-                                                                                        style="max-height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px; text-align: left;">
-                                                                                        <% emotes.forEach(function(emote)
-                                                                                            { %>
-                                                                                            <img src="/images/smilies/<%= emote %>.gif"
-                                                                                                onclick="const img = document.createElement('img'); img.src = '/images/smilies/<%= emote %>.gif'; img.className = 'smilie'; document.getElementById('comment-editor').appendChild(img);"
-                                                                                                style="cursor: pointer;"
-                                                                                                title="<%= emote %>">
-                                                                                            <% }); %>
-                                                                                    </div>
-                                                                                    <br>
-                                                                                    <div id="comment-editor"
-                                                                                        contenteditable="true"
-                                                                                        style="width: 100%; height: 100px; border: 1px solid #7f9db9; background-color: white; overflow-y: scroll; text-align: left; color: black;">
-                                                                                    </div>
-                                                                                    <br>
-                                                                                    <input type="submit"
-                                                                                        value="Post Comment">
-                                                                            </form>
-                                                                            <% } else { %>
-                                                                                You need to be logged in to your account
-                                                                                to be able to make a comment.<br>
-                                                                                Click <a href="/register/"
-                                                                                    class="error"><b><u>here</u></b></a>
-                                                                                to register an account.
-                                                                                <% } %>
-                                                                    </center>
-                                                                </div>
-                                                                <br><br><br>
-                                                                <div class="dots"></div>
-                                                                <div class="nothing">
-                                                                    Pagename: <b>
-                                                                        <%= viewPoll.question %>
-                                                                    </b><br>
-                                                                    Description: Give your opinion in the polls.<br>
-                                                                    Related subjects: <h3>
-                                                                        <%= viewPoll.question.toLowerCase() %>
-                                                                    </h3>, <h3>opinion</h3>,
-                                                                    <h3>vote</h3>, <h3>polls</h3>, <h3>poll</h3><br><br>
-                                                                    Naruto-Arena.com is a fansite based on the Naruto
-                                                                    Anime and Manga series.
-                                                                    The holders of the copyrighted and/or trademarked
-                                                                    material appearing on this
-                                                                    site are as
-                                                                    follows:<br>
-                                                                    NARUTO © 2002 MASASHI KISHIMOTO. All Rights
-                                                                    Reserved.<br><br>
-                                                                    <a href="/privacy-policy/" class="con">Privacy
-                                                                        policy</a> -
-                                                                    <a href="/legal-disclaimer/" class="con">Legal
-                                                                        disclaimer</a> -
-                                                                    <a href="/terms-of-use/" class="con">Terms of
-                                                                        use</a>
-                                                                </div>
-                                                                <div class="dots"></div><br>
+                                </form>
+                                <% } %>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dots"></div>
+                <div class="centerp">
+                    <font class="info">
+                        <img class="pre" src="/images/pres/pre2.gif">&nbsp;&nbsp;Amount of votes: <%= totalVotes %>&nbsp;&nbsp;<img class="pre" src="/images/pres/pre.gif">
+                        <br><img class="pre" src="/images/pres/pre2.gif">&nbsp;&nbsp;Poll created on: <%= new Date(viewPoll.createdAt).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }) %>&nbsp;&nbsp;<img class="pre" src="/images/pres/pre.gif">
+                    </font>
+                </div>
+            </div>
+        </center>
+
+        <div class="brspacer">
+            <center>
+                <div id="comments">
+                    <div class="right">
+                        <b>(<%= typeof totalComments !== 'undefined' ? totalComments : (comments ? comments.length : 0) %>)</b> comments
+                    </div>
+                    <br>
+                    <% if (comments && comments.length > 0) { %>
+                    <% comments.forEach(function(comment) { %>
+                    <%- include('../comment', { comment: comment }); %>
+                    <% }); %>
+                    <% } else { %>
+                    <div class="nothing">No comments yet.</div>
+                    <% } %>
+                    <br>
+                    <div class="commentlisting">
+                        <div class="left">
+                            <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+                            [ Page <%= currentPage %>/<%= totalPages %> ] &nbsp;
+
+                            <% if (currentPage > 1) { %>
+                            <a href="/<%= viewPoll.slug %>/1"><img class="pre" src="/images/pres/pre2.gif"><img class="pre" src="/images/pres/pre2.gif"></a>
+                            <a href="/<%= viewPoll.slug %>/<%= currentPage - 1 %>"><img class="pre" src="/images/pres/pre2.gif"></a>
+                            <% } %>
+                            <% let startPage = Math.max(1, currentPage - 3);
+                               let endPage = Math.min(totalPages, currentPage + 3);
+                               if (endPage - startPage < 6) {
+                                   if (startPage === 1) { endPage = Math.min(totalPages, startPage + 6); }
+                                   else if (endPage === totalPages) { startPage = Math.max(1, endPage - 6); }
+                               } %>
+
+                            <% for (let i = startPage; i <= endPage; i++) { %>
+                            <% if (i === currentPage) { %>
+                            <u><%= i %></u>
+                            <% } else { %>
+                            <a href="/<%= viewPoll.slug %>/<%= i %>"><font color="black"><%= i %></font></a>
+                            <% } %>
+                            <% } %>
+
+                            <% if (currentPage < totalPages) { %>
+                            <a href="/<%= viewPoll.slug %>/<%= currentPage + 1 %>"><img class="pre" src="/images/pres/pre.gif"></a>
+                            <a href="/<%= viewPoll.slug %>/<%= totalPages %>"><img class="pre" src="/images/pres/pre.gif"><img class="pre" src="/images/pres/pre.gif"></a>
+                            <% } %>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+                <% if (user) { %>
+                <script>
+                    function quoteComment(author, content) {
+                        const editor = document.getElementById('comment-editor');
+                        const quoteHtml = `<div class='quote1'><b>Quote by ${author}</b><div class='quote2'>${content}</div></div><br>`;
+                        editor.innerHTML = quoteHtml + editor.innerHTML;
+                    }
+                </script>
+                <form action="/poll/<%= viewPoll.slug %>/comment" method="post"
+                    onsubmit="document.getElementById('comment-content').value = document.getElementById('comment-editor').innerHTML;">
+                    <input type="hidden" name="content" id="comment-content">
+                    Emotes:
+                    <% const emotes = ['amazed', 'amused', 'blink', 'cheesy', 'confused', 'cool', 'cry',
+                        'embarressed', 'evil', 'huh', 'laugh', 'mad', 'notrust', 'noworry', 'nuts',
+                        'oh', 'push', 'rolleyes', 'sad', 'sick', 'smile', 'suspicious', 'teeth',
+                        'tounge', 'unsure', 'wacko', 'weird', 'wondering', 'worried']; %>
+                    <div style="max-height: 100px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px; text-align: left;">
+                        <% emotes.forEach(function(emote) { %>
+                        <img src="/images/smilies/<%= emote %>.gif"
+                            onclick="const img = document.createElement('img'); img.src = '/images/smilies/<%= emote %>.gif'; img.className = 'smilie'; document.getElementById('comment-editor').appendChild(img);"
+                            style="cursor: pointer;" title="<%= emote %>">
+                        <% }); %>
+                    </div>
+                    <br>
+                    <div id="comment-editor" contenteditable="true"
+                        style="width: 100%; height: 100px; border: 1px solid #7f9db9; background-color: white; overflow-y: scroll; text-align: left; color: black;">
+                    </div>
+                    <br>
+                    <input type="submit" value="Post Comment">
+                </form>
+                <% } else { %>
+                <div class="brspacer2">
+                    <div class="centererror">You need to be logged in to be able to make a comment.</div>
+                    <div class="centererror"><a href="/register/"><u>Click here to register an account.</u></a></div>
+                </div>
+                <% } %>
+            </center>
+        </div>
     </div>
+</div>
+<div class="brspacer2">
+    <div class="dots"></div>
+    <div class="grey">
+        <div class="centerp">
+            Related subjects: <h3><%= viewPoll.question.toLowerCase() %></h3>, <h3>opinion</h3>, <h3>vote</h3>, <h3>polls</h3>, <h3>poll</h3>
+        </div>
+    </div>
+</div>
+<div class="brspacer">
+    <div class="brspacer">
+        <center>
+            Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+            The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+            NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.
+            <div class="centerp">
+                <a href="/privacy-policy/" class="con">Privacy policy</a> -
+                <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+                <a href="/terms-of-use/" class="con">Terms of use</a>
+            </div>
+        </center>
+    </div>
+</div>
 </div>

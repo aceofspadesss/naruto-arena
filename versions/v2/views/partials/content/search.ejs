@@ -1,53 +1,97 @@
-<div style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
-						<div style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
-						<h1>Search</h1><br><a href='/'>Naruto Arena</a> > <a href='/main/'>Main</a> > <h2>Search</h2><br><br>
+<!-- Version 2 Layout -->
+ <div id="content">
+		<div class="brspacer">
+			<h1>Search</h1><br><div id="pagepath"><a href="/">Naruto Arena</a> &gt; <a href="/main/">Main</a> &gt; <h2>Search</h2></div>
+		</div>
+		<div class="brspacer">
+
+<div class="brspacer">
 
 
-<center>
-</center>
+</div>
 
-<script language="javascript">
-
-function gosearch(){
-	var searchvalue = document.searchform.searchquery.value;
-	if (searchvalue != ""){
-		var completeurl = "/search/" + searchvalue + "/";
-	}else{
-		var completeurl = "/search/";
+<script type="text/javascript" language="javascript">
+	function gosearch(){
+		var searchvalue = document.searchform.searchquery.value;
+		searchvalue = searchvalue.replace(" ","+");
+		searchvalue = searchvalue.toLowerCase();
+		if (searchvalue != ""){
+			var completeurl = "/search/" + searchvalue + "/";
+		}else{
+			var completeurl = "/search/";
+		}
+		window.location = completeurl;
 	}
-	window.location = completeurl;
-}
-
 </script>
-<br>
-<center>This searchfunction searches trough the content of the entire website.<br>
-- Please make sure that your keyword contains atleast 4 characters.<br>
-- Please make sure that your keyword is not a spam word.
-</center><br>
-<center>
-<form method='POST' name='searchform'>
-<h5>SEARCH </h5> <input type="text" size="15" name="searchquery" value="" onKeyDown="if(event.keyCode==13) event.keyCode=9; if(event.keyCode==9) gosearch();">
-<a href="#" onClick="gosearch()"> <h6>GO</h6></a>
-</form>
-</center>
 
 
-
-							<br><br><br>
-							<div class="dots"></div>
-							<div class="nothing">
-							Pagename: <b>Search</b><br>
-							Description: The site can be searched with this function.<br>
-							Related subjects: <h3>search</h3>, <h3>find</h3>, <h3>finding</h3>, <h3>searching</h3><br><br>
-							Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series. 
-							The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
-							NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.<br><br>
-							<a href="/privacy-policy/" class="con">Privacy policy</a> - 
-							<a href="/legal-disclaimer/" class="con">Legal disclaimer</a> - 
-							<a href="/terms-of-use/" class="con">Terms of use</a>
+	<table class="max">
+		<tbody><tr>
+			<td width="74%" class="padding3" valign="middle">
+				<font class="info">
+					Naruto Arena 's search-function searches throughout the whole content of the entire website. Define your search to the right.
+					<ul class="num">
+						<li>Please make sure that your <b>keyword</b> contains <b>at least 4 characters</b>.</li>
+						<li>Please make sure that your <b>keyword</b> is <b>not a spam word</b>.</li>
+					</ul>
+				</font>
+			</td>
+			<td width="26%">
+				<form action="" method="post" name="searchform">
+					<div class="title"><img class="pre" src="/images/pres/pre3.gif"> SEARCH</div>
+					<div class="color2">
+						<div class="albumnfo">
+							<div class="bg1">
+								<div class="bg2">
+									<table class="max">
+										<tbody><tr>
+											<td class="center">
+												Keyword:<br>
+												<input type="text" name="searchquery" value="" onkeydown="if(event.keyCode==13) event.keyCode=9; if(event.keyCode==9) gosearch();">
+												<div class="centerp">
+													<input type="button" class="button" value="search" onclick="gosearch()">
+												</div>
+											</td>
+										</tr>
+									</tbody></table>
+								</div>
 							</div>
-							<div class="dots"></div><br>
 						</div>
+						<div class="dots"></div>
 					</div>
-				</div>
-			</div>
+				</form>
+			</td>
+		</tr>
+	</tbody></table>
+
+							</div>
+							<div class="brspacer2">
+								<div class="dots"></div>
+								<div class="grey">
+									<div class="centerp">
+										Related subjects: <h3>search</h3>, <h3>find</h3>, <h3>finding</h3>, <h3>searching</h3>
+									</div>
+								</div>
+							</div>
+							<div class="brspacer">
+								<center>
+									<script type="text/javascript" language="javascript" src="http://media.fastclick.net/w/get.media?sid=19845&amp;m=1&amp;tp=5&amp;d=j&amp;t=s"></script>
+									<noscript><a href="http://media.fastclick.net/w/click.here?sid=19845&m=1&c=1" target="_top">
+									<img src="http://media.fastclick.net/w/get.media?sid=19845&m=1&tp=5&d=s&c=1"
+									width=728 height=90 border=1 /></a></noscript>
+								</center>
+								<div class="brspacer">
+									<center>
+										Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series. 
+										The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+										NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.
+										<div class="centerp">
+											<a href="/privacy-policy/" class="con">Privacy policy</a> - 
+											<a href="/legal-disclaimer/" class="con">Legal disclaimer</a> - 
+											<a href="/terms-of-use/" class="con">Terms of use</a>
+										</div>
+									</center>
+								</div>
+							</div>
+						</div>
+

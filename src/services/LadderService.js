@@ -219,7 +219,14 @@ class LadderService {
 
         // Calculate winner's new position
         const oldPosition = winner.ladderPosition;
-        const newPosition = this.calculateNewPosition(oldPosition, loserNinjaRank, totalRanked);
+        let newPosition = this.calculateNewPosition(oldPosition, loserNinjaRank, totalRanked);
+
+        // Guarantee at least 1 position of climb when beating a strictly better-ranked player
+        // (the 25% formula rounds to 0 for small differences, e.g. with only 2-3 players)
+        if (loser && loser.ladderPosition !== null && loser.ladderPosition !== undefined &&
+                loser.ladderPosition < oldPosition && newPosition === oldPosition) {
+            newPosition = oldPosition - 1;
+        }
 
         if (newPosition < oldPosition) {
             // Winner is moving up - shift affected players down
@@ -233,6 +240,18 @@ class LadderService {
             });
 
             winner.ladderPosition = newPosition;
+        } else if (loser && loser.ladderPosition !== null && loser.ladderPosition !== undefined &&
+                   loser.ladderPosition === oldPosition) {
+            // Both at the same position (tie) — drop the loser by 1 to break the tie
+            const loserNewPosition = loser.ladderPosition + 1;
+            users.forEach(u => {
+                if (String(u.id) !== String(loserId) &&
+                    u.ladderPosition !== null &&
+                    u.ladderPosition >= loserNewPosition) {
+                    u.ladderPosition++;
+                }
+            });
+            loser.ladderPosition = loserNewPosition;
         }
 
         // Update winner's ninja rank

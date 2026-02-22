@@ -1209,7 +1209,7 @@
         "chakra": "0",
         "cooldown": 4,
         "max_active_stacks": 0,
-        "target": "enemy",
+        "target": "self",
         "effects": [
           {
             "type": "invulnerable",

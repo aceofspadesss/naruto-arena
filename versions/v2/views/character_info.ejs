@@ -2,12 +2,12 @@
 <html>
 
 <head>
-    <title>Uzumaki Naruto - Naruto Arena</title>
+    <title><%= character.name %> - Naruto Arena</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <meta http-equiv="content-language" content="">
     <meta name="description"
-        content="Uzumaki Naruto - Using his signature move, Shadow Clones, Naruto is able to perform powerful moves such as the Uzumaki Naruto Combo and Rasengan.">
-    <meta name="keywords" content="uzumaki naruto, uzumaki, naruto">
+        content="<%= character.name %> - <%= character.description %>">
+    <meta name="keywords" content="<%= character.name.toLowerCase() %>, <%= character.name.toLowerCase().split(' ').join(', ') %>">
     <meta name="resource-type" content="document">
     <meta name="distribution" content="Global">
     <meta name="copyright" content="Naruto-Arena.com">

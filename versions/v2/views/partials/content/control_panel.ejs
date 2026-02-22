@@ -1,14 +1,10 @@
-<div
-    style="padding: 0px 0px 0px 0px;  margin:0px 0px 0px 0px; top:217px; position:absolute; background-color:white; left:200px; width:565px; line-height: 16px; border-top: 1px black solid; border-left: 1px black solid;  height:1000px;">
-    <div
-        style="padding: 0px 0px 0px 0px;  height:1000px; margin:10px 10px 10px 10px; font: normal normal normal 11px/normal Trebuchet MS, arial, verdana, sans-serif; color:#000000;">
-        <h1>Control panel</h1><br>
-        <a href='/'>Naruto Arena</a> > <a href='/control-panel'>Control panel</a><br><br>
+<div id="content">
+    <div class="brspacer">
+        <h1>Control panel</h1><br><div id="pagepath"><a href="/">Naruto Arena</a> &gt; <a href="/main/">Main</a> &gt; <h2>Control panel</h2></div>
+    </div>
+    <div class="brspacer">
 
-        <!-- Ignoring the ad banner as requested -->
-        <br>
-
-        <div class="welcome-message" style="margin-bottom: 20px;">
+        <div class="brspacer">
             <span style="color: #F89700; font-weight: bold;">Welcome <%= user %></span>, you can use your control panel
             to modify your Naruto Arena account's preferences and other aspects of your account. All site-areas linked
             to your profile can be found in here.
@@ -32,19 +28,12 @@
                 padding: 10px;
                 height: 100%;
                 box-sizing: border-box;
-                border: 1px solid #999;
                 cursor: pointer;
-            }
-
-            .control-panel-grid fieldset legend {
-                color: #F89700;
-                font-weight: bold;
-                padding: 0 5px;
             }
         </style>
         <div class="control-panel-grid">
             <a href="/private-messages">
-                <fieldset>
+                <fieldset class="color2">
                     <legend>Private Messages</legend>
                     Use the Private Message system to send to, and receive messages from other members. You
                     currently have <u>
@@ -53,7 +42,7 @@
                 </fieldset>
             </a>
             <a href="/buddy-list">
-                <fieldset>
+                <fieldset class="color2">
                     <legend>Buddy list</legend>
                     The Buddy List is a nice way to make friends. You can keep an eye on your friends'
                     online/offline status. You currently have <u>
@@ -62,40 +51,40 @@
                 </fieldset>
             </a>
             <a href="/change-settings">
-                <fieldset>
+                <fieldset class="color2">
                     <legend>Change My Settings</legend>
                     Use this feature to modify your personal information and let other people learn more about you!
                 </fieldset>
             </a>
             <a href="/profile/<%= user %>">
-                <fieldset>
+                <fieldset class="color2">
                     <legend>View My Profile</legend>
                     Take a look at your own profile that is unique to your account. Please make sure that all
                     information is valid. You can show/hide your e-mail address in your profile.
                 </fieldset>
             </a>
             <a href="/change-password">
-                <fieldset>
+                <fieldset class="color2">
                     <legend>Change My Password</legend>
                     You can use this feature to change your current password into a new password.
                 </fieldset>
             </a>
             <a href="/reset-account">
-                <fieldset>
+                <fieldset class="color2">
                     <legend>Reset account</legend>
                     If you are not happy with your account's stats you can just reset them. This feature will reset
                     your rank, win-losses record and your streaks.
                 </fieldset>
             </a>
             <a href="/change-avatar">
-                <fieldset>
+                <fieldset class="color2">
                     <legend>Change My Avatar</legend>
                     Your avatar shows up along with your username in the posts you make, you can also upload your
                     very own avatar right here.
                 </fieldset>
             </a>
             <a href="/my-player-card">
-                <fieldset>
+                <fieldset class="color2">
                     <legend>My Player Card</legend>
                     The player card is an image you can use f.e. as a signature to show off your personal
                     playerstats.
@@ -105,8 +94,30 @@
 
         <br><br>
         <div style="text-align: right;">
-            <a href="/logout" style="color: #F89700; font-weight: bold; text-decoration: none;">Logout with this
-                account</a>
+            <a href="/logout" class="con"><b>Logout with this account</b></a>
+        </div>
+
+    </div>
+    <div class="brspacer2">
+        <div class="dots"></div>
+        <div class="grey">
+            <div class="centerp">
+                Related subjects: <h3>control panel</h3>, <h3>settings</h3>, <h3>account</h3>
+            </div>
+        </div>
+    </div>
+    <div class="brspacer">
+        <div class="brspacer">
+            <center>
+                Naruto-Arena.com is a fansite based on the Naruto Anime and Manga series.
+                The holders of the copyrighted and/or trademarked material appearing on this site are as follows:<br>
+                NARUTO © 2002 MASASHI KISHIMOTO. All Rights Reserved.
+                <div class="centerp">
+                    <a href="/privacy-policy/" class="con">Privacy policy</a> -
+                    <a href="/legal-disclaimer/" class="con">Legal disclaimer</a> -
+                    <a href="/terms-of-use/" class="con">Terms of use</a>
+                </div>
+            </center>
         </div>
     </div>
 </div>

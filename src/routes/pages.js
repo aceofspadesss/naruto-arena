@@ -115,6 +115,15 @@ router.use((req, res, next) => {
 });
 
 router.get('/', PageController.index);
+router.get('/main', (_req, res) => res.redirect('/'));
+router.get('/main/', (_req, res) => res.redirect('/'));
+router.get('/profile', (req, res) => {
+    if (req.session && req.session.userId) {
+        const user = UserModel.findById(req.session.userId);
+        if (user) return res.redirect(`/profile/${user.username}/`);
+    }
+    return res.redirect('/login/');
+});
 router.get('/profile/:username', PageController.profile);
 router.get('/control-panel', PageController.controlPanel);
 router.get('/change-settings', PageController.changeSettings);
@@ -146,7 +155,11 @@ router.get('/latest-balance-changes', PageController.latestBalanceChanges);
 router.get('/faq', PageController.faq);
 router.get('/the-basics', PageController.theBasics);
 router.get('/contact', PageController.contact);
+router.get('/contact-and-chat', PageController.contactAndChat);
+router.get('/naruto-arena-irc-channel', PageController.narutoArenaIrcChannel);
+router.get('/search', PageController.search);
 router.get('/search/:query', PageController.search);
+router.get('/search/:query/:page', PageController.search);
 router.get('/memberlist', PageController.memberList);
 router.get('/ninja-missions', PageController.ninjaMissions); // Existing
 router.get('/mission', PageController.mission);

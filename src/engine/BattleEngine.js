@@ -559,7 +559,14 @@ class BattleEngine {
                     const loserNinjaRank = aiLoser.rank || 'Academy Student';
                     const oldPosition = winner.ladderPosition;
 
-                    const newPosition = LadderService.calculateNewPosition(oldPosition, loserNinjaRank, totalRanked);
+                    let newPosition = LadderService.calculateNewPosition(oldPosition, loserNinjaRank, totalRanked);
+
+                    // Guarantee at least 1 position of climb when AI rank would suggest the player
+                    // should advance but the 25% formula rounds to 0 (common with small ladders)
+                    const aiGroupTop = LadderService.getTopPositionForNinjaRank(loserNinjaRank, totalRanked);
+                    if (aiGroupTop < oldPosition && newPosition === oldPosition) {
+                        newPosition = oldPosition - 1;
+                    }
 
                     if (newPosition < oldPosition) {
                         // Shift others
