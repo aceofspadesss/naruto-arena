@@ -105,6 +105,16 @@ class BattleEngine {
         // AoE / Target Transformation Check
         let targetsToHit = this.determineTargets(actor, enemy, action, skill);
 
+        // Counter On Use Check (e.g. Sharingan Copy) - negates skill if the actor's character has this effect applied to them
+        if (this.checkCounterOnUse(battle, actor, enemy, action, skill, targetsToHit)) {
+            return;
+        }
+
+        // Counter Check - negate entire skill if counter triggers
+        if (this.checkAndApplyCounter(battle, actor, enemy, action, targetsToHit)) {
+            return;
+        }
+
         targetsToHit.forEach((tid, idx) => {
             const isAoE = targetsToHit.length > 1;
             const aoeAction = {
@@ -252,8 +262,11 @@ class BattleEngine {
             });
         } else if (effect.target === "all") {
             enemy.health.forEach((h, idx) => {
-                if (h > 0 && !(EffectSystem.hasEffectType(enemy.activeEffects[idx], "invulnerable") && !EffectSystem.hasEffectType(enemy.activeEffects[idx], "disable_invulnerable"))) {
-                    targetOpts.push({ team: "enemy", index: idx });
+                if (h > 0) {
+                    const isInvul = EffectSystem.hasEffectType(enemy.activeEffects[idx], "invulnerable") && !EffectSystem.hasEffectType(enemy.activeEffects[idx], "disable_invulnerable");
+                    if (!isInvul || effect.ignore_invul) {
+                        targetOpts.push({ team: "enemy", index: idx });
+                    }
                 }
             });
             actor.health.forEach((h, idx) => {
@@ -297,6 +310,13 @@ class BattleEngine {
                 const boost = EffectSystem.getDamageBoost(actor.activeEffects[action.charIndex], skill.id);
                 if (boost > 0) dmg = dmg * (1 + (boost / 100));
 
+                // Skill Damage Nerf (on actor)
+                const nerf = EffectSystem.getSkillDamageNerf(actor.activeEffects[action.charIndex], skill.id);
+                if (nerf > 0) {
+                    dmg = dmg * (1 - (nerf / 100));
+                    console.log(`   -> Skill Damage Nerf: ${nerf}%. New Dmg: ${dmg}`);
+                }
+
                 // Target Reductions
                 if (effect.duration === 0 || !effect.duration) {
                     dmg = EffectSystem.applyDamageReduction(dmg, targetEffects, effect.type === "affliction_damage");
@@ -311,16 +331,29 @@ class BattleEngine {
                     // Or separate "AddEffect" logic.
                 } else {
                     // Instant
-                    targetPlayer.health[tIdx] = Math.max(0, targetPlayer.health[tIdx] - dmg);
-                    console.log(` -> Dealt ${dmg}`);
+                    const wasAlive = targetPlayer.health[tIdx] > 0;
+                    targetPlayer.health[tIdx] = Math.max(0, targetPlayer.health[tIdx] - Math.floor(dmg));
+                    console.log(` -> Dealt ${Math.floor(dmg)}`);
+
+                    // Enforce health floor for enemy damage
+                    if (wasAlive && targetPlayer.id !== actor.id) {
+                        this.enforceHealthFloor(targetPlayer, tIdx);
+                    }
+
+                    // Cleanup effects from any character that just died
+                    this.cleanupDeadCharacterEffects(battle);
                 }
             } else if (effect.type === "health_set") {
                 if (targetPlayer.health[tIdx] > effect.amount) {
                     targetPlayer.health[tIdx] = effect.amount;
                 }
             } else if (effect.type === "health_reduce_percent") {
+                const wasAlive = targetPlayer.health[tIdx] > 0;
                 const reduction = Math.floor(targetPlayer.health[tIdx] * (effect.amount / 100));
                 targetPlayer.health[tIdx] = Math.max(0, targetPlayer.health[tIdx] - reduction);
+                if (wasAlive && targetPlayer.id !== actor.id) {
+                    this.enforceHealthFloor(targetPlayer, tIdx);
+                }
             } else if (effect.type === "heal") {
                 targetPlayer.health[tIdx] = Math.min(targetPlayer.maxHealth[tIdx], targetPlayer.health[tIdx] + effect.amount);
             } else if (effect.type === "remove_chakra") {
@@ -330,6 +363,19 @@ class BattleEngine {
                     // Logic to remove...
                 }
                 // If DoT, handled in ApplyEffect
+            } else if (effect.type === "add_chakra") {
+                if ((!effect.duration || effect.duration === 0) && (!action.isAoE || action.isFirst)) {
+                    // Add immediately
+                    let remaining = effect.amount || 1;
+                    const types = ['tai', 'blo', 'nin', 'gen'];
+                    for (let j = 0; j < remaining; j++) {
+                        const pick = types[Math.floor(Math.random() * types.length)];
+                        targetPlayer.chakra[pick]++;
+                        targetPlayer.chakra.rnd++;
+                    }
+                    console.log(` -> Added ${effect.amount} chakra to player`);
+                }
+                // If DoT, handled in startNewTurn
             } else if (effect.type === "drain_chakra") {
                 // Drain chakra from target and give to actor
                 if (effect.amount && (!action.isAoE || action.isFirst)) {
@@ -347,6 +393,22 @@ class BattleEngine {
                         remaining--;
                     }
                     console.log(` -> Drained ${effect.amount - remaining} chakra from target, gave to actor`);
+                }
+            } else if (effect.type === "skill_effect_removal") {
+                // Remove all effects from the specified skill across all characters
+                if (effect.skill_id) {
+                    Object.values(battle.players).forEach(p => {
+                        if (p.activeEffects) {
+                            p.activeEffects.forEach(charEffects => {
+                                for (let i = charEffects.length - 1; i >= 0; i--) {
+                                    if (String(charEffects[i].imageId) === String(effect.skill_id)) {
+                                        charEffects.splice(i, 1);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    console.log(` -> Removed all effects from skill ${effect.skill_id}`);
                 }
             }
 
@@ -378,17 +440,189 @@ class BattleEngine {
                     effectToStore.amount = Math.floor(snapshotDmg);
                 }
 
-                EffectSystem.applyEffect(targetEffects, effectToStore, actor.id, skill.id, skill.name, skill.description);
+                EffectSystem.applyEffect(targetEffects, effectToStore, actor.id, skill.id, skill.name, skill.description, action.charIndex);
 
                 // Override processed duration if needed (already handled in applyEffect logic roughly)
             }
         });
     }
 
+    static checkCounterOnUse(battle, actor, enemy, action, skill, targetsToHit) {
+        // Check if the acting character has a counter_on_use effect placed on them
+        const charEffects = actor.activeEffects[action.charIndex];
+        if (!charEffects) return false;
+
+        const counterOnUse = charEffects.find(e => e.type === "counter_on_use");
+        if (!counterOnUse) return false;
+
+        // Only negate offensive skills (those targeting the enemy team)
+        const isOffensive = targetsToHit.some(tid => tid.charAt(0) === "1");
+        if (!isOffensive) return false;
+
+        // Bloodline chakra immunity: skills with '2' in their chakra string bypass this effect
+        if (counterOnUse.bloodline_immune && skill && skill.chakra && skill.chakra.includes('2')) {
+            console.log(`[Battle] Counter On Use: bloodline skill is immune`);
+            return false;
+        }
+
+        // Roll counter chance (empty / undefined = 100%)
+        const chance = (counterOnUse.counter_chance !== undefined &&
+                        counterOnUse.counter_chance !== null &&
+                        counterOnUse.counter_chance !== '')
+            ? Number(counterOnUse.counter_chance)
+            : 100;
+
+        const roll = Math.random() * 100;
+        if (roll >= chance) {
+            console.log(`[Battle] Counter On Use roll failed: ${roll.toFixed(1)} >= ${chance}%`);
+            return false;
+        }
+
+        console.log(`[Battle] COUNTER ON USE triggered! ${skill ? skill.name : 'skill'} negated`);
+
+        // Apply post-counter effect to the skill user (the acting character)
+        if (counterOnUse.post_counter_effect && counterOnUse.post_counter_effect !== 'none') {
+            this.applyPostCounterEffect(
+                battle, actor, enemy,
+                action.charIndex,
+                counterOnUse.casterSlot,
+                counterOnUse.post_counter_effect,
+                counterOnUse.post_counter_amount || 0
+            );
+        }
+
+        return true; // Skill was negated
+    }
+
+    static checkAndApplyCounter(battle, actor, enemy, action, targetsToHit) {
+        // Only check counter for offensive skills (those targeting the enemy team)
+        const hasEnemyTarget = targetsToHit.some(tid => tid.charAt(0) === "1");
+        if (!hasEnemyTarget) return false;
+
+        // Find the first live enemy target that has an active counter effect
+        let counterEffect = null;
+        let counterCharIdx = -1;
+
+        for (const tid of targetsToHit) {
+            if (tid.charAt(0) !== "1") continue;
+            const slotIdx = parseInt(tid.charAt(1));
+            if (enemy.health[slotIdx] <= 0) continue;
+            const effects = enemy.activeEffects[slotIdx];
+            const counter = effects && effects.find(e => e.type === "counter");
+            if (counter) {
+                counterEffect = counter;
+                counterCharIdx = slotIdx;
+                break;
+            }
+        }
+
+        if (!counterEffect) return false;
+
+        // Roll counter chance (empty / undefined = 100%)
+        const chance = (counterEffect.counter_chance !== undefined &&
+                        counterEffect.counter_chance !== null &&
+                        counterEffect.counter_chance !== '')
+            ? Number(counterEffect.counter_chance)
+            : 100;
+
+        const roll = Math.random() * 100;
+        if (roll >= chance) {
+            console.log(`[Battle] Counter roll failed: ${roll.toFixed(1)} >= ${chance}%`);
+            return false;
+        }
+
+        console.log(`[Battle] COUNTER triggered by enemy slot ${counterCharIdx}! Roll: ${roll.toFixed(1)} < ${chance}%`);
+
+        // Apply post-counter effect to the attacker's character
+        if (counterEffect.post_counter_effect && counterEffect.post_counter_effect !== 'none') {
+            this.applyPostCounterEffect(
+                battle, actor, enemy,
+                action.charIndex,
+                counterCharIdx,
+                counterEffect.post_counter_effect,
+                counterEffect.post_counter_amount || 0
+            );
+        }
+
+        return true; // Skill was negated
+    }
+
+    static applyPostCounterEffect(battle, actor, enemy, attackerCharIdx, counterCharIdx, effectType, amount) {
+        const attackerEffects = actor.activeEffects[attackerCharIdx];
+        const isInvul = EffectSystem.hasEffectType(attackerEffects, "invulnerable") &&
+                        !EffectSystem.hasEffectType(attackerEffects, "disable_invulnerable");
+
+        if (effectType === "damage") {
+            if (!isInvul) {
+                const wasAlive = actor.health[attackerCharIdx] > 0;
+                const finalDmg = EffectSystem.applyDamageReduction(amount, attackerEffects, false);
+                actor.health[attackerCharIdx] = Math.max(0, actor.health[attackerCharIdx] - Math.floor(finalDmg));
+                if (wasAlive) this.enforceHealthFloor(actor, attackerCharIdx);
+                console.log(`[Battle] Post-counter damage: ${Math.floor(finalDmg)} to attacker slot ${attackerCharIdx}`);
+            }
+        } else if (effectType === "affliction_damage") {
+            const wasAlive = actor.health[attackerCharIdx] > 0;
+            const finalDmg = Math.floor(amount);
+            actor.health[attackerCharIdx] = Math.max(0, actor.health[attackerCharIdx] - finalDmg);
+            if (wasAlive) this.enforceHealthFloor(actor, attackerCharIdx);
+            console.log(`[Battle] Post-counter affliction damage: ${finalDmg} to attacker slot ${attackerCharIdx}`);
+        } else if (effectType === "stun") {
+            if (!isInvul) {
+                EffectSystem.applyEffect(
+                    attackerEffects,
+                    { type: "stun", duration: amount || 1, target: "enemy" },
+                    enemy.id,
+                    null,
+                    "Counter",
+                    "Counter Stun",
+                    counterCharIdx
+                );
+                console.log(`[Battle] Post-counter stun (${amount || 1}r) applied to attacker slot ${attackerCharIdx}`);
+            }
+        }
+
+        this.cleanupDeadCharacterEffects(battle);
+    }
+
+    static enforceHealthFloor(player, charIdx) {
+        if (!player.activeEffects || !player.activeEffects[charIdx]) return;
+        const floorEffect = player.activeEffects[charIdx].find(e => e.type === "health_floor" && e.amount > 0);
+        if (floorEffect && player.health[charIdx] < floorEffect.amount) {
+            player.health[charIdx] = floorEffect.amount;
+            console.log(`[Battle] Health floor enforced: slot ${charIdx} set to ${floorEffect.amount}`);
+        }
+    }
+
     static findFirstValidEnemy(enemy) {
         return enemy.health.findIndex((h, idx) => {
             if (h <= 0) return false;
             return !(EffectSystem.hasEffectType(enemy.activeEffects[idx], "invulnerable") && !EffectSystem.hasEffectType(enemy.activeEffects[idx], "disable_invulnerable"));
+        });
+    }
+
+    static cleanupDeadCharacterEffects(battle) {
+        // For each player, check each character slot
+        Object.values(battle.players).forEach(player => {
+            player.health.forEach((h, slotIdx) => {
+                if (h <= 0) {
+                    // This character is dead - remove all effects it cast from ALL characters
+                    Object.values(battle.players).forEach(p => {
+                        if (p.activeEffects) {
+                            p.activeEffects.forEach(charEffects => {
+                                for (let i = charEffects.length - 1; i >= 0; i--) {
+                                    const eff = charEffects[i];
+                                    if (String(eff.casterId) === String(player.id) &&
+                                        eff.casterSlot === slotIdx &&
+                                        !eff.persist_after_death) {
+                                        console.log(`[Battle] Removing effect '${eff.type}' from dead caster (player ${player.id}, slot ${slotIdx})`);
+                                        charEffects.splice(i, 1);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         });
     }
 
@@ -421,9 +655,14 @@ class BattleEngine {
                     if (e.type === "damage" || e.type === "affliction_damage") {
                         const isAffliction = e.type === "affliction_damage";
                         if (!isInvul || isAffliction) {
+                            const wasAlive = nextPlayer.health[cIdx] > 0;
                             let tickDmg = EffectSystem.applyDamageReduction(e.amount, charEffects, isAffliction);
                             nextPlayer.health[cIdx] = Math.max(0, nextPlayer.health[cIdx] - tickDmg);
                             console.log(`[Battle] DoT Tick: ${tickDmg}`);
+                            // Enforce health floor for enemy DoTs
+                            if (wasAlive && e.casterId !== activeId) {
+                                this.enforceHealthFloor(nextPlayer, cIdx);
+                            }
                         }
                     }
                     // Other DoTs (chakra)
@@ -463,6 +702,24 @@ class BattleEngine {
             ChakraSystem.addChakra(nextPlayer.chakra, gained);
         }
 
+        // Process Chakra Addition Effects (after chakra gain)
+        if (nextPlayer.activeEffects) {
+            nextPlayer.activeEffects.forEach((charEffects) => {
+                for (let i = charEffects.length - 1; i >= 0; i--) {
+                    const e = charEffects[i];
+                    if (e.type === "add_chakra" && e.amount) {
+                        const types = ['tai', 'blo', 'nin', 'gen'];
+                        for (let j = 0; j < e.amount; j++) {
+                            const pick = types[Math.floor(Math.random() * types.length)];
+                            nextPlayer.chakra[pick]++;
+                            nextPlayer.chakra.rnd++;
+                        }
+                        console.log(`[Battle] Added ${e.amount} chakra to player ${activeId}`);
+                    }
+                }
+            });
+        }
+
         // Process Chakra Removal Effects (after chakra gain)
         if (nextPlayer.activeEffects) {
             nextPlayer.activeEffects.forEach((charEffects, cIdx) => {
@@ -487,6 +744,9 @@ class BattleEngine {
                 }
             });
         }
+
+        // Cleanup effects from characters that died to DoTs
+        this.cleanupDeadCharacterEffects(battle);
     }
 
     static checkWinCondition(battle) {
@@ -531,7 +791,7 @@ class BattleEngine {
                 }
 
                 const winnerTeam = battle.players[winnerId]?.team || [];
-                const loserTeam  = battle.players[loserId]?.team  || [];
+                const loserTeam = battle.players[loserId]?.team || [];
                 MissionProgressService.processWin(winnerId, winnerTeam, loserTeam);
                 MissionProgressService.processLoss(loserId, loserTeam);
 
@@ -591,7 +851,7 @@ class BattleEngine {
                     console.log(`[Ladder] AI Match result: ${winner.username} beat AI (${loserNinjaRank}). Pos: ${oldPosition} -> ${newPosition}`);
 
                     const winnerTeam = battle.players[winnerId]?.team || [];
-                    const aiTeam     = battle.players[loserId]?.team  || [];
+                    const aiTeam = battle.players[loserId]?.team || [];
                     MissionProgressService.processWin(winnerId, winnerTeam, aiTeam);
                 }
 

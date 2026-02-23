@@ -14,7 +14,9 @@
             border: 1px solid #000;
         }
 
-        .form-group { margin-bottom: 15px; }
+        .form-group {
+            margin-bottom: 15px;
+        }
 
         label {
             display: block;
@@ -22,7 +24,10 @@
             margin-bottom: 5px;
         }
 
-        input[type="text"], input[type="number"], select, textarea {
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
@@ -39,9 +44,25 @@
             margin-right: 10px;
         }
 
-        .btn-primary { background: #4a90d9; color: white; border-color: #3a7bc0; }
-        .btn-danger { background: #d94a4a; color: white; border-color: #c03a3a; font-size: 12px; padding: 4px 10px; }
-        .btn-add { background: #5aab5a; color: white; border-color: #3a8c3a; }
+        .btn-primary {
+            background: #4a90d9;
+            color: white;
+            border-color: #3a7bc0;
+        }
+
+        .btn-danger {
+            background: #d94a4a;
+            color: white;
+            border-color: #c03a3a;
+            font-size: 12px;
+            padding: 4px 10px;
+        }
+
+        .btn-add {
+            background: #5aab5a;
+            color: white;
+            border-color: #3a8c3a;
+        }
 
         .thumbnail-preview-wrap {
             display: flex;
@@ -57,7 +78,11 @@
             border: 1px solid #ccc;
         }
 
-        .hint { font-size: 12px; color: #666; margin-top: 4px; }
+        .hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
 
         .prereq-list {
             max-height: 160px;
@@ -75,7 +100,9 @@
         }
 
         /* Goals */
-        #goals-list { margin-bottom: 8px; }
+        #goals-list {
+            margin-bottom: 8px;
+        }
 
         .goal-row {
             display: flex;
@@ -85,23 +112,45 @@
             background: #f5f5f5;
             border: 1px solid #ddd;
             padding: 8px;
+            flex-wrap: wrap;
         }
 
-        .goal-row select, .goal-row input[type="number"] {
+        .goal-row select,
+        .goal-row input[type="number"] {
             width: auto;
             padding: 5px;
             font-size: 13px;
         }
 
-        .goal-row .char-select { min-width: 200px; }
-        .goal-row .count-input { width: 70px; }
+        .goal-row .char-select {
+            min-width: 200px;
+        }
+
+        .goal-row .count-input {
+            width: 70px;
+        }
 
         /* Rewards */
-        .reward-section { border: 1px solid #ddd; padding: 12px; background: #fafafa; }
-        .reward-char-preview { width: 60px; height: 60px; object-fit: cover; border: 1px solid #ccc; display: none; vertical-align: middle; }
+        .reward-section {
+            border: 1px solid #ddd;
+            padding: 12px;
+            background: #fafafa;
+        }
+
+        .reward-char-preview {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border: 1px solid #ccc;
+            display: none;
+            vertical-align: middle;
+        }
 
         /* Quill */
-        #description-editor { height: 160px; background: white; }
+        #description-editor {
+            height: 160px;
+            background: white;
+        }
     </style>
 </head>
 
@@ -119,7 +168,9 @@
             <div class="form-group">
                 <label>Slug (URL path):</label>
                 <input type="text" name="slug" value="<%= mission.slug %>" required>
-                <div class="hint">Used as the URL: /mission/<em><%= mission.slug %></em>/</div>
+                <div class="hint">Used as the URL: /mission/<em>
+                        <%= mission.slug %>
+                    </em>/</div>
             </div>
 
             <!-- Difficulty -->
@@ -127,8 +178,9 @@
                 <label>Difficulty:</label>
                 <select name="difficulty">
                     <% ['Practice Session','D Rank Mission','C Rank Mission','B Rank Mission','A Rank Mission','S Rank Mission'].forEach(d => { %>
-                        <option value="<%= d %>" <%= mission.difficulty === d ? 'selected' : '' %>><%= d %></option>
-                    <% }); %>
+                        <option value="<%= d %>" <%=mission.difficulty===d ? 'selected' : '' %>><%= d %>
+                        </option>
+                        <% }); %>
                 </select>
             </div>
 
@@ -136,14 +188,14 @@
             <div class="form-group">
                 <label>Thumbnail Image ID:</label>
                 <select name="thumbnailId" id="thumbnail-select">
-                    <% thumbnailIds.forEach(id => { %>
-                        <option value="<%= id %>" <%= id === mission.thumbnailId ? 'selected' : '' %>><%= id %></option>
-                    <% }); %>
+                    <% thumbnailIds.forEach(id=> { %>
+                        <option value="<%= id %>" <%=id===mission.thumbnailId ? 'selected' : '' %>><%= id %>
+                        </option>
+                        <% }); %>
                 </select>
                 <div class="thumbnail-preview-wrap">
-                    <img id="thumbnail-preview"
-                         src="/images/missions/<%= mission.thumbnailId %>/image.jpg"
-                         alt="Preview">
+                    <img id="thumbnail-preview" src="/images/missions/<%= mission.thumbnailId %>/image.jpg"
+                        alt="Preview">
                     <span class="hint">Preview of selected thumbnail</span>
                 </div>
             </div>
@@ -152,9 +204,10 @@
             <div class="form-group">
                 <label>Required Ninja Rank (minimum):</label>
                 <select name="rank">
-                    <% ranks.forEach(r => { %>
-                        <option value="<%= r %>" <%= mission.requirements.rank === r ? 'selected' : '' %>><%= r %></option>
-                    <% }); %>
+                    <% ranks.forEach(r=> { %>
+                        <option value="<%= r %>" <%=mission.requirements.rank===r ? 'selected' : '' %>><%= r %>
+                        </option>
+                        <% }); %>
                 </select>
             </div>
 
@@ -162,20 +215,20 @@
             <div class="form-group">
                 <label>Prerequisite Missions Completed:</label>
                 <div class="prereq-list">
-                    <% if (allMissions.length === 0) { %>
+                    <% if (allMissions.length===0) { %>
                         <span style="color:#999; font-size:13px;">No other missions available.</span>
-                    <% } else { %>
-                        <% allMissions.forEach(m => { %>
-                            <div class="prereq-item">
-                                <input type="checkbox" name="missionsCompleted" value="<%= m.id %>"
-                                       id="prereq-<%= m.id %>"
-                                       <%= mission.requirements.missionsCompleted.includes(m.id) ? 'checked' : '' %>>
-                                <label for="prereq-<%= m.id %>" style="font-weight:normal; margin:0;">
-                                    <%= m.name %> <span style="color:#999; font-size:11px;">(ID: <%= m.id %>)</span>
-                                </label>
-                            </div>
-                        <% }); %>
-                    <% } %>
+                        <% } else { %>
+                            <% allMissions.forEach(m=> { %>
+                                <div class="prereq-item">
+                                    <input type="checkbox" name="missionsCompleted" value="<%= m.id %>"
+                                        id="prereq-<%= m.id %>" <%=mission.requirements.missionsCompleted.includes(m.id)
+                                        ? 'checked' : '' %>>
+                                    <label for="prereq-<%= m.id %>" style="font-weight:normal; margin:0;">
+                                        <%= m.name %> <span style="color:#999; font-size:11px;">(ID: <%= m.id %>)</span>
+                                    </label>
+                                </div>
+                                <% }); %>
+                                    <% } %>
                 </div>
             </div>
 
@@ -198,36 +251,22 @@
             <div class="form-group">
                 <label>Mission Reward:</label>
                 <div class="reward-section">
-                    <div style="margin-bottom: 8px;">
-                        <label style="display:inline; font-weight:normal;">
-                            <input type="radio" name="rewardType" value="text"
-                                <%= (!mission.rewards || mission.rewards.type !== 'character') ? 'checked' : '' %>
-                                onchange="toggleRewardType()"> Text description
-                        </label>
-                        &nbsp;&nbsp;
-                        <label style="display:inline; font-weight:normal;">
-                            <input type="radio" name="rewardType" value="character"
-                                <%= (mission.rewards && mission.rewards.type === 'character') ? 'checked' : '' %>
-                                onchange="toggleRewardType()"> Unlock character
-                        </label>
-                    </div>
-                    <div id="reward-text-wrap" style="<%= (mission.rewards && mission.rewards.type === 'character') ? 'display:none' : '' %>">
-                        <textarea name="rewardText" rows="3" placeholder="Describe the reward..."><%= (mission.rewards && mission.rewards.type === 'text') ? mission.rewards.value : '' %></textarea>
-                    </div>
-                    <div id="reward-char-wrap" style="<%= (mission.rewards && mission.rewards.type === 'character') ? 'display:flex' : 'display:none' %>; align-items:center; gap:12px;">
+                    <div class="hint" style="margin-bottom: 8px;">Text reward "Mission &lt;name&gt; completion." is
+                        always auto-generated. Optionally select a character to unlock:</div>
+                    <div style="display:flex; align-items:center; gap:12px;">
                         <select name="rewardCharacterId" id="reward-char-select" onchange="updateRewardCharPreview()">
-                            <option value="">-- Select character --</option>
-                            <% characters.forEach(c => { %>
-                                <option value="<%= c.id %>"
-                                    <%= (mission.rewards && mission.rewards.type === 'character' && mission.rewards.characterId == c.id) ? 'selected' : '' %>>
+                            <option value="">-- No character unlock --</option>
+                            <% characters.forEach(c=> { %>
+                                <option value="<%= c.id %>" <%=(mission.rewards && mission.rewards.type==='character' &&
+                                    mission.rewards.characterId==c.id) ? 'selected' : '' %>>
                                     <%= c.name %>
                                 </option>
-                            <% }); %>
+                                <% }); %>
                         </select>
                         <img id="reward-char-preview" class="reward-char-preview"
-                             src="<%= (mission.rewards && mission.rewards.type === 'character' && mission.rewards.characterId) ? '/game/images/characters/' + mission.rewards.characterId + '/avatarlarge.jpg' : '' %>"
-                             style="<%= (mission.rewards && mission.rewards.type === 'character' && mission.rewards.characterId) ? 'display:block' : 'display:none' %>"
-                             alt="Character">
+                            src="<%= (mission.rewards && mission.rewards.type === 'character' && mission.rewards.characterId) ? '/game/images/characters/' + mission.rewards.characterId + '/avatarlarge.jpg' : '' %>"
+                            style="<%= (mission.rewards && mission.rewards.type === 'character' && mission.rewards.characterId) ? 'display:block' : 'display:none' %>"
+                            alt="Character">
                     </div>
                 </div>
             </div>
@@ -253,7 +292,7 @@
 
     <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
     <script>
-        // Quill editor — pre-load existing description
+        // Quill editor - pre-load existing description
         const quill = new Quill('#description-editor', { theme: 'snow' });
         quill.root.innerHTML = <%- JSON.stringify(mission.description || '') %>;
 
@@ -264,12 +303,7 @@
             thumbPreview.src = '/images/missions/' + this.value + '/image.jpg';
         });
 
-        // Reward type toggle
-        function toggleRewardType() {
-            const type = document.querySelector('input[name="rewardType"]:checked').value;
-            document.getElementById('reward-text-wrap').style.display = type === 'text' ? '' : 'none';
-            document.getElementById('reward-char-wrap').style.display = type === 'character' ? 'flex' : 'none';
-        }
+        // No reward type toggle needed - character unlock is optional
 
         function updateRewardCharPreview() {
             const id = document.getElementById('reward-char-select').value;
@@ -291,24 +325,25 @@
             ).join('');
         }
 
-        function addGoal(type, charId, count, againstCharId, char2Id, char3Id) {
+        function addGoal(type, charId, count, againstCharId, char2Id, char3Id, customText) {
             type = type || 'wins_with';
             count = count || 1;
+            customText = customText || '';
             const idx = goalIndex++;
             const row = document.createElement('div');
             row.className = 'goal-row';
             row.dataset.idx = idx;
-            row.innerHTML = buildGoalHTML(idx, type, charId, count, againstCharId, char2Id, char3Id);
+            row.innerHTML = buildGoalHTML(idx, type, charId, count, againstCharId, char2Id, char3Id, customText);
             document.getElementById('goals-list').appendChild(row);
         }
 
-        function buildGoalHTML(idx, type, charId, count, againstCharId, char2Id, char3Id) {
+        function buildGoalHTML(idx, type, charId, count, againstCharId, char2Id, char3Id, customText) {
             const typeSelect = `<select name="goalType[]" onchange="onGoalTypeChange(this, ${idx})">
-                <option value="wins_with" ${type==='wins_with'?'selected':''}>Win X games with character</option>
-                <option value="wins_in_row_with" ${type==='wins_in_row_with'?'selected':''}>Win X games in a row with character</option>
-                <option value="wins_against_with" ${type==='wins_against_with'?'selected':''}>Win X games against character with character</option>
-                <option value="wins_in_row_with_either" ${type==='wins_in_row_with_either'?'selected':''}>Win X games in a row with character Y or character Z</option>
-                <option value="wins_with_any" ${type==='wins_with_any'?'selected':''}>Win X games with character Y, Z, or A in team</option>
+                <option value="wins_with" ${type === 'wins_with' ? 'selected' : ''}>Win X games with character</option>
+                <option value="wins_in_row_with" ${type === 'wins_in_row_with' ? 'selected' : ''}>Win X games in a row with character</option>
+                <option value="wins_against_with" ${type === 'wins_against_with' ? 'selected' : ''}>Win X games against character with character</option>
+                <option value="wins_in_row_with_either" ${type === 'wins_in_row_with_either' ? 'selected' : ''}>Win X games in a row with character Y or character Z</option>
+                <option value="wins_with_any" ${type === 'wins_with_any' ? 'selected' : ''}>Win X games with character Y, Z, or A in team</option>
             </select>`;
 
             const charSelect = `<select name="goalCharacterId[]" class="char-select">${charOptions(charId)}</select>`;
@@ -323,8 +358,10 @@
                 ? `<span id="char3-wrap-${idx}"> or <select name="goalCharacter3Id[]" class="char-select">${charOptions(char3Id)}</select></span>`
                 : `<span id="char3-wrap-${idx}" style="display:none"> or <select name="goalCharacter3Id[]" class="char-select">${charOptions('')}</select></span>`;
             const removeBtn = `<button type="button" class="btn btn-danger" onclick="removeGoal(this)">Remove</button>`;
+            var safeText = (customText || '').split('"').join('&quot;');
+            var customTextInput = '<div style="width:100%; margin-top:4px;"><input type="text" name="goalCustomText[]" value="' + safeText + '" placeholder="Custom text (optional, overrides system text)" style="width:100%; font-size:12px;"></div>';
 
-            return `${typeSelect} with ${charSelect} ${againstSelect} ${char2Select} ${char3Select} × ${countInput} times ${removeBtn}`;
+            return typeSelect + ' with ' + charSelect + ' ' + againstSelect + ' ' + char2Select + ' ' + char3Select + ' x ' + countInput + ' times ' + removeBtn + customTextInput;
         }
 
         function onGoalTypeChange(sel, idx) {
@@ -339,7 +376,7 @@
 
         // Pre-populate existing goals
         EXISTING_GOALS.forEach(g => {
-            addGoal(g.type, g.characterId, g.count, g.againstCharacterId, g.character2Id, g.character3Id);
+            addGoal(g.type, g.characterId, g.count, g.againstCharacterId, g.character2Id, g.character3Id, g.customText);
         });
 
         // Form submit: copy Quill HTML

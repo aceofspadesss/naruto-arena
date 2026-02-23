@@ -703,10 +703,17 @@
                 <option value="target_restrict_marked">Restrict: Marked Only</option>
                 <option value="health_set">Health Set</option>
                 <option value="health_reduce_percent">Health Reduce %</option>
+                <option value="health_floor">Health Floor</option>
                 <option value="remove_chakra">Remove Chakra</option>
+                <option value="add_chakra">Add Chakra</option>
                 <option value="drain_chakra">Drain Chakra</option>
                 <option value="disable_damage_reduction">Disable Dmg Reduct</option>
                 <option value="disable_invulnerable">Disable Invuln</option>
+                <option value="disable_skill">Disable Skill</option>
+                <option value="skill_damage_nerf">Skill Dmg Nerf</option>
+                <option value="skill_effect_removal">Skill Effect Removal</option>
+                <option value="counter">Counter</option>
+                <option value="counter_on_use">Counter On Use</option>
             `;
             // Default to damage or existing
             const initialType = effect.type || 'damage';
@@ -750,6 +757,46 @@
             hiddenDiv.appendChild(hiddenCheck);
             hiddenDiv.appendChild(hiddenLabel);
 
+            // Persist After Death Checkbox
+            const persistDiv = document.createElement('div');
+            persistDiv.style.display = 'flex';
+            persistDiv.style.alignItems = 'center';
+            persistDiv.style.gap = '5px';
+
+            const persistCheck = document.createElement('input');
+            persistCheck.type = 'checkbox';
+            persistCheck.className = 'effect-persist-after-death';
+            persistCheck.style.width = 'auto';
+            if (effect.persist_after_death) persistCheck.checked = true;
+
+            const persistLabel = document.createElement('label');
+            persistLabel.innerText = 'Persist After Death';
+            persistLabel.style.marginBottom = '0';
+            persistLabel.style.fontSize = '0.8rem';
+
+            persistDiv.appendChild(persistCheck);
+            persistDiv.appendChild(persistLabel);
+
+            // Ignore Invul Checkbox
+            const ignoreInvulDiv = document.createElement('div');
+            ignoreInvulDiv.style.display = 'flex';
+            ignoreInvulDiv.style.alignItems = 'center';
+            ignoreInvulDiv.style.gap = '5px';
+
+            const ignoreInvulCheck = document.createElement('input');
+            ignoreInvulCheck.type = 'checkbox';
+            ignoreInvulCheck.className = 'effect-ignore-invul';
+            ignoreInvulCheck.style.width = 'auto';
+            if (effect.ignore_invul) ignoreInvulCheck.checked = true;
+
+            const ignoreInvulLabel = document.createElement('label');
+            ignoreInvulLabel.innerText = 'Ignore Invul';
+            ignoreInvulLabel.style.marginBottom = '0';
+            ignoreInvulLabel.style.fontSize = '0.8rem';
+
+            ignoreInvulDiv.appendChild(ignoreInvulCheck);
+            ignoreInvulDiv.appendChild(ignoreInvulLabel);
+
             // Delete Button
             const delBtn = document.createElement('button');
             delBtn.type = 'button';
@@ -762,7 +809,7 @@
                 // Check against original effect to preserve values if type matches
                 const isOriginal = (type === initialType);
 
-                if (['damage', 'aoe_damage', 'affliction_damage', 'heal', 'damage_reduction', 'damage_boost', 'health_set', 'health_reduce_percent', 'remove_chakra', 'drain_chakra', 'target_restrict_marked'].includes(type)) {
+                if (['damage', 'aoe_damage', 'affliction_damage', 'heal', 'damage_reduction', 'damage_boost', 'health_set', 'health_reduce_percent', 'health_floor', 'remove_chakra', 'add_chakra', 'drain_chakra', 'target_restrict_marked', 'skill_damage_nerf'].includes(type)) {
                     const amt = document.createElement('input');
                     amt.type = 'number';
                     amt.placeholder = type === 'target_restrict_marked' ? 'Mark ID' : 'Amount';
@@ -771,7 +818,7 @@
                     inputsDiv.appendChild(amt);
                 }
 
-                if (['damage', 'aoe_damage', 'affliction_damage', 'heal', 'stun', 'damage_reduction', 'damage_boost', 'invulnerable', 'skill_unlock', 'target_transform', 'disable_damage_reduction', 'disable_invulnerable', 'target_restrict_marked', 'remove_chakra', 'drain_chakra', 'mark'].includes(type)) {
+                if (['damage', 'aoe_damage', 'affliction_damage', 'heal', 'stun', 'damage_reduction', 'damage_boost', 'invulnerable', 'skill_unlock', 'target_transform', 'disable_damage_reduction', 'disable_invulnerable', 'disable_skill', 'target_restrict_marked', 'remove_chakra', 'add_chakra', 'drain_chakra', 'mark', 'skill_damage_nerf', 'health_floor'].includes(type)) {
                     const dur = document.createElement('input');
                     dur.type = 'number';
                     dur.placeholder = 'Duration (Rounds)';
@@ -780,13 +827,109 @@
                     inputsDiv.appendChild(dur);
                 }
 
-                if (['damage_boost', 'target_transform', 'target_restrict_marked'].includes(type)) {
+                if (['damage_boost', 'target_transform', 'target_restrict_marked', 'disable_skill', 'skill_damage_nerf', 'skill_effect_removal'].includes(type)) {
                     const skillIdInp = document.createElement('input');
                     skillIdInp.type = 'text';
                     skillIdInp.placeholder = 'Skill ID (Optional)';
                     skillIdInp.className = 'effect-skill-id';
                     if (isOriginal && effect.skill_id) skillIdInp.value = effect.skill_id;
                     inputsDiv.appendChild(skillIdInp);
+                }
+
+                if (type === 'counter') {
+                    const dur = document.createElement('input');
+                    dur.type = 'number';
+                    dur.placeholder = 'Duration (Rounds)';
+                    dur.className = 'effect-duration';
+                    if (isOriginal && effect.duration) dur.value = effect.duration;
+                    inputsDiv.appendChild(dur);
+
+                    const chanceInp = document.createElement('input');
+                    chanceInp.type = 'number';
+                    chanceInp.placeholder = 'Chance % (empty = 100%)';
+                    chanceInp.className = 'effect-counter-chance';
+                    chanceInp.min = '1';
+                    chanceInp.max = '100';
+                    if (isOriginal && effect.counter_chance !== undefined && effect.counter_chance !== null) chanceInp.value = effect.counter_chance;
+                    inputsDiv.appendChild(chanceInp);
+
+                    const pceSelect = document.createElement('select');
+                    pceSelect.className = 'effect-post-counter-effect';
+                    pceSelect.innerHTML = `
+                        <option value="none">No Post-Counter Effect</option>
+                        <option value="damage">Damage</option>
+                        <option value="affliction_damage">Affliction Damage</option>
+                        <option value="stun">Stun</option>
+                        <option value="heal">Heal</option>
+                    `;
+                    pceSelect.style.width = 'auto';
+                    if (isOriginal && effect.post_counter_effect) pceSelect.value = effect.post_counter_effect;
+                    inputsDiv.appendChild(pceSelect);
+
+                    const pceAmtInp = document.createElement('input');
+                    pceAmtInp.type = 'number';
+                    pceAmtInp.placeholder = 'Post-Counter Amount';
+                    pceAmtInp.className = 'effect-post-counter-amount';
+                    if (isOriginal && effect.post_counter_amount !== undefined) pceAmtInp.value = effect.post_counter_amount;
+                    inputsDiv.appendChild(pceAmtInp);
+                }
+
+                if (type === 'counter_on_use') {
+                    const dur = document.createElement('input');
+                    dur.type = 'number';
+                    dur.placeholder = 'Duration (Rounds)';
+                    dur.className = 'effect-duration';
+                    if (isOriginal && effect.duration) dur.value = effect.duration;
+                    inputsDiv.appendChild(dur);
+
+                    const chanceInp = document.createElement('input');
+                    chanceInp.type = 'number';
+                    chanceInp.placeholder = 'Chance % (empty = 100%)';
+                    chanceInp.className = 'effect-counter-chance';
+                    chanceInp.min = '1';
+                    chanceInp.max = '100';
+                    if (isOriginal && effect.counter_chance !== undefined && effect.counter_chance !== null) chanceInp.value = effect.counter_chance;
+                    inputsDiv.appendChild(chanceInp);
+
+                    const bloodlineDiv = document.createElement('div');
+                    bloodlineDiv.style.display = 'flex';
+                    bloodlineDiv.style.alignItems = 'center';
+                    bloodlineDiv.style.gap = '5px';
+
+                    const bloodlineCheck = document.createElement('input');
+                    bloodlineCheck.type = 'checkbox';
+                    bloodlineCheck.className = 'effect-bloodline-immune';
+                    bloodlineCheck.style.width = 'auto';
+                    if (isOriginal && effect.bloodline_immune) bloodlineCheck.checked = true;
+
+                    const bloodlineLabel = document.createElement('label');
+                    bloodlineLabel.innerText = 'Bloodline Immune';
+                    bloodlineLabel.style.marginBottom = '0';
+                    bloodlineLabel.style.fontSize = '0.8rem';
+
+                    bloodlineDiv.appendChild(bloodlineCheck);
+                    bloodlineDiv.appendChild(bloodlineLabel);
+                    inputsDiv.appendChild(bloodlineDiv);
+
+                    const pceSelect = document.createElement('select');
+                    pceSelect.className = 'effect-post-counter-effect';
+                    pceSelect.innerHTML = `
+                        <option value="none">No Post-Counter Effect</option>
+                        <option value="damage">Damage</option>
+                        <option value="affliction_damage">Affliction Damage</option>
+                        <option value="stun">Stun</option>
+                        <option value="heal">Heal</option>
+                    `;
+                    pceSelect.style.width = 'auto';
+                    if (isOriginal && effect.post_counter_effect) pceSelect.value = effect.post_counter_effect;
+                    inputsDiv.appendChild(pceSelect);
+
+                    const pceAmtInp = document.createElement('input');
+                    pceAmtInp.type = 'number';
+                    pceAmtInp.placeholder = 'Post-Counter Amount';
+                    pceAmtInp.className = 'effect-post-counter-amount';
+                    if (isOriginal && effect.post_counter_amount !== undefined) pceAmtInp.value = effect.post_counter_amount;
+                    inputsDiv.appendChild(pceAmtInp);
                 }
             };
 
@@ -799,6 +942,8 @@
             row.appendChild(targetSelect);
             row.appendChild(inputsDiv);
             row.appendChild(hiddenDiv);
+            row.appendChild(persistDiv);
+            row.appendChild(ignoreInvulDiv);
             row.appendChild(delBtn);
 
             container.appendChild(row);
@@ -827,6 +972,24 @@
 
                 const hiddenInput = row.querySelector('.effect-hidden');
                 if (hiddenInput && hiddenInput.checked) eff.hidden = true;
+
+                const persistInput = row.querySelector('.effect-persist-after-death');
+                if (persistInput && persistInput.checked) eff.persist_after_death = true;
+
+                const ignoreInvulInput = row.querySelector('.effect-ignore-invul');
+                if (ignoreInvulInput && ignoreInvulInput.checked) eff.ignore_invul = true;
+
+                const counterChanceInput = row.querySelector('.effect-counter-chance');
+                if (counterChanceInput && counterChanceInput.value !== '') eff.counter_chance = parseInt(counterChanceInput.value);
+
+                const bloodlineImmuneInput = row.querySelector('.effect-bloodline-immune');
+                if (bloodlineImmuneInput && bloodlineImmuneInput.checked) eff.bloodline_immune = true;
+
+                const pceSelect = row.querySelector('.effect-post-counter-effect');
+                if (pceSelect && pceSelect.value && pceSelect.value !== 'none') eff.post_counter_effect = pceSelect.value;
+
+                const pceAmtInput = row.querySelector('.effect-post-counter-amount');
+                if (pceAmtInput && pceAmtInput.value !== '') eff.post_counter_amount = parseInt(pceAmtInput.value);
 
                 effects.push(eff);
             }

@@ -34,7 +34,9 @@
                 </div>
                 <div class="dots"></div>
                 <b>Requirement to unlock:</b>
-                <% if (character.locked) { %>Unreleased<% } else if (unlockMission) { %><%= unlockMission.name %><% } else { %>No requirements<% } %>
+                <% if (character.locked) { %>Unreleased<% } else if (unlockMission) { %>
+                        <%= unlockMission.name %>
+                            <% } else { %>No requirements<% } %>
             </div>
 
             <% if (!character.locked && character.skills && character.skills.length> 0) { %>
@@ -50,7 +52,7 @@
                         </div>
                         <div class="dots"></div>
                         <div class="fleft">&nbsp;<u>Cooldown:</u>
-                            <%= skill.cooldown %>
+                            <%= skill.cooldown===0 ? 'None' : skill.cooldown %>
                         </div>
                         <div class="fright"><u>Chakra required:</u>
                             <% var chakraStr=skill.chakra || '' ; for (var j=0; j < chakraStr.length; j++) { var

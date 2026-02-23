@@ -1,99 +1,186 @@
 <div id="content">
 	<div class="brspacer">
-		<h1><%= mission.name %></h1><br>
+		<h1>
+			<%= mission.name %>
+		</h1><br>
 		<div id="pagepath">
 			<a href="/">Naruto Arena</a> &gt; <a href="/ninja-missions/">Ninja Missions</a>
-			<% if (category) { %> &gt; <a href="/<%= category.slug %>/"><%= category.title %></a><% } %>
-			&gt; <h2><%= mission.name %></h2>
+			<% if (category) { %> &gt; <a href="/<%= category.slug %>/">
+					<%= category.title %>
+				</a>
+				<% } %>
+					&gt; <h2>
+						<%= mission.name %>
+					</h2>
 		</div>
 	</div>
 	<div class="brspacer">
-		Ninja missions are tasks that can be done to unlock more <a href="/characters-and-skills/" class="con" title="characters">characters</a>.
+		Ninja missions are tasks that can be done to unlock more <a href="/characters-and-skills/" class="con"
+			title="characters">characters</a>.
 
 		<div class="brspacer"></div>
 
 		<div style="float: right; margin-left: 16px; margin-bottom: 8px; width: 260px;">
 			<img src="/images/missions/<%= mission.thumbnailId %>/image.jpg" width="260"><br>
 			<br>
-			<% if (mission.goals && mission.goals.length > 0) { %>
+			<% if (mission.goals && mission.goals.length> 0) { %>
 				<b>Mission Goals</b><br>
-				<% mission.goals.forEach(function(goal, idx) {
-					const withChar = charMap[String(goal.characterId)];
-					const againstChar = goal.againstCharacterId ? charMap[String(goal.againstCharacterId)] : null;
-					const char2 = goal.character2Id ? charMap[String(goal.character2Id)] : null;
-					const char3 = goal.character3Id ? charMap[String(goal.character3Id)] : null;
-					const withLink = withChar
-						? '<a href="/' + withChar.slug + '/" class="con" title="' + withChar.name + '">' + withChar.name + '</a>'
-						: (goal.characterId || '?');
-					const againstLink = againstChar
-						? '<a href="/' + againstChar.slug + '/" class="con" title="' + againstChar.name + '">' + againstChar.name + '</a>'
-						: (goal.againstCharacterId || '?');
-					const char2Link = char2
-						? '<a href="/' + char2.slug + '/" class="con" title="' + char2.name + '">' + char2.name + '</a>'
-						: (goal.character2Id || '?');
-					const char3Link = char3
-						? '<a href="/' + char3.slug + '/" class="con" title="' + char3.name + '">' + char3.name + '</a>'
-						: (goal.character3Id || '?');
-					const progress = goalProgress[idx] || 0;
-					const done = progress >= goal.count;
-				%>
-				<img class="pre" src="/images/pres/pre.gif">
-				<% if (goal.type === 'wins_with') { %>
-					<% if (done) { %><b><% } %>Win <%= goal.count %> game<%= goal.count !== 1 ? 's' : '' %> with <%- withLink %> (<%= progress %>/<%= goal.count %>)<% if (done) { %></b><% } %><br>
-				<% } else if (goal.type === 'wins_in_row_with') { %>
-					<% if (done) { %><b><% } %>Win <%= goal.count %> game<%= goal.count !== 1 ? 's' : '' %> in a row with <%- withLink %> (<%= progress %>/<%= goal.count %>)<% if (done) { %></b><% } %><br>
-				<% } else if (goal.type === 'wins_against_with') { %>
-					<% if (done) { %><b><% } %>Win a battle against <%- againstLink %> with <%- withLink %> (<%= progress %>/<%= goal.count %>)<% if (done) { %></b><% } %><br>
-				<% } else if (goal.type === 'wins_in_row_with_either') { %>
-					<% if (done) { %><b><% } %>Win <%= goal.count %> game<%= goal.count !== 1 ? 's' : '' %> in a row with <%- withLink %> or <%- char2Link %> (<%= progress %>/<%= goal.count %>)<% if (done) { %></b><% } %><br>
-				<% } else if (goal.type === 'wins_with_any') { %>
-					<% if (done) { %><b><% } %>Win <%= goal.count %> battle<%= goal.count !== 1 ? 's' : '' %> with <%- withLink %>, <%- char2Link %>, or <%- char3Link %> in your team (<%= progress %>/<%= goal.count %>)<% if (done) { %></b><% } %><br>
-				<% } %>
-				<% }); %>
-			<% } %>
+				<% mission.goals.forEach(function(goal, idx) { const withChar=charMap[String(goal.characterId)]; const
+					againstChar=goal.againstCharacterId ? charMap[String(goal.againstCharacterId)] : null; const
+					char2=goal.character2Id ? charMap[String(goal.character2Id)] : null; const char3=goal.character3Id ?
+					charMap[String(goal.character3Id)] : null; const withLink=withChar ? '<a href="/' + withChar.slug
+					+ '/" class="con" title="' + withChar.name + '">' + withChar.name + '</a>' : (goal.characterId
+					|| '?' ); const againstLink=againstChar ? '<a href="/' + againstChar.slug + '/" class="con" title="'
+					+ againstChar.name + '">' + againstChar.name + '</a>' : (goal.againstCharacterId || '?' ); const
+					char2Link=char2 ? '<a href="/' + char2.slug + '/" class="con" title="' + char2.name + '">' +
+					char2.name + '</a>' : (goal.character2Id || '?' ); const char3Link=char3 ? '<a href="/' + char3.slug
+					+ '/" class="con" title="' + char3.name + '">' + char3.name + '</a>' : (goal.character3Id || '?' );
+					const progress=goalProgress[idx] || 0; const done=progress>= goal.count;
+					%>
+					<img class="pre" src="/images/pres/pre.gif">
+					<% if (goal.customText) { %>
+						<% if (done) { %><b>
+								<% } %>
+									<%= goal.customText %> (<%= progress %>/<%= goal.count %>)<% if (done) { %>
+							</b>
+							<% } %><br>
+								<% } else if (goal.type==='wins_with' ) { %>
+									<% if (done) { %><b>
+											<% } %>Win <%= goal.count %> game<%= goal.count !==1 ? 's' : '' %> with <%-
+															withLink %> (<%= progress %>/<%= goal.count %>)<% if (done)
+																		{ %>
+										</b>
+										<% } %><br>
+											<% } else if (goal.type==='wins_in_row_with' ) { %>
+												<% if (done) { %><b>
+														<% } %>Win <%= goal.count %> game<%= goal.count !==1 ? 's' : ''
+																	%> in a row with <%- withLink %> (<%= progress %>/
+																			<%= goal.count %>)<% if (done) { %>
+													</b>
+													<% } %><br>
+														<% } else if (goal.type==='wins_against_with' ) { %>
+															<% if (done) { %><b>
+																	<% } %>Win a battle against <%- againstLink %> with
+																			<%- withLink %> (<%= progress %>/<%=
+																						goal.count %>)<% if (done) { %>
+																</b>
+																<% } %><br>
+																	<% } else if (goal.type==='wins_in_row_with_either'
+																		) { %>
+																		<% if (done) { %><b>
+																				<% } %>Win <%= goal.count %> game<%=
+																							goal.count !==1 ? 's' : ''
+																							%> in a row with <%-
+																								withLink %> or <%-
+																									char2Link %> (<%=
+																										progress %>/<%=
+																											goal.count
+																											%>)<% if
+																												(done) {
+																												%>
+																			</b>
+																			<% } %><br>
+																				<% } else if
+																					(goal.type==='wins_with_any' ) { %>
+																					<% if (done) { %><b>
+																							<% } %>Win <%= goal.count %>
+																									battle<%= goal.count
+																										!==1 ? 's' : ''
+																										%> with <%-
+																											withLink %>,
+																											<%- char2Link
+																												%>, or
+																												<%- char3Link
+																													%>
+																													in
+																													your
+																													team
+																													(<%= progress
+																														%>
+																														/
+																														<%= goal.count
+																															%>
+																															)
+																															<% if
+																																(done)
+																																{
+																																%>
+																						</b>
+																						<% } %><br>
+																							<% } %>
+																								<% }); %>
+																									<% } %>
 		</div>
 
 		<b><u>Mission Info</u></b><br>
-		Mission name: <a href="/mission/<%= mission.slug %>/" class="con" title="<%= mission.name %>"><%= mission.name %></a><br>
-		Mission type: <a href="/ninja-missions/" class="con" title="<%= mission.difficulty %>"><%= mission.difficulty %></a><br>
+		Mission name: <a href="/mission/<%= mission.slug %>/" class="con" title="<%= mission.name %>">
+			<%= mission.name %>
+		</a><br>
+		Mission type: <a href="/ninja-missions/" class="con" title="<%= mission.difficulty %>">
+			<%= mission.difficulty %>
+		</a><br>
 
 		<div class="brspacer"></div>
 
-		<% if (isCompleted) { %>
-		<b><u>Mission Completed!</u></b><br>
-		<% } else { %>
-		<b><u>Mission requirements</u></b><br>
-		Ninja Rank: <font class="<%= isLoggedIn && rankMet ? 'succesfull' : 'error' %>"><a href="/the-ninja-ladder/" class="con" title="<%= mission.requirements.rank %>"><%= mission.requirements.rank %></a></font><br>
-		<% if (prereqs.length > 0) { %>
-			<u>Missions Completed:</u> <% prereqs.forEach(function(prereq, i) { %><font class="<%= isLoggedIn && prereq.met ? 'succesfull' : 'error' %>"><% if (prereq.slug) { %><a href="/mission/<%= prereq.slug %>/" class="con"><%= prereq.name %></a><% } else { %><%= prereq.name %><% } %></font><%= i < prereqs.length - 1 ? ', ' : '' %><% }); %><br>
-		<% } %>
-		<% } %>
-		<div class="brspacer"></div>
+		<% if (!isCompleted) { %>
+			<b><u>Mission requirements</u></b><br>
+			Ninja Rank: <font class="<%= isLoggedIn && rankMet ? 'succesfull' : 'error' %>"><a href="/the-ninja-ladder/"
+					class="con" title="<%= mission.requirements.rank %>">
+					<%= mission.requirements.rank %>
+				</a></font><br>
+			<% if (prereqs.length> 0) { %>
+				<u>Missions Completed:</u>
+				<% prereqs.forEach(function(prereq, i) { %>
+					<font class="<%= isLoggedIn && prereq.met ? 'succesfull' : 'error' %>">
+						<% if (prereq.slug) { %><a href="/mission/<%= prereq.slug %>/" class="con">
+								<%= prereq.name %>
+							</a>
+							<% } else { %>
+								<%= prereq.name %>
+									<% } %>
+					</font>
+					<%= i < prereqs.length - 1 ? ', ' : '' %>
+						<% }); %><br>
+							<% } %>
+								<% } %>
+									<div class="brspacer"></div>
 
-		<% if (mission.description) { %>
-			<b><u>Mission Description</u></b><br>
-			<%- mission.description %><br>
-			<div class="brspacer"></div>
-		<% } %>
+									<% if (mission.description) { %>
+										<b><u>Mission Description</u></b><br>
+										<%- mission.description %><br>
+											<div class="brspacer"></div>
+											<% } %>
 
-		<b><u>Mission Rewards:</u></b><br>
-		<% if (mission.rewards && mission.rewards.type === 'character' && rewardCharacter) { %>
-			<img src="/game/images/characters/<%= mission.rewards.characterId %>/avatarlarge.jpg" class="border" align="left" style="margin-right: 8px; margin-bottom: 4px;">
-			Unlock character: <a href="/<%= rewardCharacter.slug %>/" class="con"><%= rewardCharacter.name %></a><br>
-		<% } else if (mission.rewards && mission.rewards.type === 'text' && mission.rewards.value) { %>
-			<%= mission.rewards.value %><br>
-		<% } else { %>
-			No reward specified.<br>
-		<% } %>
+												<b><u>Mission Rewards:</u></b><br>
+												Mission "<%= mission.name %>" completion.<br>
+													<% if (mission.rewards && mission.rewards.type==='character' &&
+														rewardCharacter) { %>
+														Character unlocked:<br>
+														<br>
+														<a href="/<%= rewardCharacter.slug %>/" class="con">
+															<%= rewardCharacter.name %>
+														</a><br>
+														<img src="/game/images/characters/<%= mission.rewards.characterId %>/avatarlarge.jpg"
+															class="border"
+															style="margin-top: 4px; margin-bottom: 4px;"><br>
+														<% } %>
+															<% if (isCompleted) { %>
+																<br>
+																<b class="succesfull">Mission Completed!</b><br>
+																<% } %>
 
-		<div class="clear"></div>
+																	<div class="clear"></div>
 	</div>
 
 	<div class="brspacer2">
 		<div class="dots"></div>
 		<div class="grey">
 			<div class="centerp">
-				Related subjects: <h3><%= mission.name.toLowerCase() %></h3>, <h3><%= mission.difficulty.toLowerCase() %></h3>, <h3>ninja missions</h3>
+				Related subjects: <h3>
+					<%= mission.name.toLowerCase() %>
+				</h3>, <h3>
+					<%= mission.difficulty.toLowerCase() %>
+				</h3>, <h3>ninja missions</h3>
 			</div>
 		</div>
 	</div>

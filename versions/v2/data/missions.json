@@ -126,7 +126,7 @@
             ]
         },
         "order": 3,
-        "description": "<p><br></p>",
+        "description": "<p>After Uchiha Sasuke left the village with the Sound Four, Naruto has been given the order to form a small group to rescue Sasuke. Hyuuga Neji wants to join, but he will have to train to improve his strength.</p><p><br></p><p>Once Neji is strong enough, he will be able to face Kidoumaru and win.</p>",
         "goals": [
             {
                 "type": "wins_in_row_with",
@@ -135,8 +135,8 @@
             }
         ],
         "rewards": {
-            "type": "text",
-            "value": ""
+            "type": "character",
+            "characterId": "17"
         }
     },
     {
@@ -153,7 +153,7 @@
             ]
         },
         "order": 4,
-        "description": "<p><br></p>",
+        "description": "<p>After Uchiha Sasuke left the village with the Sound Four, Naruto has been given the order to form a small group to rescue Sasuke. Shikamaru wants to join, and he will be supported by Temari. But they will have to learn to work together first.</p><p><br></p><p>Once Shikamaru and Temari have learned to work together, they will be able to face Tayuya and win.</p>",
         "goals": [
             {
                 "type": "wins_in_row_with_either",
@@ -163,8 +163,8 @@
             }
         ],
         "rewards": {
-            "type": "text",
-            "value": ""
+            "type": "character",
+            "characterId": "21"
         }
     },
     {
@@ -181,7 +181,7 @@
             ]
         },
         "order": 5,
-        "description": "<p><br></p>",
+        "description": "<p>After Uchiha Sasuke left the village with the Sound Four, Naruto has been given the order to form a small group to rescue Sasuke. Kiba wants to join, and he will be supported by Kankuro. But they will have to learn to work together first.</p><p><br></p><p>Once Kiba and Kankuro have learned to work together, they will be able to face Sakon and win.</p>",
         "goals": [
             {
                 "type": "wins_in_row_with_either",
@@ -191,8 +191,8 @@
             }
         ],
         "rewards": {
-            "type": "text",
-            "value": ""
+            "type": "character",
+            "characterId": "20"
         }
     },
     {
@@ -207,12 +207,14 @@
             "missionsCompleted": []
         },
         "order": 1,
-        "description": "<p><br></p>",
+        "description": "<p>After Naruto finally graduated from the academy, he was assigned to team Kakashi. Together with Sasuke and Sakura Naruto must complete several basic missions until they finally get a real ninja mission.</p>",
         "goals": [
             {
                 "type": "wins_with_any",
                 "characterId": "6",
-                "count": 15
+                "count": 15,
+                "character2Id": "23",
+                "character3Id": "13"
             }
         ],
         "rewards": {
@@ -234,7 +236,7 @@
             ]
         },
         "order": 2,
-        "description": "<p><br></p>",
+        "description": "<p>With Zabuza still beaten and injured from his fight with Kakashi, Haku must safeguard the missing-nin from those who would try to kill him. The life a missing-nin is hard and so is the life of their underlings.</p><p><br></p><p>Haku must win at least fifteen battles before Zabuza recovers and can join him on the battlefield.</p>",
         "goals": [
             {
                 "type": "wins_with",
@@ -243,8 +245,8 @@
             }
         ],
         "rewards": {
-            "type": "text",
-            "value": ""
+            "type": "character",
+            "characterId": "12"
         }
     },
     {
@@ -259,7 +261,7 @@
             "missionsCompleted": []
         },
         "order": 3,
-        "description": "<p><br></p>",
+        "description": "<p>The chuunin exams are coming up, and Kakashi believes his team is up for the challenge. But to be sure, he will put each of his pupils to the test first. Naruto, Sasuke and Sakura must each prove their endurance on the battle field.</p>",
         "goals": [
             {
                 "type": "wins_in_row_with",
@@ -296,17 +298,19 @@
             ]
         },
         "order": 4,
-        "description": "<p><br></p>",
+        "description": "<p>During the second exam team Kakashi was heavily assaulted by Orochimaru and his subordinates. In order to survive the rest of the exam and actually pas it, they will need some help. Fortunately Kabuto appears to be in the neighbourhood and willing to help. However to get to him, Naruto, Sasuke and Sakura will have to survive some battles on their own first.</p>",
         "goals": [
             {
                 "type": "wins_with_any",
                 "characterId": "6",
-                "count": 18
+                "count": 18,
+                "character2Id": "6",
+                "character3Id": "6"
             }
         ],
         "rewards": {
-            "type": "text",
-            "value": ""
+            "type": "character",
+            "characterId": "30"
         }
     },
     {
@@ -320,7 +324,34 @@
             "rank": "Chuunin",
             "missionsCompleted": []
         },
-        "order": 5
+        "order": 5,
+        "description": "<p>Kimimaru is completely devoted to Orochimaru heart and soul, and only continues to live to serve Orochimaru to the fullest. Despite having a wasting disease and being on his death-bed, Kimimaru will rise to any task which is required of him and will fullfil Orochimaru's desires. Now, with the sound four running into trouble and the possibility of Sasuke being rescued, Kimimaru rises to stop those who would interfere with his master's plans.</p><p><br></p><p>Each of the Sound Four must win 4 battles in a row before Kimimaru will make his appearance.</p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with",
+                "characterId": "17",
+                "count": 1
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "20",
+                "count": 1
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "21",
+                "count": 1
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "24",
+                "count": 1
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": "Mission \"The Fifth of the Sound\" completion."
+        }
     },
     {
         "id": "1771362348541",
@@ -335,7 +366,20 @@
                 "1771362212687"
             ]
         },
-        "order": 6
+        "order": 6,
+        "description": "<p>After Uchiha Sasuke left the village with the Sound Four, Naruto has been given the order to form a small group to rescue Sasuke. Rock Lee wants to join, and he will be supported by Gaara. But they will have to learn to work together first.</p><p><br></p><p>Once Lee and Gaara have learned to work together, they will be able to face Kimimaru and win.</p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with_either",
+                "characterId": "7",
+                "count": 6,
+                "character2Id": "1"
+            }
+        ],
+        "rewards": {
+            "type": "character",
+            "characterId": "25"
+        }
     },
     {
         "id": "1771362467357",
@@ -351,7 +395,19 @@
                 "1771362170006"
             ]
         },
-        "order": 7
+        "order": 7,
+        "description": "<p>After Sasuke left Konoha to join Orochimaru, Sakura was determined to get stronger. Up until now Sakura was always unable to play a decent role in battle, yet she had great controle over her chakra and she is an excellent student. These are the exact skills that are needed to become a medical ninja. Sakura hopes to get training from Tsunade herself, but first she will need to learn the basics from Shizune. However, to actually get training from Shizune, Sakura will have to prove herself worthy.</p>",
+        "goals": [
+            {
+                "type": "wins_with",
+                "characterId": "23",
+                "count": 15
+            }
+        ],
+        "rewards": {
+            "type": "character",
+            "characterId": "32"
+        }
     },
     {
         "id": "1771362787277",
