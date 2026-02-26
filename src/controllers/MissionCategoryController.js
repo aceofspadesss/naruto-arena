@@ -113,7 +113,9 @@ const MissionCategoryController = {
         const allCharacters = CharacterModel.findAll();
         const charMap = {};
         allCharacters.forEach(c => {
-            charMap[String(c.id)] = { name: c.name.split(' ').pop(), slug: charSlug(c.name) };
+            const nameParts = c.name.split(' ');
+            const displayName = nameParts.length > 2 && nameParts[1] === 'of' ? nameParts[0] : nameParts[nameParts.length - 1];
+            charMap[String(c.id)] = { name: displayName, slug: charSlug(c.name) };
         });
 
         // Resolve prerequisite mission names

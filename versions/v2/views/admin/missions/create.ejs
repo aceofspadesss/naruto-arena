@@ -344,7 +344,7 @@
             ).join('');
         }
 
-        function addGoal(type, charId, count, againstCharId, char2Id, char3Id, customText) {
+        function addGoal(type, charId, count, againstCharId, againstChar2Id, char2Id, char3Id, customText, withCharIds, againstCharIds) {
             type = type || 'wins_with';
             count = count || 1;
             customText = customText || '';
@@ -352,24 +352,36 @@
             const row = document.createElement('div');
             row.className = 'goal-row';
             row.dataset.idx = idx;
-            row.innerHTML = buildGoalHTML(idx, type, charId, count, againstCharId, char2Id, char3Id, customText);
+            row.innerHTML = buildGoalHTML(idx, type, charId, count, againstCharId, againstChar2Id, char2Id, char3Id, customText);
             document.getElementById('goals-list').appendChild(row);
+            if (type === 'wins_with_chars_vs_chars') {
+                (withCharIds && withCharIds.length ? withCharIds : [null]).forEach(id => addWithChar(idx, id));
+                (againstCharIds && againstCharIds.length ? againstCharIds : [null]).forEach(id => addAgainstChar(idx, id));
+            }
         }
 
-        function buildGoalHTML(idx, type, charId, count, againstCharId, char2Id, char3Id, customText) {
+        function buildGoalHTML(idx, type, charId, count, againstCharId, againstChar2Id, char2Id, char3Id, customText) {
+            const isCharsVs = type === 'wins_with_chars_vs_chars';
             const typeSelect = `<select name="goalType[]" onchange="onGoalTypeChange(this, ${idx})">
                 <option value="wins_with" ${type === 'wins_with' ? 'selected' : ''}>Win X games with character</option>
                 <option value="wins_in_row_with" ${type === 'wins_in_row_with' ? 'selected' : ''}>Win X games in a row with character</option>
                 <option value="wins_against_with" ${type === 'wins_against_with' ? 'selected' : ''}>Win X games against character with character</option>
                 <option value="wins_in_row_with_either" ${type === 'wins_in_row_with_either' ? 'selected' : ''}>Win X games in a row with character Y or character Z</option>
                 <option value="wins_with_any" ${type === 'wins_with_any' ? 'selected' : ''}>Win X games with character Y, Z, or A in team</option>
+                <option value="wins_against_either_with" ${type === 'wins_against_either_with' ? 'selected' : ''}>Win X games against character Y or Z with character</option>
+                <option value="wins_with_chars_vs_chars" ${type === 'wins_with_chars_vs_chars' ? 'selected' : ''}>Win X games with any of [chars] vs any of [chars]</option>
             </select>`;
 
             const charSelect = `<select name="goalCharacterId[]" class="char-select">${charOptions(charId)}</select>`;
+            const charWrap = `<span id="char-wrap-${idx}" style="${isCharsVs ? 'display:none' : ''}">with ${charSelect}</span>`;
             const countInput = `<input type="number" name="goalCount[]" class="count-input" value="${count}" min="1" max="9999">`;
-            const againstSelect = type === 'wins_against_with'
+            const showAgainst = type === 'wins_against_with' || type === 'wins_against_either_with';
+            const againstSelect = showAgainst
                 ? `<span id="against-wrap-${idx}">vs <select name="goalAgainstCharacterId[]" class="char-select">${charOptions(againstCharId)}</select></span>`
                 : `<span id="against-wrap-${idx}" style="display:none">vs <select name="goalAgainstCharacterId[]" class="char-select">${charOptions('')}</select></span>`;
+            const against2Select = type === 'wins_against_either_with'
+                ? `<span id="against2-wrap-${idx}"> or <select name="goalAgainstCharacter2Id[]" class="char-select">${charOptions(againstChar2Id)}</select></span>`
+                : `<span id="against2-wrap-${idx}" style="display:none"> or <select name="goalAgainstCharacter2Id[]" class="char-select">${charOptions('')}</select></span>`;
             const char2Select = (type === 'wins_in_row_with_either' || type === 'wins_with_any')
                 ? `<span id="char2-wrap-${idx}"> or <select name="goalCharacter2Id[]" class="char-select">${charOptions(char2Id)}</select></span>`
                 : `<span id="char2-wrap-${idx}" style="display:none"> or <select name="goalCharacter2Id[]" class="char-select">${charOptions('')}</select></span>`;
@@ -378,23 +390,76 @@
                 : `<span id="char3-wrap-${idx}" style="display:none"> or <select name="goalCharacter3Id[]" class="char-select">${charOptions('')}</select></span>`;
             const removeBtn = `<button type="button" class="btn btn-danger" onclick="removeGoal(this)">Remove</button>`;
             const customTextInput = `<div style="width:100%; margin-top:4px;"><input type="text" name="goalCustomText[]" value="${(customText || '').replace(/"/g, '&quot;')}" placeholder="Custom text (optional, overrides system text. Counter is appended automatically)" style="width:100%; font-size:12px;"></div>`;
+            const charsVsWrap = `<div id="chars-vs-wrap-${idx}" style="display:${isCharsVs ? 'block' : 'none'}; width:100%; margin-top:6px; border-top:1px solid #ddd; padding-top:6px;">
+                <div style="display:flex; gap:24px; flex-wrap:wrap;">
+                    <div>
+                        <b style="font-size:12px;">With any of:</b>
+                        <div id="with-chars-list-${idx}" style="margin-top:4px;"></div>
+                        <button type="button" class="btn btn-add" style="font-size:11px; padding:3px 8px; margin-top:6px;" onclick="addWithChar(${idx})">+ Add Character</button>
+                    </div>
+                    <div>
+                        <b style="font-size:12px;">vs any of:</b>
+                        <div id="against-chars-list-${idx}" style="margin-top:4px;"></div>
+                        <button type="button" class="btn btn-add" style="font-size:11px; padding:3px 8px; margin-top:6px;" onclick="addAgainstChar(${idx})">+ Add Character</button>
+                    </div>
+                </div>
+                <input type="hidden" name="goalWithCharsJson[]" id="with-chars-json-${idx}" value="">
+                <input type="hidden" name="goalAgainstCharsJson[]" id="against-chars-json-${idx}" value="">
+            </div>`;
 
-            return `${typeSelect} with ${charSelect} ${againstSelect} ${char2Select} ${char3Select} × ${countInput} times ${removeBtn}${customTextInput}`;
+            return `${typeSelect} ${charWrap} ${againstSelect} ${against2Select} ${char2Select} ${char3Select} × ${countInput} times ${removeBtn}${customTextInput}${charsVsWrap}`;
+        }
+
+        function addWithChar(idx, charId) {
+            const list = document.getElementById('with-chars-list-' + idx);
+            const div = document.createElement('div');
+            div.className = 'char-row';
+            div.style.cssText = 'display:flex; align-items:center; gap:6px; margin-top:4px;';
+            div.innerHTML = `<select class="char-select with-char-sel" style="min-width:180px; padding:4px; font-size:13px;">${charOptions(charId)}</select> <button type="button" class="btn btn-danger" style="font-size:11px; padding:3px 8px;" onclick="this.closest('.char-row').remove()">Remove</button>`;
+            list.appendChild(div);
+        }
+
+        function addAgainstChar(idx, charId) {
+            const list = document.getElementById('against-chars-list-' + idx);
+            const div = document.createElement('div');
+            div.className = 'char-row';
+            div.style.cssText = 'display:flex; align-items:center; gap:6px; margin-top:4px;';
+            div.innerHTML = `<select class="char-select against-char-sel" style="min-width:180px; padding:4px; font-size:13px;">${charOptions(charId)}</select> <button type="button" class="btn btn-danger" style="font-size:11px; padding:3px 8px;" onclick="this.closest('.char-row').remove()">Remove</button>`;
+            list.appendChild(div);
         }
 
         function onGoalTypeChange(sel, idx) {
-            document.getElementById('against-wrap-' + idx).style.display = sel.value === 'wins_against_with' ? '' : 'none';
-            document.getElementById('char2-wrap-' + idx).style.display = (sel.value === 'wins_in_row_with_either' || sel.value === 'wins_with_any') ? '' : 'none';
-            document.getElementById('char3-wrap-' + idx).style.display = sel.value === 'wins_with_any' ? '' : 'none';
+            const v = sel.value;
+            const isCharsVs = v === 'wins_with_chars_vs_chars';
+            document.getElementById('char-wrap-' + idx).style.display = isCharsVs ? 'none' : '';
+            document.getElementById('against-wrap-' + idx).style.display = (v === 'wins_against_with' || v === 'wins_against_either_with') ? '' : 'none';
+            document.getElementById('against2-wrap-' + idx).style.display = v === 'wins_against_either_with' ? '' : 'none';
+            document.getElementById('char2-wrap-' + idx).style.display = (v === 'wins_in_row_with_either' || v === 'wins_with_any') ? '' : 'none';
+            document.getElementById('char3-wrap-' + idx).style.display = v === 'wins_with_any' ? '' : 'none';
+            document.getElementById('chars-vs-wrap-' + idx).style.display = isCharsVs ? 'block' : 'none';
+            if (isCharsVs) {
+                if (document.getElementById('with-chars-list-' + idx).children.length === 0) addWithChar(idx);
+                if (document.getElementById('against-chars-list-' + idx).children.length === 0) addAgainstChar(idx);
+            }
         }
 
         function removeGoal(btn) {
             btn.closest('.goal-row').remove();
         }
 
-        // Form submit: copy Quill HTML
+        // Form submit: copy Quill HTML and serialize dynamic char lists
         document.getElementById('mission-form').addEventListener('submit', function () {
             document.getElementById('description-input').value = quill.root.innerHTML;
+            document.querySelectorAll('.goal-row').forEach(row => {
+                const typeSelect = row.querySelector('[name="goalType[]"]');
+                if (typeSelect && typeSelect.value === 'wins_with_chars_vs_chars') {
+                    const idx = row.dataset.idx;
+                    const withChars = Array.from(document.getElementById('with-chars-list-' + idx).querySelectorAll('.with-char-sel')).map(s => s.value);
+                    const againstChars = Array.from(document.getElementById('against-chars-list-' + idx).querySelectorAll('.against-char-sel')).map(s => s.value);
+                    document.getElementById('with-chars-json-' + idx).value = JSON.stringify(withChars);
+                    document.getElementById('against-chars-json-' + idx).value = JSON.stringify(againstChars);
+                }
+            });
         });
     </script>
 </body>

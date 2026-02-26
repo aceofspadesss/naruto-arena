@@ -27,11 +27,13 @@
 				<b>Mission Goals</b><br>
 				<% mission.goals.forEach(function(goal, idx) { const withChar=charMap[String(goal.characterId)]; const
 					againstChar=goal.againstCharacterId ? charMap[String(goal.againstCharacterId)] : null; const
+					againstChar2=goal.againstCharacter2Id ? charMap[String(goal.againstCharacter2Id)] : null; const
 					char2=goal.character2Id ? charMap[String(goal.character2Id)] : null; const char3=goal.character3Id ?
 					charMap[String(goal.character3Id)] : null; const withLink=withChar ? '<a href="/' + withChar.slug
 					+ '/" class="con" title="' + withChar.name + '">' + withChar.name + '</a>' : (goal.characterId
 					|| '?' ); const againstLink=againstChar ? '<a href="/' + againstChar.slug + '/" class="con" title="'
 					+ againstChar.name + '">' + againstChar.name + '</a>' : (goal.againstCharacterId || '?' ); const
+					againstChar2Link=againstChar2 ? '<a href="/' + againstChar2.slug + '/" class="con" title="' + againstChar2.name + '">' + againstChar2.name + '</a>' : (goal.againstCharacter2Id || '?' ); const
 					char2Link=char2 ? '<a href="/' + char2.slug + '/" class="con" title="' + char2.name + '">' +
 					char2.name + '</a>' : (goal.character2Id || '?' ); const char3Link=char3 ? '<a href="/' + char3.slug
 					+ '/" class="con" title="' + char3.name + '">' + char3.name + '</a>' : (goal.character3Id || '?' );
@@ -54,8 +56,7 @@
 											<% } else if (goal.type==='wins_in_row_with' ) { %>
 												<% if (done) { %><b>
 														<% } %>Win <%= goal.count %> game<%= goal.count !==1 ? 's' : ''
-																	%> in a row with <%- withLink %> (<%= progress %>/
-																			<%= goal.count %>)<% if (done) { %>
+																	%> in a row with <%- withLink %> (<%= progress %>/<%= goal.count %>)<% if (done) { %>
 													</b>
 													<% } %><br>
 														<% } else if (goal.type==='wins_against_with' ) { %>
@@ -68,12 +69,11 @@
 																	<% } else if (goal.type==='wins_in_row_with_either'
 																		) { %>
 																		<% if (done) { %><b>
-																				<% } %>Win <%= goal.count %> game<%=
+																				<% } %>Win <%= goal.count %> battle<%=
 																							goal.count !==1 ? 's' : ''
 																							%> in a row with <%-
 																								withLink %> or <%-
-																									char2Link %> (<%=
-																										progress %>/<%=
+																									char2Link %> in your team. (<%= progress %>/<%=
 																											goal.count
 																											%>)<% if
 																												(done) {
@@ -95,19 +95,22 @@
 																													in
 																													your
 																													team
-																													(<%= progress
-																														%>
-																														/
-																														<%= goal.count
-																															%>
-																															)
+																													(<%= progress %>/<%= goal.count %>)
 																															<% if
 																																(done)
 																																{
 																																%>
 																						</b>
 																						<% } %><br>
-																							<% } %>
+																							<% } else if (goal.type==='wins_against_either_with' ) { %>
+																								<% if (done) { %><b>
+																										<% } %>Win <%= goal.count %> game<%= goal.count !==1 ? 's' : '' %> against <%- againstLink %> or <%- againstChar2Link %> with <%- withLink %> (<%= progress %>/<%= goal.count %>)<% if (done) { %>
+																									</b>
+																									<% } %><br>
+																								<% } else if (goal.type==='wins_with_chars_vs_chars' ) { %>
+																								<% var withLinks=(goal.withCharIds||[]).map(function(wid){var c=charMap[String(wid)];return c?'<a href="/'+c.slug+'/" class="con" title="'+c.name+'">'+c.name+'</a>':(wid||'?');}); var againstLinks=(goal.againstCharIds||[]).map(function(aid){var c=charMap[String(aid)];return c?'<a href="/'+c.slug+'/" class="con" title="'+c.name+'">'+c.name+'</a>':(aid||'?');}); function fmtList(ls){if(!ls.length)return'';if(ls.length===1)return ls[0];if(ls.length===2)return ls[0]+' or '+ls[1];return ls.slice(0,-1).join(', ')+' or '+ls[ls.length-1];} %>
+																								<% if (done) { %><b><% } %>Win <%= goal.count %> game<%= goal.count !==1 ? 's' : '' %> with <%- fmtList(withLinks) %> vs <%- fmtList(againstLinks) %> (<%= progress %>/<%= goal.count %>)<% if (done) { %></b><% } %><br>
+																								<% } %>
 																								<% }); %>
 																									<% } %>
 		</div>

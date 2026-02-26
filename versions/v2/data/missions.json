@@ -104,7 +104,7 @@
             {
                 "type": "wins_in_row_with",
                 "characterId": "15",
-                "count": 4
+                "count": 5
             }
         ],
         "rewards": {
@@ -131,7 +131,7 @@
             {
                 "type": "wins_in_row_with",
                 "characterId": "4",
-                "count": 4
+                "count": 5
             }
         ],
         "rewards": {
@@ -158,7 +158,7 @@
             {
                 "type": "wins_in_row_with_either",
                 "characterId": "8",
-                "count": 5,
+                "count": 6,
                 "character2Id": "11"
             }
         ],
@@ -186,7 +186,7 @@
             {
                 "type": "wins_in_row_with_either",
                 "characterId": "18",
-                "count": 5,
+                "count": 8,
                 "character2Id": "14"
             }
         ],
@@ -219,7 +219,7 @@
         ],
         "rewards": {
             "type": "text",
-            "value": "Mission \"The first mission\" completion."
+            "value": ""
         }
     },
     {
@@ -269,19 +269,19 @@
                 "count": 4
             },
             {
-                "type": "wins_with",
+                "type": "wins_in_row_with",
                 "characterId": "23",
                 "count": 4
             },
             {
-                "type": "wins_with",
+                "type": "wins_in_row_with",
                 "characterId": "13",
                 "count": 4
             }
         ],
         "rewards": {
             "type": "text",
-            "value": "Mission \"A small test\" completion."
+            "value": ""
         }
     },
     {
@@ -304,8 +304,8 @@
                 "type": "wins_with_any",
                 "characterId": "6",
                 "count": 18,
-                "character2Id": "6",
-                "character3Id": "6"
+                "character2Id": "23",
+                "character3Id": "13"
             }
         ],
         "rewards": {
@@ -325,39 +325,39 @@
             "missionsCompleted": []
         },
         "order": 5,
-        "description": "<p>Kimimaru is completely devoted to Orochimaru heart and soul, and only continues to live to serve Orochimaru to the fullest. Despite having a wasting disease and being on his death-bed, Kimimaru will rise to any task which is required of him and will fullfil Orochimaru's desires. Now, with the sound four running into trouble and the possibility of Sasuke being rescued, Kimimaru rises to stop those who would interfere with his master's plans.</p><p><br></p><p>Each of the Sound Four must win 4 battles in a row before Kimimaru will make his appearance.</p>",
+        "description": "<p>Kimimaro is completely devoted to Orochimaru heart and soul, and only continues to live to serve Orochimaru to the fullest. Despite having a wasting disease and being on his death-bed, Kimimaro will rise to any task which is required of him and will fullfil Orochimaru's desires. Now, with the sound four running into trouble and the possibility of Sasuke being rescued, Kimimaro rises to stop those who would interfere with his master's plans.</p><p><br></p><p>Each of the Sound Four must win 4 battles in a row before Kimimaro will make his appearance.</p>",
         "goals": [
             {
                 "type": "wins_in_row_with",
                 "characterId": "17",
-                "count": 1
+                "count": 4
             },
             {
                 "type": "wins_in_row_with",
                 "characterId": "20",
-                "count": 1
+                "count": 4
             },
             {
                 "type": "wins_in_row_with",
                 "characterId": "21",
-                "count": 1
+                "count": 4
             },
             {
                 "type": "wins_in_row_with",
                 "characterId": "24",
-                "count": 1
+                "count": 4
             }
         ],
         "rewards": {
             "type": "text",
-            "value": "Mission \"The Fifth of the Sound\" completion."
+            "value": ""
         }
     },
     {
         "id": "1771362348541",
         "categoryId": "2",
-        "name": "The search for Kimimaru",
-        "slug": "the-search-for-kimimaru",
+        "name": "The search for Kimimaro",
+        "slug": "the-search-for-kimimaro",
         "difficulty": "B Rank Mission",
         "thumbnailId": "11",
         "requirements": {
@@ -377,8 +377,8 @@
             }
         ],
         "rewards": {
-            "type": "character",
-            "characterId": "25"
+            "type": "text",
+            "value": ""
         }
     },
     {
@@ -420,7 +420,47 @@
             "rank": "Special Jounin",
             "missionsCompleted": []
         },
-        "order": 1
+        "order": 1,
+        "description": "<p>The Hokage plans to give Team 7 an A-rank mission but Kakashi, their leader, objects. He believes his team is too weak and it would only risk their lives unnecessarily. After hearing this, Naruto, Sasuke, and Sakura set out to improve their strength as individuals. Naruto will face Kiba, Sasuke will face Gaara and Sakura will face Ino. If the genins are successful in impressing Kakashi he will allow them to take the mission.</p>",
+        "goals": [
+            {
+                "type": "wins_against_with",
+                "characterId": "6",
+                "count": 5,
+                "againstCharacterId": "18"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "6",
+                "count": 4
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 5,
+                "againstCharacterId": "7"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "13",
+                "count": 4
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "23",
+                "count": 5,
+                "againstCharacterId": "29"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "23",
+                "count": 4
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": ""
+        }
     },
     {
         "id": "1771362809860",
@@ -435,7 +475,31 @@
                 "1771362787277"
             ]
         },
-        "order": 2
+        "order": 2,
+        "description": "<p>Kakashi has always thought working as a team is most important. Naruto, Sasuke and Sakura will have to prove Kakashi to be the perfect team. Together they will fight versus the sound ninjas. If the three genins are able to prove to Kakashi, their ability to work in a team, Kakashi will join them on their next missions.</p>",
+        "goals": [
+            {
+                "type": "wins_with_chars_vs_chars",
+                "count": 75,
+                "withCharIds": [
+                    "6",
+                    "23",
+                    "13"
+                ],
+                "againstCharIds": [
+                    "24",
+                    "17",
+                    "21",
+                    "20",
+                    "30",
+                    "9"
+                ]
+            }
+        ],
+        "rewards": {
+            "type": "character",
+            "characterId": "16"
+        }
     },
     {
         "id": "1771362880092",
@@ -448,7 +512,47 @@
             "rank": "Special Jounin",
             "missionsCompleted": []
         },
-        "order": 3
+        "order": 3,
+        "description": "<p>The Hokage plans to give Team 8 an A-rank mission but Kurenai, their leader, objects. She believes her team is too weak and it would only risk their lives unnecessarily. After hearing this, Kiba, Hinata, and Shino set out to improve their strength as individuals. Kiba will face Naruto, Hinata will face Neji and Shino will face Kankuro. If the genins are successful in impressing Kurenai she will allow them to take the mission.</p>",
+        "goals": [
+            {
+                "type": "wins_against_with",
+                "characterId": "18",
+                "count": 5,
+                "againstCharacterId": "6"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "18",
+                "count": 4
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "27",
+                "count": 5,
+                "againstCharacterId": "4"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "27",
+                "count": 4
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "3",
+                "count": 5,
+                "againstCharacterId": "14"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "3",
+                "count": 4
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": ""
+        }
     },
     {
         "id": "1771362919095",
@@ -463,7 +567,34 @@
                 "1771362880092"
             ]
         },
-        "order": 4
+        "order": 4,
+        "description": "<p>After succeeding in the Rank B mission it is finally time for a Rank A mission. With their excellent scouting abilities Kiba, Hinata and Shino will be sent to the Mist, Sound and Sand villages to ensure Konoha's world position. Meanwhile they have to face a lot of ninjas in order to survive. If the genins complete the mission successfully Kurenai will fully acknowledge her team and will aid them whenever needed.</p>",
+        "goals": [
+            {
+                "type": "wins_with_chars_vs_chars",
+                "count": 75,
+                "withCharIds": [
+                    "18",
+                    "27",
+                    "3"
+                ],
+                "againstCharIds": [
+                    "19",
+                    "12",
+                    "24",
+                    "17",
+                    "21",
+                    "20",
+                    "14",
+                    "7",
+                    "11"
+                ]
+            }
+        ],
+        "rewards": {
+            "type": "character",
+            "characterId": "5"
+        }
     },
     {
         "id": "1771362961374",
@@ -476,7 +607,13 @@
             "rank": "Special Jounin",
             "missionsCompleted": []
         },
-        "order": 5
+        "order": 5,
+        "description": "<p>The Hokage plans to give Team 7 an A-rank mission but Kakashi, their leader, objects. He believes his team is too weak and it would only risk their lives unnecessarily. After hearing this, Naruto, Sasuke, and Sakura set out to improve their strength as individuals. Naruto will face Kiba, Sasuke will face Gaara and Sakura will face Ino. If the genins are successful in impressing Kakashi he will allow them to take the mission.</p>",
+        "goals": [],
+        "rewards": {
+            "type": "text",
+            "value": ""
+        }
     },
     {
         "id": "1771363001823",
@@ -491,7 +628,34 @@
                 "1771362961374"
             ]
         },
-        "order": 6
+        "order": 6,
+        "description": "<p>Gai's way of the ninja is to prove that you can be a good ninja with using only taijutsu. His team consists of members that mostly use taijutsu. Gai wants his team to be the overall best taijutsu team of Konoha. In order to test this, he sets up a tournament with various battles between his members and other taijutsu genin in Konoha. Fight with Neji, Lee and Tenten versus the other Konoha Ninja. If Gai's team wins the most battles he will join his genin on future missions.</p>",
+        "goals": [
+            {
+                "type": "wins_with_chars_vs_chars",
+                "count": 75,
+                "withCharIds": [
+                    "1",
+                    "31",
+                    "4"
+                ],
+                "againstCharIds": [
+                    "6",
+                    "23",
+                    "13",
+                    "18",
+                    "27",
+                    "3",
+                    "8",
+                    "29",
+                    "15"
+                ]
+            }
+        ],
+        "rewards": {
+            "type": "character",
+            "characterId": "26"
+        }
     },
     {
         "id": "1771363057912",
@@ -504,7 +668,47 @@
             "rank": "Special Jounin",
             "missionsCompleted": []
         },
-        "order": 7
+        "order": 7,
+        "description": "<p>The Hokage plans to give Team 8 an A-rank mission but Asuma, their leader, objects. He believes his team is too weak and it would only risk their lives unnecessarily. After hearing this, Shikamaru, Chouji, and Ino set out to improve their strength as individuals. Shikamaru will face Temari, Chouji will face Jiroubou and Ino will face Sakura. If the genins are successful in impressing Asuma he will allow them to take the mission.</p>",
+        "goals": [
+            {
+                "type": "wins_against_with",
+                "characterId": "8",
+                "count": 5,
+                "againstCharacterId": "11"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "8",
+                "count": 4
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "29",
+                "count": 5,
+                "againstCharacterId": "23"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "29",
+                "count": 4
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "15",
+                "count": 5,
+                "againstCharacterId": "24"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "15",
+                "count": 4
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": ""
+        }
     },
     {
         "id": "1771363116726",
@@ -519,7 +723,31 @@
                 "1771363057912"
             ]
         },
-        "order": 8
+        "order": 8,
+        "description": "<p>It's time for a Rank A mission! While the Sound and Leaf country are still in war, Shikamaru, Chouji and Ino are guarding the Konoha gates to defend the village. They will continuously fight the incoming sound ninjas till things are clear. Since Asuma is on a different mission he cannot help the team. If Shikamaru, Chouji and Ino hold their ground, Asuma will soon come and help them.</p>",
+        "goals": [
+            {
+                "type": "wins_with_chars_vs_chars",
+                "count": 75,
+                "withCharIds": [
+                    "8",
+                    "29",
+                    "15"
+                ],
+                "againstCharIds": [
+                    "24",
+                    "17",
+                    "21",
+                    "20",
+                    "30",
+                    "9"
+                ]
+            }
+        ],
+        "rewards": {
+            "type": "character",
+            "characterId": "28"
+        }
     },
     {
         "id": "1771363212483",
@@ -532,7 +760,149 @@
             "rank": "Jounin",
             "missionsCompleted": []
         },
-        "order": 1
+        "order": 1,
+        "description": "<p><br></p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with",
+                "characterId": "6",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "23",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "13",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "19",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "1",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "31",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "4",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "7",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "18",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "27",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "3",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "14",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "8",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "29",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "15",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "11",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "24",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "17",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "21",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "20",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "12",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "32",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "30",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "5",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "28",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "26",
+                "count": 2
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "16",
+                "count": 2
+            }
+        ],
+        "rewards": {
+            "type": "text",
+            "value": ""
+        }
     },
     {
         "id": "1771363250119",
@@ -547,7 +917,72 @@
                 "1771363212483"
             ]
         },
-        "order": 2
+        "order": 2,
+        "description": "<p>Before Jiraiya will return to Konoha he wants to see if the fruits of his knowledge, passed down through the 4th Hokage, remain. Kakashi, once student of the 4th, and naruto, current student of Kakashi, must prove the strength of the toad.</p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with",
+                "characterId": "6",
+                "count": 7
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "16",
+                "count": 7
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "6",
+                "count": 5,
+                "againstCharacterId": "23"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "16",
+                "count": 5,
+                "againstCharacterId": "23"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "6",
+                "count": 5,
+                "againstCharacterId": "32"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "16",
+                "count": 5,
+                "againstCharacterId": "32"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "6",
+                "count": 5,
+                "againstCharacterId": "13"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "16",
+                "count": 5,
+                "againstCharacterId": "13"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "6",
+                "count": 5,
+                "againstCharacterId": "30"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "16",
+                "count": 5,
+                "againstCharacterId": "30"
+            }
+        ],
+        "rewards": {
+            "type": "character",
+            "characterId": "10"
+        }
     },
     {
         "id": "1771363284685",
@@ -562,7 +997,72 @@
                 "1771363212483"
             ]
         },
-        "order": 3
+        "order": 3,
+        "description": "<p>Tsunade is off gambling again while Konoha is in danger, but some excellent talent has caught her eye. If Shizune and Sakura can showcase their talents enough Tsunade will return to pass on her knowledge of the power of the slug.</p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with",
+                "characterId": "23",
+                "count": 7
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "32",
+                "count": 7
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "23",
+                "count": 5,
+                "againstCharacterId": "6"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "32",
+                "count": 5,
+                "againstCharacterId": "6"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "23",
+                "count": 5,
+                "againstCharacterId": "16"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "32",
+                "count": 5,
+                "againstCharacterId": "16"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "23",
+                "count": 5,
+                "againstCharacterId": "13"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "32",
+                "count": 5,
+                "againstCharacterId": "13"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "23",
+                "count": 5,
+                "againstCharacterId": "30"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "32",
+                "count": 5,
+                "againstCharacterId": "30"
+            }
+        ],
+        "rewards": {
+            "type": "character",
+            "characterId": "2"
+        }
     },
     {
         "id": "1771363310415",
@@ -577,7 +1077,72 @@
                 "1771363212483"
             ]
         },
-        "order": 4
+        "order": 4,
+        "description": "<p>Orochimaru's plot is in full force and Konoha is fighting for its life. Sitting on the sidelines Orochimaru watches his current and future students, Sasuke and Kabuto, to see whether they are worthy of his presence. When they do, Orochimaru will show Konoha the awesome power of the snake.</p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with",
+                "characterId": "13",
+                "count": 7
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "30",
+                "count": 7
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 5,
+                "againstCharacterId": "6"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "30",
+                "count": 5,
+                "againstCharacterId": "6"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 5,
+                "againstCharacterId": "16"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "30",
+                "count": 5,
+                "againstCharacterId": "16"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 5,
+                "againstCharacterId": "23"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "30",
+                "count": 5,
+                "againstCharacterId": "23"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "13",
+                "count": 5,
+                "againstCharacterId": "32"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "30",
+                "count": 5,
+                "againstCharacterId": "32"
+            }
+        ],
+        "rewards": {
+            "type": "character",
+            "characterId": "9"
+        }
     },
     {
         "id": "1771363339685",
@@ -594,6 +1159,28 @@
                 "1771363310415"
             ]
         },
-        "order": 5
+        "order": 5,
+        "description": "<p>Wracked by the grief of the wayward ways of his former students, Sandaime wallows in self-guilt, unable to bring himself to even move. Break this dark depression of Sandaime's by showing him there is still hope for his former students!</p>",
+        "goals": [
+            {
+                "type": "wins_in_row_with",
+                "characterId": "9",
+                "count": 5
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "2",
+                "count": 5
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "10",
+                "count": 5
+            }
+        ],
+        "rewards": {
+            "type": "character",
+            "characterId": "22"
+        }
     }
 ]

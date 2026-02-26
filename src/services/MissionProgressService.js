@@ -90,6 +90,18 @@ const MissionProgressService = {
                     matches = wt.includes(withChar) ||
                               wt.includes(String(goal.character2Id)) ||
                               wt.includes(String(goal.character3Id));
+                } else if (goal.type === 'wins_against_either_with') {
+                    const againstChar = String(goal.againstCharacterId);
+                    const againstChar2 = String(goal.againstCharacter2Id);
+                    const opTeam = opponentTeam.map(String);
+                    matches = winnerTeam.map(String).includes(withChar) &&
+                              (opTeam.includes(againstChar) || opTeam.includes(againstChar2));
+                } else if (goal.type === 'wins_with_chars_vs_chars') {
+                    const withIds = (goal.withCharIds || []).map(String);
+                    const againstIds = (goal.againstCharIds || []).map(String);
+                    const wt = winnerTeam.map(String);
+                    const ot = opponentTeam.map(String);
+                    matches = withIds.some(id => wt.includes(id)) && againstIds.some(id => ot.includes(id));
                 }
 
                 if (matches) {

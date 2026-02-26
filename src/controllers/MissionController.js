@@ -34,13 +34,20 @@ function parseGoals(body) {
     const chars2 = [].concat(body.goalCharacter2Id || []);
     const chars3 = [].concat(body.goalCharacter3Id || []);
     const against = [].concat(body.goalAgainstCharacterId || []);
+    const against2 = [].concat(body.goalAgainstCharacter2Id || []);
     const counts = [].concat(body.goalCount || []);
     const customTexts = [].concat(body.goalCustomText || []);
+    const withCharsJsonList = [].concat(body.goalWithCharsJson || []);
+    const againstCharsJsonList = [].concat(body.goalAgainstCharsJson || []);
 
     return types.map((type, i) => {
         const goal = { type, characterId: chars[i] || '', count: parseInt(counts[i]) || 1 };
         if (type === 'wins_against_with') {
             goal.againstCharacterId = against[i] || '';
+        }
+        if (type === 'wins_against_either_with') {
+            goal.againstCharacterId = against[i] || '';
+            goal.againstCharacter2Id = against2[i] || '';
         }
         if (type === 'wins_in_row_with_either') {
             goal.character2Id = chars2[i] || '';
@@ -48,6 +55,11 @@ function parseGoals(body) {
         if (type === 'wins_with_any') {
             goal.character2Id = chars2[i] || '';
             goal.character3Id = chars3[i] || '';
+        }
+        if (type === 'wins_with_chars_vs_chars') {
+            try { goal.withCharIds = JSON.parse(withCharsJsonList[i] || '[]'); } catch { goal.withCharIds = []; }
+            try { goal.againstCharIds = JSON.parse(againstCharsJsonList[i] || '[]'); } catch { goal.againstCharIds = []; }
+            delete goal.characterId;
         }
         if (customTexts[i] && customTexts[i].trim()) {
             goal.customText = customTexts[i].trim();
