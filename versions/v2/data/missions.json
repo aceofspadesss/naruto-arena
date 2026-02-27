@@ -608,8 +608,43 @@
             "missionsCompleted": []
         },
         "order": 5,
-        "description": "<p>The Hokage plans to give Team 7 an A-rank mission but Kakashi, their leader, objects. He believes his team is too weak and it would only risk their lives unnecessarily. After hearing this, Naruto, Sasuke, and Sakura set out to improve their strength as individuals. Naruto will face Kiba, Sasuke will face Gaara and Sakura will face Ino. If the genins are successful in impressing Kakashi he will allow them to take the mission.</p>",
-        "goals": [],
+        "description": "<p>The Hokage plans to give Team 7 an A-rank mission but Gai, their leader, objects. He believes his team is too weak and it would only risk their lives unnecessarily. After hearing this, Lee, Tenten, and Neji set out to improve their strength as individuals. Lee will face Gaara, Tenten will face Temari and Neji will face Naruto. If the genins are successful in impressing Gai he will allow them to take the mission.</p>",
+        "goals": [
+            {
+                "type": "wins_against_with",
+                "characterId": "1",
+                "count": 5,
+                "againstCharacterId": "7"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "1",
+                "count": 4
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "31",
+                "count": 5,
+                "againstCharacterId": "11"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "31",
+                "count": 4,
+                "customText": "4"
+            },
+            {
+                "type": "wins_against_with",
+                "characterId": "4",
+                "count": 5,
+                "againstCharacterId": "6"
+            },
+            {
+                "type": "wins_in_row_with",
+                "characterId": "4",
+                "count": 4
+            }
+        ],
         "rewards": {
             "type": "text",
             "value": ""
