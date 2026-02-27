@@ -1,3 +1,887 @@
 [
-  
+  {
+    "id": "1771173301066",
+    "username": "Vasya",
+    "password": "123",
+    "email": "vasya@vasya",
+    "emailHidden": false,
+    "discord": "test",
+    "youtube": "test",
+    "country": "Ukraine",
+    "role": "admin",
+    "characters": [],
+    "wins": 10,
+    "losses": 5,
+    "streak": 1,
+    "rank": "Chuunin",
+    "ladderPosition": 3,
+    "level": 1,
+    "registeredOn": 1771173301066,
+    "buddies": [],
+    "lastActive": 1772177178435,
+    "locationTitle": "Naruto Arena > Logout",
+    "locationUrl": "/logout",
+    "startmatch": false,
+    "battleId": null,
+    "opponentId": null,
+    "lastTeam": [
+      "13",
+      "14",
+      "29"
+    ],
+    "team": [
+      "13",
+      "14",
+      "29"
+    ],
+    "posts": 50,
+    "avatar": "/images/avatars/preset/Gaara_02.jpg",
+    "completedMissions": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "missionProgress": {
+      "1": {
+        "goals": [
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          }
+        ]
+      },
+      "3": {
+        "goals": [
+          {
+            "count": 0
+          }
+        ]
+      },
+      "4": {
+        "goals": [
+          {
+            "count": 0
+          }
+        ]
+      },
+      "5": {
+        "goals": [
+          {
+            "count": 1
+          }
+        ]
+      },
+      "1771361768792": {
+        "goals": [
+          {
+            "count": 0
+          }
+        ]
+      },
+      "1771362123139": {
+        "goals": [
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          }
+        ]
+      }
+    },
+    "showCharacters": false
+  },
+  {
+    "id": "1771184427293",
+    "username": "Test",
+    "password": "123",
+    "email": "test@test",
+    "emailHidden": false,
+    "discord": "",
+    "youtube": "",
+    "country": "",
+    "role": "member",
+    "characters": [],
+    "wins": 3,
+    "losses": 2,
+    "streak": 1,
+    "rank": "Genin",
+    "ladderPosition": 4,
+    "level": 1,
+    "registeredOn": 1771184427293,
+    "buddies": [],
+    "lastActive": 1771919037154,
+    "locationTitle": "Naruto Arena > In Game",
+    "locationUrl": "/game/",
+    "startmatch": true,
+    "lastTeam": [
+      "6",
+      "23",
+      "13"
+    ],
+    "battleId": "1771918513006",
+    "opponentId": "1771173301066",
+    "team": [
+      "6",
+      "23",
+      "13"
+    ],
+    "posts": 3,
+    "completedMissions": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "missionProgress": {
+      "5": {
+        "goals": [
+          {
+            "count": 0
+          }
+        ]
+      },
+      "1771361768792": {
+        "goals": [
+          {
+            "count": 1
+          }
+        ]
+      },
+      "1771362123139": {
+        "goals": [
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          }
+        ]
+      },
+      "1771362212687": {
+        "goals": [
+          {
+            "count": 1
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "1771531002402",
+    "username": "Vasabi",
+    "password": "123",
+    "email": "vasabi@vasabi",
+    "emailHidden": true,
+    "discord": "",
+    "youtube": "",
+    "country": "",
+    "role": "member",
+    "characters": [],
+    "wins": 16,
+    "losses": 5,
+    "streak": 4,
+    "rank": "Hokage",
+    "ladderPosition": 1,
+    "level": 1,
+    "registeredOn": 1771531002402,
+    "buddies": [],
+    "lastActive": 1772177196323,
+    "locationTitle": "Naruto Arena > In Game",
+    "locationUrl": "/game/",
+    "startmatch": true,
+    "lastTeam": [
+      "13",
+      "14",
+      "29"
+    ],
+    "battleId": "1772177212220",
+    "opponentId": "AI_1772177212219",
+    "team": [
+      "13",
+      "14",
+      "29"
+    ],
+    "missionProgress": {
+      "1": {
+        "goals": [
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 0
+          }
+        ]
+      },
+      "1771361768792": {
+        "goals": [
+          {
+            "count": 5
+          }
+        ]
+      },
+      "1771362123139": {
+        "goals": [
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 4
+          }
+        ]
+      },
+      "1771362212687": {
+        "goals": [
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          }
+        ]
+      },
+      "1771362787277": {
+        "goals": [
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 4
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          }
+        ]
+      },
+      "1771362880092": {
+        "goals": [
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          }
+        ]
+      },
+      "1771363057912": {
+        "goals": [
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 4
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          }
+        ]
+      },
+      "1771363212483": {
+        "goals": [
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 2
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 2
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 2
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          }
+        ]
+      }
+    },
+    "avatar": "/images/avatars/preset/Orochimaru_04.jpg",
+    "showCharacters": true
+  },
+  {
+    "id": "1771573359641",
+    "username": "Test3",
+    "password": "123",
+    "email": "test@test",
+    "emailHidden": false,
+    "discord": "",
+    "youtube": "",
+    "country": "",
+    "role": "member",
+    "characters": [],
+    "wins": 0,
+    "losses": 0,
+    "streak": 0,
+    "rank": "Academy Student",
+    "ladderPosition": null,
+    "level": 1,
+    "registeredOn": 1771573359641,
+    "buddies": [],
+    "lastActive": 1771573362722,
+    "locationTitle": "Naruto Arena > Logout",
+    "locationUrl": "/logout"
+  },
+  {
+    "id": "1771573546205",
+    "username": "Test5",
+    "password": "123",
+    "email": "test5@test",
+    "emailHidden": true,
+    "discord": "",
+    "youtube": "",
+    "country": "",
+    "role": "member",
+    "characters": [],
+    "wins": 0,
+    "losses": 0,
+    "streak": 0,
+    "rank": "Academy Student",
+    "ladderPosition": null,
+    "level": 1,
+    "registeredOn": 1771573546205,
+    "buddies": [],
+    "lastActive": 1771573546211,
+    "locationTitle": "Naruto Arena > Main",
+    "locationUrl": "/"
+  },
+  {
+    "id": "1771573598792",
+    "username": "TEST6",
+    "password": "123",
+    "email": "TS@YE",
+    "emailHidden": false,
+    "discord": "",
+    "youtube": "",
+    "country": "",
+    "role": "member",
+    "characters": [],
+    "wins": 0,
+    "losses": 0,
+    "streak": 0,
+    "rank": "Academy Student",
+    "ladderPosition": null,
+    "level": 1,
+    "registeredOn": 1771573598792,
+    "buddies": [],
+    "lastActive": 1771573611356,
+    "locationTitle": "Naruto Arena > Logout",
+    "locationUrl": "/logout"
+  },
+  {
+    "id": "1772050077040",
+    "username": "DaniloStb",
+    "password": "test123",
+    "email": "danilostb11@gmail.com",
+    "emailHidden": true,
+    "discord": "",
+    "youtube": "",
+    "country": "Brazil",
+    "role": "member",
+    "characters": [],
+    "wins": 4,
+    "losses": 0,
+    "streak": 4,
+    "rank": "Special Jounin",
+    "ladderPosition": 2,
+    "level": 1,
+    "registeredOn": 1772050077040,
+    "buddies": [],
+    "lastActive": 1772054319546,
+    "locationTitle": "Naruto Arena > In Game",
+    "locationUrl": "/game/",
+    "startmatch": false,
+    "lastTeam": [
+      "1",
+      "7",
+      "29"
+    ],
+    "battleId": null,
+    "opponentId": null,
+    "team": [
+      "1",
+      "7",
+      "29"
+    ],
+    "showCharacters": true,
+    "missionProgress": {
+      "1": {
+        "goals": [
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          }
+        ]
+      },
+      "1771361768792": {
+        "goals": [
+          {
+            "count": 1
+          }
+        ]
+      },
+      "1771362123139": {
+        "goals": [
+          {
+            "count": 0
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 0
+          }
+        ]
+      },
+      "1771362212687": {
+        "goals": [
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          }
+        ]
+      },
+      "1771362787277": {
+        "goals": [
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 0
+          },
+          {
+            "count": 1
+          },
+          {
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "1772052260280",
+    "username": "test123",
+    "password": "test123",
+    "email": "dadad@gmail.com",
+    "emailHidden": false,
+    "discord": "",
+    "youtube": "",
+    "country": "",
+    "role": "member",
+    "characters": [],
+    "wins": 0,
+    "losses": 0,
+    "streak": 0,
+    "rank": "Academy Student",
+    "ladderPosition": null,
+    "level": 1,
+    "registeredOn": 1772052260280,
+    "buddies": [],
+    "lastActive": 1772052574783,
+    "locationTitle": "Naruto Arena > Logout",
+    "locationUrl": "/logout",
+    "startmatch": true,
+    "battleId": "1772052677336",
+    "opponentId": "1772052639394",
+    "lastTeam": [
+      "13",
+      "1",
+      "29"
+    ],
+    "team": [
+      "13",
+      "1",
+      "29"
+    ]
+  },
+  {
+    "id": "1772052338522",
+    "username": "Sapo",
+    "password": "123456",
+    "email": "gaelcrf06@gmail.com",
+    "emailHidden": true,
+    "discord": "",
+    "youtube": "",
+    "country": "Brazil",
+    "role": "member",
+    "characters": [],
+    "wins": 0,
+    "losses": 1,
+    "streak": -1,
+    "rank": "Academy Student",
+    "ladderPosition": null,
+    "level": 1,
+    "registeredOn": 1772052338522,
+    "buddies": [],
+    "lastActive": 1772053392922,
+    "locationTitle": "Naruto Arena > Game > Images > Characters > Undefined > Avatarlarge.jpg",
+    "locationUrl": "/game/images/characters/undefined/avatarlarge.jpg",
+    "startmatch": true,
+    "lastTeam": [
+      "6",
+      "23",
+      "13"
+    ],
+    "battleId": "1772053157829",
+    "opponentId": "1772052773387",
+    "team": [
+      "6",
+      "23",
+      "13"
+    ]
+  },
+  {
+    "id": "1772052418169",
+    "username": "Itachi",
+    "password": "Hudson2420",
+    "email": "hudsonvaladares@gmail.com",
+    "emailHidden": true,
+    "discord": "",
+    "youtube": "",
+    "country": "Brazil",
+    "role": "member",
+    "characters": [],
+    "wins": 0,
+    "losses": 0,
+    "streak": 0,
+    "rank": "Academy Student",
+    "ladderPosition": null,
+    "level": 1,
+    "registeredOn": 1772052418169,
+    "buddies": [],
+    "lastActive": 1772052430924,
+    "locationTitle": "Naruto Arena > In Game",
+    "locationUrl": "/game/"
+  },
+  {
+    "id": "1772052639394",
+    "username": "Sukehiro",
+    "password": "suke37935862",
+    "email": "jaire-scossati@hotmail.com",
+    "emailHidden": true,
+    "discord": "",
+    "youtube": "",
+    "country": "",
+    "role": "member",
+    "characters": [],
+    "wins": 0,
+    "losses": 0,
+    "streak": 0,
+    "rank": "Academy Student",
+    "ladderPosition": null,
+    "level": 1,
+    "registeredOn": 1772052639394,
+    "buddies": [],
+    "lastActive": 1772053926852,
+    "locationTitle": "Naruto Arena > In Game",
+    "locationUrl": "/game/",
+    "startmatch": false,
+    "lastTeam": [
+      "1",
+      "7",
+      "29"
+    ],
+    "battleId": null,
+    "opponentId": null,
+    "team": [
+      "11",
+      "18",
+      "29"
+    ]
+  },
+  {
+    "id": "1772052773387",
+    "username": "Oxiurus",
+    "password": "leonelmessi06",
+    "email": "felipefernandes1811@gmail.com",
+    "emailHidden": true,
+    "discord": "",
+    "youtube": "",
+    "country": "Argentina",
+    "role": "member",
+    "characters": [],
+    "wins": 0,
+    "losses": 0,
+    "streak": 0,
+    "rank": "Academy Student",
+    "ladderPosition": null,
+    "level": 1,
+    "registeredOn": 1772052773387,
+    "buddies": [],
+    "lastActive": 1772053347573,
+    "locationTitle": "Naruto Arena > In Game",
+    "locationUrl": "/game/",
+    "startmatch": false,
+    "lastTeam": [
+      "8",
+      "7",
+      "1"
+    ],
+    "battleId": null,
+    "opponentId": null,
+    "team": [
+      "8",
+      "7",
+      "1"
+    ]
+  },
+  {
+    "id": "1772053179946",
+    "username": "Rodrigorosendo",
+    "password": "Rodendo7890@",
+    "email": "rodrigorosendo1999@gmail.com",
+    "emailHidden": true,
+    "discord": "",
+    "youtube": "",
+    "country": "Brazil",
+    "role": "member",
+    "characters": [],
+    "wins": 0,
+    "losses": 1,
+    "streak": -1,
+    "rank": "Academy Student",
+    "ladderPosition": null,
+    "level": 1,
+    "registeredOn": 1772053179946,
+    "buddies": [],
+    "lastActive": 1772054190014,
+    "locationTitle": "Naruto Arena > In Game",
+    "locationUrl": "/game/",
+    "startmatch": true,
+    "lastTeam": [
+      "29",
+      "23",
+      "7"
+    ],
+    "battleId": "1772053309368",
+    "opponentId": "1772050077040",
+    "team": [
+      "29",
+      "23",
+      "7"
+    ]
+  }
 ]

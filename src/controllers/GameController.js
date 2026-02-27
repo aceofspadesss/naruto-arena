@@ -496,7 +496,15 @@ class GameController {
                     }
 
                     // Requirement Logic
+                    // Disable Skill check (specific skill disabled by ID)
+                    let isSkillDisabled = false;
+                    if (activeEffects && activeEffects[cIdx]) {
+                        isSkillDisabled = activeEffects[cIdx].some(e => e.type === "disable_skill" && e.skill_id == s.id);
+                    }
+
                     if (isStunned) {
+                        isAvailable = "no";
+                    } else if (isSkillDisabled) {
                         isAvailable = "no";
                     } else if (s.requires) {
                         const charEffects = activeEffects ? activeEffects[cIdx] : [];

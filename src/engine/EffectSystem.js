@@ -1,7 +1,7 @@
 // EffectSystem.js - Handles effect application, processing, and checking
 
 class EffectSystem {
-    static applyEffect(targetEffects, effect, actorId, skillId, skillName, skillDescription) {
+    static applyEffect(targetEffects, effect, actorId, skillId, skillName, skillDescription, casterSlot) {
         let effDuration = effect.duration || 0;
         if (effect.type === "mark" && effDuration === 0) effDuration = 9999;
 
@@ -16,7 +16,8 @@ class EffectSystem {
             skillName: skillName.replace(/ /g, ''), // legacy format often no spaces
             description: skillDescription,
             currentDuration: finalDuration,
-            casterId: actorId
+            casterId: actorId,
+            casterSlot: casterSlot
         });
 
         console.log(` -> Applied Effect ${effect.type}. ActiveEffects Count: ${targetEffects.length}`);
@@ -53,6 +54,17 @@ class EffectSystem {
             }
         });
         return totalBoost;
+    }
+
+    static getSkillDamageNerf(effects, skillId) {
+        if (!effects || !skillId) return 0;
+        let totalNerf = 0;
+        effects.forEach(e => {
+            if (e.type === "skill_damage_nerf" && String(e.skill_id) === String(skillId)) {
+                totalNerf += e.amount;
+            }
+        });
+        return Math.min(totalNerf, 100); // Cap at 100%
     }
 
     static getDamageReduction(effects, isAffliction = false) {

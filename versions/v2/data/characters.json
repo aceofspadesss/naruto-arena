@@ -1414,7 +1414,7 @@
         "chakra": "10",
         "cooldown": 0,
         "max_active_stacks": 0,
-        "target": "enemy",
+        "target": "all_enemies",
         "effects": [
           {
             "type": "damage",
@@ -1451,7 +1451,7 @@
         "chakra": "0",
         "cooldown": 4,
         "max_active_stacks": 0,
-        "target": "enemy",
+        "target": "self",
         "effects": [
           {
             "type": "invulnerable",
@@ -1467,46 +1467,81 @@
   {
     "id": "17",
     "name": "Kidoumaru",
-    "description": "Kidoumarus skills are spider-like. He has 6 arms and has the ability to create webs and weapons with a strange golden liquid.",
+    "description": "Kidoumaru has spider-like skills. He has 6 arms and has the ability to create weapons and traps with a strange golden web-like liquid.",
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Summoning Kyodaigumo",
+        "description": "Summons the spider Kyodaigumo creating a massive amount of small spiders dealing 10 damage to all enemies for 5 rounds. Kidoumaru takes 33 percent less damage.",
+        "chakra": "32",
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "all_enemies",
+        "effects": [
+          {
+            "type": "damage",
+            "target": "all_enemies",
+            "amount": 10,
+            "duration": 5
+          },
+          {
+            "type": "damage_reduction",
+            "target": "self",
+            "amount": 33,
+            "duration": 5
+          }
+        ],
+        "id": "71"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
+        "name": "Spider Web",
+        "description": "Traps a single target for two turns, making him unable to perform a skill.",
+        "chakra": "20",
+        "cooldown": 1,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "stun",
+            "target": "enemy",
+            "duration": 2
+          }
+        ],
+        "id": "72"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
+        "name": "Golden Arrow",
+        "description": "Deals 50 damage to a single opponent.",
+        "chakra": "32",
+        "cooldown": 1,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 50
+          }
+        ],
+        "id": "73"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Golden Armor",
+        "description": "Makes Kidoumaru invulnerable during the next round.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "74"
       }
     ],
-    "locked": true
+    "locked": false
   },
   {
     "id": "21",
@@ -1514,43 +1549,106 @@
     "description": "Tayuyas only weapon is a flute, on which she can cast Genjutsu or control three summoned demons, The Doki.",
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Summoning the Doki",
+        "description": "Summons the Doki demons. Deals 15 damage to each opponent for 2 rounds and reduces the damage done to Tayuya by 33 percent. Cannot be used during DFI.",
+        "chakra": "40",
+        "cooldown": 1,
+        "max_active_stacks": 0,
+        "target": "all_enemies",
+        "effects": [
+          {
+            "type": "damage",
+            "target": "all_enemies",
+            "amount": 15,
+            "duration": 2
+          },
+          {
+            "type": "damage_reduction",
+            "target": "self",
+            "amount": 33,
+            "duration": 2
+          },
+          {
+            "type": "skill_unlock",
+            "target": "self",
+            "duration": 2,
+            "hidden": true
+          },
+          {
+            "type": "disable_skill",
+            "target": "self",
+            "duration": 2,
+            "skill_id": "90"
+          }
+        ],
+        "id": "88"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Doki Chakra Ghosts",
+        "description": "This skill removes 1 chakra and does 5 damage to an enemy target affected by Doki Summons.",
         "chakra": "0",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "target_req_effect": "88",
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 5
+          },
+          {
+            "type": "remove_chakra",
+            "target": "enemy",
+            "amount": 1,
+            "duration": 1,
+            "hidden": true
+          }
+        ],
+        "requires": "88",
+        "id": "89"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Demonic Flute Illusion",
+        "description": "Puts the enemy team under genjutsu using a flute making them unable to perform a skill for two rounds. Cannot be used during Summoning the Doki.",
+        "chakra": "440",
+        "cooldown": 6,
+        "max_active_stacks": 0,
+        "target": "all_enemies",
+        "effects": [
+          {
+            "type": "stun",
+            "target": "all_enemies",
+            "duration": 2
+          },
+          {
+            "type": "disable_skill",
+            "target": "self",
+            "duration": 2,
+            "skill_id": "88",
+            "hidden": true
+          }
+        ],
+        "id": "90"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Doki Defence",
+        "description": "Makes Tayuya invulneravle for the next round.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "91"
       }
     ],
-    "locked": true
+    "locked": false
   },
   {
     "id": "20",
@@ -1558,569 +1656,1216 @@
     "description": "Sakon usually carries a strange head around on his back. This head turns out to be his brother Ukon, who can also exit Sakon and enter other bodies in order to destroy them.",
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Rest",
+        "description": "Heals 35 health and removes Parasite Demon Technique.",
+        "chakra": "00",
         "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "heal",
+            "target": "self",
+            "amount": 35
+          },
+          {
+            "type": "skill_effect_removal",
+            "target": "all",
+            "skill_id": "85"
+          }
+        ],
+        "id": "83"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Gattling Punch",
+        "description": "Deals 40 damage to the target. Deals 20 damage during Parasite Demon technique.",
+        "chakra": "10",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 40
+          }
+        ],
+        "id": "84"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Parasite Demon Technique",
+        "description": "Fuses Ukons body with an enemy target. Each turn, the target receives an undefendable 15 damage. The technique ends when the target is killed or Sakon dies.",
+        "chakra": "22",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "affliction_damage",
+            "target": "enemy",
+            "amount": 15,
+            "duration": 999
+          },
+          {
+            "type": "skill_damage_nerf",
+            "target": "self",
+            "amount": 50,
+            "duration": 999,
+            "skill_id": "84",
+            "hidden": true
+          },
+          {
+            "type": "disable_skill",
+            "target": "self",
+            "duration": 999,
+            "skill_id": "85",
+            "hidden": true
+          }
+        ],
+        "id": "85"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Summoning Rashoumon",
+        "description": "Makes Sakon invulnerable during the next round. Can?t be used during Parasite Demon Technique.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "86"
       }
     ],
-    "locked": true
+    "locked": false
   },
   {
-    "id": "25",
-    "name": "Kaguya Kimimaru",
-    "description": "Kimimaro is the last of the Kaguya clan. He has an extremely strong skeleton frame, and can manipulate his bones in any way he likes.",
-    "locked": true,
+    "id": "12",
+    "name": "Momochi Zabuza",
+    "description": "Zabuza is a missing-nin from the Hidden Mist Village. He is a frightening opponent attacking his enemies out of the fog he creates.",
+    "locked": false,
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Water Clone Zabuza",
+        "description": "Makes Momochi Zabuza invulnerable for the next round.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "51"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Silent Homicide Technique",
+        "description": "Zabuza deals 30 damage to one enemy.",
+        "chakra": "10",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 30
+          }
+        ],
+        "id": "52"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Great Waterfall Technique",
+        "description": "Zabuza knocks all of his opponents down with a giant wave of water, doing 10 damage to each target and leaving them unable to perform a skill for one round.",
+        "chakra": "30",
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "all_enemies",
+        "effects": [
+          {
+            "type": "damage",
+            "target": "all_enemies",
+            "amount": 10
+          },
+          {
+            "type": "stun",
+            "target": "all_enemies",
+            "duration": 1
+          }
+        ],
+        "id": "53"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Hidden Mist Technique",
+        "description": "Zabuza creates a mist for 2 rounds, leaving the entire enemy team unable to defend. Zabuza takes 50 percent less damage during this time and Homicide Technique does double damage.",
+        "chakra": "40",
+        "cooldown": 3,
+        "max_active_stacks": 0,
+        "target": "all_enemies",
+        "effects": [
+          {
+            "type": "disable_invulnerable",
+            "target": "all_enemies",
+            "duration": 2
+          },
+          {
+            "type": "disable_damage_reduction",
+            "target": "all_enemies",
+            "duration": 2,
+            "hidden": true
+          },
+          {
+            "type": "damage_reduction",
+            "target": "self",
+            "amount": 50,
+            "duration": 2
+          },
+          {
+            "type": "damage_boost",
+            "target": "self",
+            "amount": 100,
+            "duration": 2,
+            "skill_id": "52",
+            "hidden": true
+          }
+        ],
+        "id": "54"
       }
     ]
   },
   {
-    "id": "30",
-    "name": "Yakushi Kabuto",
-    "description": "Kabuto was once found on the battlefield by a Konoha medical nin. He was taught medical ninjutsu, and now assists Orochimaru to aid him in his experiments.",
+    "id": "25",
+    "name": "Kaguya Kimimaro",
+    "description": "One of Orochimarus top ninjas, Kimimaro has very strong offensive abilities but his disease is slowly killing him.",
     "locked": true,
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Dance of the Seedling Fern",
+        "description": "Kaguya Kimimaro creates a forest of sharp bones. All enemies take 40 damage and Kaguya Kimimaro loses 30 health over 3 rounds.",
+        "chakra": "200",
+        "cooldown": 2,
+        "max_active_stacks": 0,
+        "target": "all_enemies",
+        "effects": [
+          {
+            "type": "damage",
+            "target": "all_enemies",
+            "amount": 40
+          },
+          {
+            "type": "affliction_damage",
+            "target": "self",
+            "amount": 10,
+            "duration": 3
+          }
+        ],
+        "id": "116"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
+        "name": "Dance of the Clematis",
+        "description": "This skill does 45 damage to one opponent and they are unable to perform a skill for one round. Kimimaro loses 20 health over 2 rounds.",
+        "chakra": "12",
+        "cooldown": 1,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 45
+          },
+          {
+            "type": "stun",
+            "target": "enemy",
+            "duration": 1
+          },
+          {
+            "type": "affliction_damage",
+            "target": "self",
+            "amount": 10,
+            "duration": 2
+          }
+        ],
+        "id": "117"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Dance of the Camellia",
+        "description": "Kaguya Kimimaro uses his superior taijustu and arm bones as a sword. This skill does 30 damage to one enemy and Kaguya Kimimaru loses 10 health.",
+        "chakra": "1",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 30
+          },
+          {
+            "type": "affliction_damage",
+            "target": "self",
+            "amount": 10
+          }
+        ],
+        "id": "118"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Bone Masks",
+        "description": "Makes Kaguya Kimimaro invulnerable for the next round.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "119"
       }
     ]
   },
   {
     "id": "32",
     "name": "Shizune",
-    "description": "In addition to medical Ninjutsu, Shizune uses various poisonous attacks capacle of stunning the enemy or do repeated damage.",
-    "locked": true,
+    "description": "Shizune is the aid of Tsunade. A competent combatant using poisons and needles, she is also a highly skilled medic who is able to heal her allies.",
+    "locked": false,
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Prepared Needle Shot",
+        "description": "Shizune shoots hidden needles at an opponent doing 15 damage to them.",
         "chakra": "0",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 15
+          }
+        ],
+        "id": "123"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Poison Mist",
+        "description": "Shizune breaths a poison cloud on an enemy. The target loses 10 health for 3 rounds. The damage cannot avoided and it cannot be used on a poisoned target.",
         "chakra": "0",
-        "cooldown": 0,
+        "cooldown": 1,
+        "max_active_stacks": 0,
+        "unique": true,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "affliction_damage",
+            "target": "enemy",
+            "amount": 10,
+            "duration": 3
+          }
+        ],
+        "id": "124"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Healing Resuscitation Regeneration",
+        "description": "Shizune heals an ally for 50 health points.",
+        "chakra": "000",
+        "cooldown": 2,
+        "max_active_stacks": 0,
+        "target": "ally",
+        "effects": [
+          {
+            "type": "heal",
+            "target": "ally",
+            "amount": 50
+          }
+        ],
+        "id": "125"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Shizune Replacement Technique",
+        "description": "Makes Shizune invulnerable for the next round.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "126"
       }
     ]
   },
   {
-    "id": "12",
-    "name": "Momochi Zabuza",
-    "description": "Zabuza is a missing-nin from the Hidden mist village. With his water themed jutsu, he is able to trap his opponents or damage them all at once.",
-    "locked": true,
+    "id": "30",
+    "name": "Yakushi Kabuto",
+    "description": "Kabuto was once found on the battlefield, was taught medical ninjutsu, and now assists Orochimaru. He uses his medical skill for both offence and defense.",
+    "locked": false,
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Mystical Palm Technique",
+        "description": "Yakushi Kabuto attacks one enemy cutting through their flesh like a scalpel doing 15 damage to the opponent and removing one chakra.",
+        "chakra": "3",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 15
+          },
+          {
+            "type": "remove_chakra",
+            "target": "enemy",
+            "amount": 1,
+            "duration": 1,
+            "hidden": true
+          }
+        ],
+        "id": "102"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Temple of Nirvana",
+        "description": "When Yakushi Kabuto uses this technique all enemies are unable to properly defend themselves for the next four rounds.",
+        "chakra": "40",
+        "cooldown": 5,
+        "max_active_stacks": 0,
+        "target": "all_enemies",
+        "effects": [
+          {
+            "type": "disable_invulnerable",
+            "target": "all_enemies",
+            "duration": 4
+          },
+          {
+            "type": "disable_damage_reduction",
+            "target": "all_enemies",
+            "duration": 4,
+            "hidden": true
+          }
+        ],
+        "id": "120"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Secret Healing Wound Destruction",
+        "description": "After using this skill Kabuto heals 15 health points for the next five rounds.",
+        "chakra": "30",
+        "cooldown": 6,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "heal",
+            "target": "self",
+            "amount": 15,
+            "duration": 5
+          }
+        ],
+        "id": "121"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Dead Soul Technique",
+        "description": "Makes Yakushi Kabuto invulnerable in the next round.",
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "122"
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Yuhi Kurenai",
+    "description": "Yuhi Kurenai is a jounin and team leader of Hinata, Shino and Kiba. She is a genjutsu master who is able to both disable and attack her enemies with illusions.",
+    "locked": false,
+    "skills": [
+      {
+        "name": "Cherry Blossom Suffocation",
+        "description": "Suffocated by illusionary cherry blossoms, the target loses 40 health and is unable to use a skill for 1 round. Allows use of Plant Form Attack on target.",
+        "chakra": "40",
+        "cooldown": 2,
+        "max_active_stacks": 0,
+        "target": "all_marked",
+        "target_req_effect": "145",
+        "effects": [
+          {
+            "type": "damage",
+            "target": "all_marked",
+            "amount": 40
+          },
+          {
+            "type": "stun",
+            "target": "all_marked",
+            "duration": 1
+          },
+          {
+            "type": "mark",
+            "target": "all_marked",
+            "duration": 2,
+            "hidden": true
+          },
+          {
+            "type": "skill_unlock",
+            "target": "self",
+            "duration": 2
+          }
+        ],
+        "requires": "145",
+        "id": "143"
+      },
+      {
+        "name": "Vanishing Illusion",
+        "description": "Makes Kurenai invulnerable for one turn.",
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "144"
+      },
+      {
+        "name": "Tree Bind Death",
+        "description": "Bound by an illusion the target is unable to use a skill and defend. This effect lasts 2 rounds. Allows Cherry Blossom Suffication and Plant Form Attack on target.",
+        "chakra": "40",
+        "cooldown": 2,
+        "max_active_stacks": 0,
+        "target": "enemy",
+        "effects": [
+          {
+            "type": "stun",
+            "target": "enemy",
+            "duration": 2
+          },
+          {
+            "type": "disable_invulnerable",
+            "target": "enemy",
+            "duration": 2,
+            "hidden": true
+          },
+          {
+            "type": "disable_damage_reduction",
+            "target": "enemy",
+            "duration": 2,
+            "hidden": true
+          },
+          {
+            "type": "mark",
+            "target": "enemy",
+            "duration": 2,
+            "hidden": true
+          },
+          {
+            "type": "skill_unlock",
+            "target": "self",
+            "duration": 2
+          }
+        ],
+        "id": "145"
+      },
+      {
+        "name": "Plant Form Attack",
+        "description": "Yuri Kurenai attacks her trapped foe doing 20 damage and destroying one chakra.",
         "chakra": "0",
         "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "max_active_stacks": 0,
+        "target": "all_marked",
+        "target_req_effect": "143",
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 20
+          },
+          {
+            "type": "remove_chakra",
+            "target": "enemy",
+            "amount": 1,
+            "hidden": true
+          }
+        ],
+        "requires": "143",
+        "id": "146"
+      }
+    ]
+  },
+  {
+    "id": "28",
+    "name": "Sarutobi Asuma",
+    "description": "Sarutobi Asuma is the leader of Team 10. He uses trench knives extended by his chakra to fight and protect his teammates.",
+    "locked": false,
+    "skills": [
+      {
+        "name": "Flying Swallow",
+        "description": "Using blades with wind chakra to fight, Asuma and his allies take 50 percent less damage and all opponents take 15 damage for 2 rounds.",
+        "chakra": "13",
+        "cooldown": 2,
+        "max_active_stacks": 0,
+        "target": "all",
+        "effects": [
+          {
+            "type": "damage",
+            "target": "all_enemies",
+            "amount": 15,
+            "duration": 2
+          },
+          {
+            "type": "damage_reduction",
+            "target": "all_allies",
+            "amount": 50,
+            "duration": 2
+          },
+          {
+            "type": "mark",
+            "target": "all_enemies",
+            "duration": 2,
+            "hidden": true
+          },
+          {
+            "type": "skill_unlock",
+            "target": "self",
+            "duration": 2,
+            "hidden": true
+          }
+        ],
+        "id": "147"
+      },
+      {
+        "name": "Asuma Replacement Technique",
+        "description": "Sarutobi Asuma is invunerable for one round when he uses this skill.",
+        "chakra": "0",
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "148"
+      },
+      {
+        "name": "Finishing Blow",
+        "description": "The final move of his Flying Swallow technique, Asuma does 30 damage to all enemies and destroys one chakra per target. Flying Swallow must be in effect.",
+        "chakra": "13",
+        "cooldown": 1,
+        "max_active_stacks": 0,
+        "target": "all_marked",
+        "target_req_effect": "147",
+        "effects": [
+          {
+            "type": "damage",
+            "target": "all_marked",
+            "amount": 30
+          },
+          {
+            "type": "remove_chakra",
+            "target": "all_marked",
+            "amount": 1,
+            "duration": 1,
+            "hidden": true
+          }
+        ],
+        "requires": "147",
+        "id": "149"
+      },
+      {
+        "name": "Self-Sacrifice",
+        "description": "Sarutobi Asuma protects an ally from harm. Asuma loses 15 health and both the target ally and Asuma are invulnerable for one round.",
+        "chakra": "1",
+        "cooldown": 1,
+        "max_active_stacks": 0,
+        "target": "ally",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          },
+          {
+            "type": "invulnerable",
+            "target": "ally",
+            "duration": 1
+          }
+        ],
+        "id": "150"
       }
     ]
   },
   {
     "id": "26",
     "name": "Maito Gai",
-    "description": "Gai is the sensei of Lee, Tenten and Neji. He and Lee both use the same fighting style \"Strong Fist\", which involves high-speed moves and opening of inner chakra gates.",
-    "locked": true,
+    "description": "Gai is the sensei of Lee, Tenten and Neji. He and Lee both use the same fighting style, Strong Fist, which involves high-speed attacks and the openning of inner chakra gates.",
+    "locked": false,
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Strong Whirlwind",
+        "description": "Gai kicks with a strong whirlwind hitting an opponent and doing 30 damage. The damage is unaffected by damage reducing skills.",
+        "chakra": "10",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 30
+          }
+        ],
+        "id": "138"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "6th Gate Opening",
+        "description": "Gai opens 6 chakra gates for 2 rounds. He loses half his current health but Strong Whirlwind does double damage and he is invulnerable for 2 rounds.",
+        "chakra": "1",
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "health_reduce_percent",
+            "target": "self",
+            "amount": 50
+          },
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 2
+          },
+          {
+            "type": "damage_boost",
+            "target": "self",
+            "amount": 100,
+            "duration": 2,
+            "skill_id": "138",
+            "hidden": true
+          }
+        ],
+        "id": "139"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Counter Punch",
+        "description": "For the next 3 rounds Gai has a 50% chance of negating any offensive skills used against him and doing 30 damage to the enemy who targeted him.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 3,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "counter",
+            "target": "self",
+            "duration": 3,
+            "counter_chance": 50,
+            "post_counter_effect": "damage",
+            "post_counter_amount": 30
+          }
+        ],
+        "id": "140"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Gai Replacement Technique",
+        "description": "This skill makes Gai invulnerable for one round.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "141"
       }
     ]
   },
   {
     "id": "16",
     "name": "Hatake Kakashi",
-    "description": "Kakashi is the sensei of Naruto, Sakura, and Sasuke. Due to his Sharingan, he is known as \"Copy Ninja Kakashi\" all over the world.",
-    "locked": true,
+    "description": "Kakashi is the sensei of Naruto, Sakura, and Sasuke. With his Sharingan he is able to turn his foes skills back upon themselves and can cause severe damage with his Raikiri and Nin-Dogs skills.",
+    "locked": false,
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Kakashi Replacement Technique",
+        "description": "This skill makes Kakashi invulnerable for one round.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "67"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
+        "name": "Nin-Dogs",
+        "description": "Kakashi summons the nin-dogs. The dogs bite the target leaving it unable to perform a skill for 1 round.",
+        "chakra": "30",
+        "cooldown": 2,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "stun",
+            "target": "enemy",
+            "duration": 1,
+            "hidden": true
+          },
+          {
+            "type": "mark",
+            "target": "enemy",
+            "duration": 2
+          }
+        ],
+        "id": "68"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
+        "name": "Raikiri",
+        "description": "A skill so strong it is said to cut lightning. This skill does 55 damage to a target or instantly kills them if they are effected by Nin-Dogs.",
+        "chakra": "33",
+        "cooldown": 1,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 55
+          },
+          {
+            "type": "affliction_damage",
+            "target": "all_marked",
+            "amount": 100
+          }
+        ],
+        "id": "69"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
+        "name": "Sharingan Copy",
+        "description": "Secretly targeting an opponent, Kakashi will copy a skill they use for one round. Offensive skills are negated and skills with bloodline are immune.",
+        "chakra": "20",
+        "cooldown": 3,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
-      }
-    ]
-  },
-  {
-    "id": "28",
-    "name": "Hoshigaki Kisame",
-    "description": "Kisame is an S-ranked criminal of the Hidden Village of Mist. He is skilled in water themed jutsu, and can use his sword Samehada to devour chakra.",
-    "locked": true,
-    "skills": [
-      {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
-      },
-      {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
-      },
-      {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
-      },
-      {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
-      }
-    ]
-  },
-  {
-    "id": "5",
-    "name": "Uchiha Itachi",
-    "description": "Uchiha Itachi an extremely dangerous criminal, responsible for single-handedly annihilating the entire Uchiha clan, leaving his younger brother Sasuke as the sole survivor.",
-    "locked": true,
-    "skills": [
-      {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
-      },
-      {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
-      },
-      {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
-      },
-      {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "counter_on_use",
+            "target": "enemy",
+            "duration": 1,
+            "bloodline_immune": true
+          },
+          {
+            "type": "mark",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "70"
       }
     ]
   },
   {
     "id": "10",
     "name": "Jiraiya",
-    "description": "Jiraiya is one of the legendary sannin. With his various frog themed jutsu, he is able to deal a lot of damage and defend the entire team.",
-    "locked": true,
+    "description": "Jiraiya is one of the Legendary Sannin. With his various frog-based jutsus he is able to both hinder and damage all of his opponents.",
+    "locked": false,
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Toad Mouth Bind",
+        "description": "Jiraiya places his enemies in a giant toad stomach. While his opponents are able to act, they are unable to harm Jiraiya and his team for the next 2 rounds.",
+        "chakra": "440",
+        "cooldown": 5,
+        "max_active_stacks": 0,
+        "target": "all_allies",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "all_allies",
+            "duration": 2
+          }
+        ],
+        "id": "37"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Major Summoning Gamabunta",
+        "description": "Gamabunta is summoned. Jiraiya takes 75 percent less damage and enemies are unable to defend for four rounds. One major summon may be used per team.",
+        "chakra": "1432",
         "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "max_active_stacks": 0,
+        "unique": true,
+        "target": "all_enemies",
+        "effects": [
+          {
+            "type": "damage_reduction",
+            "target": "self",
+            "amount": 75,
+            "duration": 4
+          },
+          {
+            "type": "disable_invulnerable",
+            "target": "all_enemies",
+            "duration": 4
+          },
+          {
+            "type": "disable_damage_reduction",
+            "target": "all_enemies",
+            "duration": 4,
+            "hidden": true
+          },
+          {
+            "type": "damage_boost",
+            "target": "self",
+            "amount": 100,
+            "duration": 4,
+            "skill_id": "39",
+            "hidden": true
+          }
+        ],
+        "id": "38"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Spiked Buddha",
+        "description": "Makes Jiraiya invunrable for the next round.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "40"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Great Fireball Technique",
+        "description": "Jiraiya spits a giant fireball at all enemies doing 15 damage. This damage is doubled when Gamabunta is summoned.",
+        "chakra": "3",
         "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "max_active_stacks": 0,
+        "target": "all_enemies",
+        "effects": [
+          {
+            "type": "damage",
+            "target": "all_enemies",
+            "amount": 15
+          }
+        ],
+        "id": "39"
       }
     ]
   },
   {
     "id": "2",
     "name": "Tsunade",
-    "description": "Tsunade is currently the Godaime (fifth) Hokage of Konoha. Her skill with medical Ninjutsu allows her to do insane amounts of damage and heal her teammates.",
-    "locked": true,
+    "description": "Tsunade is the Godaime Hokage and a Legendary Sannin. Her skill with medical ninjutsu allows her to do significant damage and heal herself and teammates.",
+    "locked": false,
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "name": "Creation Rebirth",
+        "description": "Using stored chakra, Tsunade regenerates for the next three rounds. She heals 100 health in the first, 50 health in the second, and 25 health in the third.",
+        "chakra": "300",
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "heal",
+            "target": "self",
+            "amount": 25,
+            "duration": 3
+          },
+          {
+            "type": "heal",
+            "target": "self",
+            "amount": 25,
+            "duration": 2,
+            "hidden": true
+          },
+          {
+            "type": "heal",
+            "target": "self",
+            "amount": 50,
+            "duration": 1,
+            "hidden": true
+          }
+        ],
+        "id": "7"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Tsunade Replacement Technique",
+        "description": "Makes Tsunade invulnerable for the next round.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "enemy",
+            "duration": 1
+          }
+        ],
+        "id": "8"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Major Summoning Katsuyu",
+        "description": "Tsunade summons the slug queen Katsuyu. Katsuyu fully heals her team and makes them invulnerable for two rounds. One major summon may be used per team.",
+        "chakra": "1423",
         "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "max_active_stacks": 0,
+        "target": "all_allies",
+        "effects": [
+          {
+            "type": "heal",
+            "target": "all_allies",
+            "amount": 100
+          },
+          {
+            "type": "invulnerable",
+            "target": "all_allies",
+            "duration": 2
+          }
+        ],
+        "id": "5"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Painful Sky Leg",
+        "description": "With her insane strength, Tsunade performs a drop kick on one enemy dealing 20 damage and leaving them unable to use a skill for one round.",
+        "chakra": "1",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 20
+          },
+          {
+            "type": "stun",
+            "target": "enemy",
+            "duration": 1
+          }
+        ],
+        "id": "6"
       }
     ]
   },
   {
     "id": "9",
     "name": "Orochimaru",
-    "description": "Orochimaru is one of the legendary sannin. Once he was part of the Hidden Leaf village, but his hunger for power made him one of the most wanted criminals alive.",
-    "locked": true,
+    "description": "Orochimaru is one of the Legendary Sannin. He can increase his teams chakra for a price and summon powerful snakes to beat his enemies.",
+    "locked": false,
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Kusanagi",
+        "description": "Orochimaru pulls the legendary sword from his stomach and swiftly stabs his opponent. The target takes 35 damage and loses 1 chakra.",
+        "chakra": "12",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "damage",
+            "target": "enemy",
+            "amount": 35
+          },
+          {
+            "type": "remove_chakra",
+            "target": "enemy",
+            "amount": 1,
+            "duration": 1,
+            "hidden": true
+          }
+        ],
+        "id": "33"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Cursed Seal Technique",
+        "description": "Orochimaru places a cursed seal on one ally who takes 10 damage but gains one extra chakra each round. This effect is permanent and can only be used once.",
+        "chakra": "2",
         "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "max_active_stacks": 0,
+        "unique": true,
+        "target": "ally",
+        "effects": [
+          {
+            "type": "damage",
+            "target": "ally",
+            "amount": 10
+          },
+          {
+            "type": "add_chakra",
+            "target": "ally",
+            "amount": 1,
+            "duration": 999
+          },
+          {
+            "type": "mark",
+            "target": "all",
+            "duration": 999,
+            "hidden": true,
+            "ignore_invul": true
+          }
+        ],
+        "id": "98"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Earth Clone Technique",
+        "description": "Makes Orochimaru invulnerable for the next round.",
         "chakra": "0",
-        "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "cooldown": 4,
+        "max_active_stacks": 0,
+        "target": "self",
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "101"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Major Summoning Manda",
+        "description": "The snake king Manda is summoned. Manda kills one enemy and gives Orochimaru 3 chakra. One major summon may be used per team.",
+        "chakra": "1432",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "affliction_damage",
+            "target": "enemy",
+            "amount": 100
+          },
+          {
+            "type": "add_chakra",
+            "target": "self",
+            "amount": 3
+          }
+        ],
+        "id": "100"
       }
     ]
   },
   {
     "id": "22",
     "name": "Sandaime Hokage",
-    "description": "Sandaime was the strongest Kage that ever lived. He fully mastered the way of the ninja and knew over a thousand jutsu, including the one that sealed the Nine Tails.",
-    "locked": true,
+    "description": "Sandaime Hokage, known as the God of Shinobi, was the strongest Kage to ever live. He is able to concentrate on one opponent while his summon, Enma, confronts others. When all else fails he can summon the death god.",
+    "locked": false,
     "skills": [
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
-        "cooldown": 0,
+        "name": "Fire Dragon Flame Missile",
+        "description": "Sandaime Hokage deals 30 damage immediately to a target and makes the character burn for an extra 10 damage for the round after. All damage is unavoidable.",
+        "chakra": "30",
+        "cooldown": 1,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "affliction_damage",
+            "target": "enemy",
+            "amount": 20
+          },
+          {
+            "type": "affliction_damage",
+            "target": "enemy",
+            "amount": 10,
+            "duration": 2
+          }
+        ],
+        "id": "92"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Major Summoning Enma",
+        "description": "Sandaime summons Enma to protect his team. For 5 rounds all team members cannot go below 1 health point by enemy hands. One major summon may be used per team.",
+        "chakra": "1432",
         "cooldown": 0,
-        "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "max_active_stacks": 0,
+        "target": "all_allies",
+        "effects": [
+          {
+            "type": "health_floor",
+            "target": "all_allies",
+            "amount": 1,
+            "duration": 5
+          }
+        ],
+        "id": "93"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
-        "chakra": "0",
+        "name": "Shiki Fuujin",
+        "description": "Sandaime summons the death god, sacrificing himself to kill one opponent. The target of this skill dies instantly and Sandaime is also killed.",
+        "chakra": "000",
         "cooldown": 0,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "affliction_damage",
+            "target": "enemy",
+            "amount": 100
+          },
+          {
+            "type": "affliction_damage",
+            "target": "self",
+            "amount": 100
+          }
+        ],
+        "id": "94"
       },
       {
-        "name": "PLACEHOLDER",
-        "description": "PLACEHOLDER",
+        "name": "Earth Release Wall",
+        "description": "Makes Sandaime invulnerable for the next round.",
         "chakra": "0",
-        "cooldown": 0,
+        "cooldown": 4,
+        "max_active_stacks": 0,
         "target": "enemy",
-        "effects": [],
-        "id": "0"
+        "effects": [
+          {
+            "type": "invulnerable",
+            "target": "self",
+            "duration": 1
+          }
+        ],
+        "id": "95"
       }
     ]
   }
